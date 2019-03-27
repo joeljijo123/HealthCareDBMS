@@ -22,3 +22,9 @@
 .Home-link {
   color: #61dafb;
 }
+
+.tinted-image {
+  background:
+  rgba(255, 0, 0, .45),
+  url(..//Components/BackgroundPicture.jpg);
+}

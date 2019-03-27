@@ -6,79 +6,53 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { Drawer, List, ListItem, ListItemText, Divider, } from "@material-ui/core";
 
 const styles = {
   root: {
     flexGrow: 1,
   },
-  grow: {
+  BarTitle: {
     flexGrow: 1,
   },
   bar: {
     backgroundColor: "#e0e0e0",
-    minHeight: '40px',
-    maxHeight: '56px',
     height: '100%',
-},
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
   },
+
 };
 
-class NavigationBar extends React.Component {
-  state = {
-    loggedIn: false,
-    openMenu: false,
-  };
+  class NavigationBar extends React.Component {
+    state = {
+      loggedIn: true,
+    };
 
-  handleChange = event => {
-    this.setState({ loggedIn: event.target.checked });
-  };
+    handleMenuClick= () => {
+      this.setState({loggedIn:false});
 
-  handleMenu = event => {
-    this.setState({ openMenu: event.currentTarget });
-  };
+    }
 
-  handleDrawerOpen = () => {
-    this.setState({ openMenu: true });
-  };
+    render() {
+      const { classes } = this.props;
+      const { loggedIn } = this.state;
 
-  handleDrawerClose = () => {
-    this.setState({ openMenu: false });
-  };
-
-  handleClose = () => {
-    this.setState({ openMenu: null });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { loggedIn, openMenu } = this.state;
-    const open = Boolean(openMenu);
-
-    return (
-      <div className={classes.root}>
-        <AppBar className={classes.bar} position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} onClick={this.handleDrawerOpen} aria-label="Menu">
-              <MenuIcon color="#3e2723"></MenuIcon>
-            </IconButton>
-            <Typography variant="h6" color="#3e2723" className={classes.grow}>
-              Team 7 Medical System
-            </Typography>
-            <Drawer open={openMenu} onClick={() => this.state.handleMenuClick}></Drawer>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+      return (
+        <div className={classes.root}>
+          <AppBar className={classes.bar} position="static">
+            <Toolbar>
+              {loggedIn === true ? (
+                <IconButton aria-label="Menu" onClick={this.handleMenuClick}>
+                  <MenuIcon color="#3e2723"></MenuIcon>
+                </IconButton>
+              ):(
+                <Typography variant="h4" color="#3e2723" className={classes.BarTitle}>
+                  Team 7 Medical System
+                </Typography>
+              )}
+            </Toolbar>
+          </AppBar>
+        </div>
+      );
+    }
 }
 
 NavigationBar.propTypes = {
