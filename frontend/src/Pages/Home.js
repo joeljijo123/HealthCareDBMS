@@ -18,7 +18,7 @@ class Home extends Component {
   render() {
     return (
       <div style={divStyle.style}>
-        <NavigationBar/>
+        <NavigationBar title={"Team 7 Medical Database Project"}/>
         <HomeLoginBox/>
         
         {/* <div className="BackgroundImage" style={divStyle.style} >
