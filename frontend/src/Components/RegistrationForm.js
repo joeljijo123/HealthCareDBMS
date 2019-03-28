@@ -1,4 +1,4 @@
-import { Paper, TextField, ListItem, MenuItem } from "@material-ui/core";
+import { Paper, TextField, ListItem, MenuItem, Typography } from "@material-ui/core";
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,14 +13,14 @@ const Sexes = ['Male','Female']
 const styles = theme => ({
     paperForm: {
         width: '25%',
-        margin: 'auto',
-        marginTop: '1%',
+        marginLeft: '7%',
+        marginTop: '-20%',
         padding: theme.spacing.unit*2,
         flexDirection: 'column'
     },
     icon: {
         margin: theme.spacing.unit,
-        fontSize: "190%",
+        fontSize: "150%",
     },
     container: {
         display: 'flex',
@@ -38,8 +38,10 @@ const styles = theme => ({
         margin: theme.spacing.unit*2
     },
     heading: {
-        align: 'center',
-        marginTop: '5%',
+        margin: theme.spacing.unit,
+        marginLeft: "70%",
+        marginTop: "15%",
+        color: "white",
     },
 });
 
@@ -52,6 +54,7 @@ class RegistrationForm extends React.Component{
             Minit: "",
             LastName: "",
             Sex:"",
+            Email:"",
             DateOfBirth:"",
             CellNumber: "",
             AddressStreet: "",
@@ -82,13 +85,15 @@ class RegistrationForm extends React.Component{
                 <IconButton onClick={this.homeRedirect}>
                     <HomeLogo style={{color: "#212121"}} className={classes.icon} />
                 </IconButton>
-                <h1 align='center'>Medical System Registration Form</h1>
+                <Typography variant="h3" className={classes.heading}>Medical Center Registration</Typography>
+                
                 <Paper elevation={10} className={classes.paperForm}>
+                    <Typography>Basic Information</Typography>
                     <FormControl margin="normal" fullWidth required>
                         <InputLabel htmlFor="FirstName">First Name</InputLabel>
                         <Input name="FirstName" autoFocus value={this.state.FirstName} onChange={this.handleChange}></Input>
                     </FormControl>
-                    <FormControl margin="normal" fullWidth required>
+                    <FormControl margin="auto" fullWidth required>
                         <InputLabel htmlFor="LastName">Last Name</InputLabel>
                         <Input name="LastName" value={this.state.LastName} onChange={this.handleChange}></Input>
                     </FormControl>
@@ -100,8 +105,7 @@ class RegistrationForm extends React.Component{
                             name="Sex"
                             variant="standard"
                             onChange={this.handleChange}
-                            value={this.state.Sex}
-                            margin="normal"                       
+                            value={this.state.Sex}                      
                         >
                             {Sexes.map(option => (
                                 <MenuItem key={option} value={option}>
@@ -110,19 +114,41 @@ class RegistrationForm extends React.Component{
                             ))}
                         </TextField>
                     </FormControl>
-                    <FormControl margin="auto" fullWidth required>
+                    <FormControl margin="normal" fullWidth required>
                         <TextField 
                             name="username" 
                             label="Username" 
                             variant="standard"
                             onChange={this.handleChange}
-                            value={this.state.Sex}
-                            margin="normal"
+                            value={this.state.username}
                             error={!this.validateUsername()}
                             helperText={this.validateUsername() ? "":"Username is not valid"}
                         />
                     </FormControl>
-                    
+                    <FormControl margin="auto" fullWidth required>
+                        <TextField 
+                            name="password"
+                            type="password" 
+                            label="Password" 
+                            variant="standard"
+                            onChange={this.handleChange}
+                            value={this.state.password}
+                        />
+                    </FormControl>
+                    <FormControl margin="auto" fullWidth required>
+                        <TextField 
+                            name="Email" 
+                            label="Email" 
+                            variant="standard"
+                            onChange={this.handleChange}
+                            value={this.state.Email}
+                        />
+                    </FormControl>
+                    <FormControl margin="normal" fullWidth>
+                        <Button>
+                            Next
+                        </Button>
+                    </FormControl>
                     
                 </Paper>
             </div>

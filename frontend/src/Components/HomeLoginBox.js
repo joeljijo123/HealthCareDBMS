@@ -11,7 +11,7 @@ import Route from 'react-router-dom/Route'
 const styles = theme =>({
   root: {
     width: '25%',
-    marginLeft: '70%',
+    marginLeft: '65%',
     marginTop: '10%',
     alignItems: "center",
     display: "flex",

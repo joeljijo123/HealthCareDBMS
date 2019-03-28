@@ -1,0 +1,12 @@
+.Registration-image {
+    /* The image used */
+    background-image: url(../Components/BackgroundPicture.jpg);
+  
+    /* Full height */
+    height: 100vh;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+  }
+  
