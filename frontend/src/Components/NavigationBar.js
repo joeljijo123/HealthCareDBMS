@@ -14,11 +14,13 @@ const styles = {
   },
   BarTitle: {
     flexGrow: 1,
+    marginTop: "1%"
   },
   bar: {
     backgroundColor: "#e0e0e0",
     minHeight: 100,
     height: '100%',
+
   },
   MenuIcon: {
     marginLeft: -12,
@@ -30,20 +32,27 @@ const styles = {
     state = {
       loggedIn: null,
       userid: null,
-      check: window.localStorage.loggedIn,
-      userType: "hkere",
+      userType: null,
     };
 
     logInSet(storageLoggedIn) {
       return localStorage.getItem(storageLoggedIn) === 'true' ? true : false;
     }
-    handleMenuClick= () => {
-      this.setState({loggedIn:false});
-      console.log(this.props.loggedIn);
-
+    AppointmentPageRedirect = () =>{
+      window.location.replace('/Appointments');
+    }
+    logout = () =>{
+      this.setState({loggedIn:false,userid:null,userType:null})
+      localStorage.setItem("loggedIn", false);
+      localStorage.setItem("userID", null);
+      localStorage.setItem("userType", null);
+      window.location.replace('/')
     }
     componentDidMount() {
       this.setState({loggedIn:this.logInSet("loggedIn")});
+      //HardCoding
+      //Query to see if the user is an employee or a Patient then
+      this.setState({userType: localStorage.userType});
     }
     render() {
       const { classes, title } = this.props;
@@ -53,23 +62,28 @@ const styles = {
         <div className={classes.root}>
           <AppBar className={classes.bar} position="static">
             <Toolbar>
-              {loggedIn === true ? (
+              {loggedIn ? (
                 <div>
-                  <Toolbar>
-                    <IconButton aria-label="Menu" className={classes.MenuIcon} onClick={this.handleMenuClick}>
-                      <MenuIcon>asas</MenuIcon>
-                    </IconButton>
-                    <Typography variant="h4" className={classes.BarTitle}>
+                  <Toolbar >
+                    <Typography variant="h3" className={classes.BarTitle}>
                       {title}
                     </Typography>
                     <CssBaseline/>
                   </Toolbar>
-                  <Tabs>
-                      <Tab label="1" fullWidth></Tab>
+                  <Tabs textColor="primary">
+                      <Tab label="Appointments" onClick={this.AppointmentPageRedirect} hidden></Tab>
+                      <Tab label="My Profile" ></Tab>
+                      {localStorage.userType === "Doctor" ? (
+                        <Tab label="My Schedule" ></Tab>
+                      ):(
+                        <div></div>
+                      )}
+                      <Tab label="Logout" onClick={this.logout}></Tab>
                   </Tabs>
-                  </div>
+                  
+                </div>
               ):(
-                <Typography variant="h4"className={classes.BarTitle}>
+                <Typography variant="h3"className={classes.BarTitle}>
                   {title}
                 </Typography>
               )}

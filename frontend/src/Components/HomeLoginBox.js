@@ -5,6 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import {Input, InputLabel, Button} from '@material-ui/core';
+import {Link} from 'react-router-dom';
+import Route from 'react-router-dom/Route'
 
 const styles = theme =>({
   root: {
@@ -32,22 +34,34 @@ class HomeLoginBox extends React.Component{
         super(props)
         this.state = {
             userType: null,
-            userID: null,
-            password: null
+            userID: "",
+            password: ""
         };
         this.handleChange=this.handleChange.bind(this);
     }
     
     handleChange = e =>{
-        console.log(this.state.userID)
         this.setState({
             [e.target.name] : e.target.value
         })
-        window.localStorage.setItem("userID", this.state.userID);
+        if(e.target.name === "userID"){
+            window.localStorage.setItem(e.target.name, e.target.value);
+        }
+        
+    }
+    handleSubmit = () => {
+
+    }
+    login = () => {
+        //query to check the user an make syre they are in the database
+        window.location.replace('/Appointments');
+        window.localStorage.setItem("loggedIn", true);
+        console.log(this.state.password)
     }
     componentDidMount() {
-        window.localStorage.setItem("loggedIn", true);
-
+        window.localStorage.setItem("loggedIn", null);
+        window.localStorage.setItem("userID", null);
+        window.localStorage.setItem("userType", null);
     }
   render(){
     const {classes}=this.props;
@@ -67,9 +81,8 @@ class HomeLoginBox extends React.Component{
             </FormControl>
             <FormControl fullWidth className={classes.submitButton}>
                 <Button
-                type="submit"
                 variant="contained"
-                onClick={this.handleChange}
+                onClick={this.login}
                 color="primary">
                     Log In
                 </Button>

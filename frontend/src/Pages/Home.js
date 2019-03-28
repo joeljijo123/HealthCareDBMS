@@ -15,7 +15,7 @@ const divStyle = {
 
 };
 class Home extends Component {
-  render() {
+  render() { 
     return (
       <div style={divStyle.style}>
         <NavigationBar title={"Team 7 Medical Database Project"}/>
