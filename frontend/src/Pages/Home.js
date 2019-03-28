@@ -21,11 +21,7 @@ class Home extends Component {
         <NavigationBar title={"Team 7 Medical Database Project"}/>
         <HomeLoginBox/>
         
-        {/* <div className="BackgroundImage" style={divStyle.style} >
-          <div className={divStyle.root}>
-            sdsdsds
-          </div>
-        </div> */}
+        
       </div>
         
     );
