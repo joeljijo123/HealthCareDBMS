@@ -49,8 +49,8 @@ class HomeLoginBox extends React.Component{
         }
         
     }
-    handleSubmit = () => {
-
+    handleRegistration = () => {
+        window.location.replace('/Registration');
     }
     login = () => {
         //query to check the user an make syre they are in the database
@@ -90,7 +90,7 @@ class HomeLoginBox extends React.Component{
             <FormControl  className={classes.submitButton}>
                 <Button
                 size="small"
-                onClick={this.handleChange}
+                onClick={this.handleRegistration}
                 color="primary">
                     Dont have an Account? Click here to Register
                 </Button>
