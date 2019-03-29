@@ -57,7 +57,7 @@ class RegistrationForm extends React.Component{
         this.state = {
             FirstName: "",
             LastName: "",
-            Sex:"",
+            Sex: "",
             Email:"",
             username: "",
             password: "",
@@ -69,7 +69,7 @@ class RegistrationForm extends React.Component{
             DateOfBirth:"",
             SSN: "",
             userType: "",
-            registrationStep: 0,
+            registrationStep: 1,
 
         };
         this.handleChange=this.handleChange.bind(this);

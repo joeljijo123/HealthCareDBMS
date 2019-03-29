@@ -4,14 +4,14 @@ const mysql = require('mysql');
 
 const app = express();
 
-const selectAllUsers = 'SELECT * FROM race_lookup';
+const selectAllStates = 'SELECT * FROM sys.user;';
 
 const connection = mysql.createConnection({
     host: 'localhost',
     port: '3306',
     user: 'root',
     password: 'coogs123',
-    database: 'medical'
+    database: 'sys'
 })
 
 connection.connect(err => {
@@ -27,8 +27,8 @@ app.get('/', (req,res) => {
     res.send('hello from the products server')
 });
 
-app.get('/users', (req,res) => {
-   connection.query(selectAllUsers,(err, results) => {
+app.get('/states', (req,res) => {
+   connection.query(selectAllStates,(err, results) => {
        if(err) {
            return res.send(err)
        }
@@ -38,6 +38,7 @@ app.get('/users', (req,res) => {
            })
        }
    });
+
 });
 
 app.listen(4000, () => {

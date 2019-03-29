@@ -5,7 +5,26 @@ import {Input, InputLabel, Button} from '@material-ui/core';
 import MaskedInput from 'react-text-mask';
 import PropTypes from 'prop-types'; 
 
-const Sexes = ['Male','Female']
+const Sexes = [
+    {
+        gender: 'Male',
+        genderId: 1
+    },
+    {
+        gender:'Female',
+        genderId:2
+    }
+];
+const States = [
+    {
+        state: 'Alabama',
+        stateID: 1
+    },
+    {
+        state:'Alaska',
+        stateID: 2
+    },
+];
 
 function TextMaskCustom(props) {
     const {...other } = props;
@@ -57,80 +76,81 @@ function BasicInformationPtTwo(props){
     return(
         <div>
             <Typography>Personal Information</Typography>
-                    <FormControl margin="auto" fullWidth required>
-                        <InputLabel htmlFor="AddressStreet">Street Address</InputLabel>
-                        <Input name="AddressStreet" autoFocus value={props.val.AddressStreet} onChange={props.handleChange}></Input>
+            <Typography>{props.val.AddressState}</Typography>
+            <FormControl margin="auto" fullWidth required>
+                <InputLabel htmlFor="AddressStreet">Street Address</InputLabel>
+                <Input name="AddressStreet" autoFocus value={props.val.AddressStreet} onChange={props.handleChange}></Input>
+            </FormControl>
+            <Grid container spacing={8}>
+                <Grid item xs={12} sm={5}>
+                    <FormControl margin="normal" fullWidth required>
+                        <InputLabel htmlFor="AddressCity">City</InputLabel>
+                        <Input name="AddressCity" autoFocus value={props.val.AddressCity} onChange={props.handleChange}></Input>
                     </FormControl>
-                <Grid container spacing={8}>
-                    <Grid item xs={12} sm={5}>
-                        <FormControl margin="normal" fullWidth required>
-                            <InputLabel htmlFor="AddressCity">City</InputLabel>
-                            <Input name="AddressCity" autoFocus value={props.val.AddressCity} onChange={props.handleChange}></Input>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={2}>
-                        <FormControl margin="normal" fullWidth>
-                            <TextField
-                                id="State"
-                                select
-                                label="State"
-                                name="AddressState"
-                                variant="standard"
-                                onChange={props.handleChange}
-                                value={props.val.AddressState}   
-                                required                   
-                            >
-                                {Sexes.map(option => (
-                                    <MenuItem key={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={5}>
-                        <FormControl margin="normal" fullWidth required>
-                            <InputLabel htmlFor="AddressZip">Zip Code</InputLabel>
-                            <Input name="AddressZip" autoFocus value={props.val.AddressZip} onChange={props.handleChange}></Input>
-                        </FormControl>
-                    </Grid>
                 </Grid>
-                <FormControl margin="normal" fullWidth required>
-                    <InputLabel htmlFor="DateOfBirth">Date Of Birth</InputLabel>
-                    <Input name="DateOfBirth" value={props.val.DateOfBirth}  inputComponent={DateMaskCustom} onChange={props.handleChange}></Input>
-                </FormControl>
-                <FormControl margin="auto" fullWidth>
-                    <TextField
-                        id="Sex"
-                        select
-                        label="Gender"
-                        name="Sex"
-                        variant="standard"
-                        onChange={props.handleChange}
-                        value={props.val.Sex}   
-                        required                   
-                    >
-                        {Sexes.map(option => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </FormControl>
-                <FormControl margin="normal" fullWidth required>
-                    <InputLabel htmlFor="SSN">Social Security</InputLabel>
-                    <Input name="SSN" inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>
-                </FormControl>
-                <FormControl margin="normal" required>
-                    <InputLabel htmlFor="CellNuber">Contact Number</InputLabel>
-                    <Input
-                        onChange={props.handleChange}
-                        name="CellNumber"
-                        id="Contact Number"
-                        value={props.val.CellNumber}
-                        inputComponent={TextMaskCustom}
-                    />
-                </FormControl>
+                <Grid item xs={12} sm={2}>
+                    <FormControl margin="normal" fullWidth>
+                        <TextField
+                            id="State"
+                            select
+                            label="State"
+                            name="AddressState"
+                            variant="standard"
+                            onChange={props.handleChange}
+                            value={props.val.AddressState}   
+                            required                   
+                        >
+                            {States.map(option => (
+                                <MenuItem key={option.stateID} value={option.stateID}>
+                                    {option.state}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={5}>
+                    <FormControl margin="normal" fullWidth required>
+                        <InputLabel htmlFor="AddressZip">Zip Code</InputLabel>
+                        <Input name="AddressZip" autoFocus value={props.val.AddressZip} onChange={props.handleChange}></Input>
+                    </FormControl>
+                </Grid>
+            </Grid>
+            <FormControl margin="normal" fullWidth required>
+                <InputLabel htmlFor="DateOfBirth">Date Of Birth</InputLabel>
+                <Input name="DateOfBirth" value={props.val.DateOfBirth}  inputComponent={DateMaskCustom} onChange={props.handleChange}></Input>
+            </FormControl>
+            <FormControl margin="auto" fullWidth>
+                <TextField
+                    id="Sex"
+                    select
+                    label="Gender"
+                    name="Sex"
+                    variant="standard"
+                    onChange={props.handleChange}
+                    value={props.val.Sex}   
+                    required                   
+                >
+                    {Sexes.map(option => (
+                        <MenuItem key={option.genderId} value={option.genderId}>
+                            {option.gender}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </FormControl>
+            <FormControl margin="normal" fullWidth required>
+                <InputLabel htmlFor="SSN">Social Security</InputLabel>
+                <Input name="SSN" inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>
+            </FormControl>
+            <FormControl margin="normal" required>
+                <InputLabel htmlFor="CellNuber">Contact Number</InputLabel>
+                <Input
+                    onChange={props.handleChange}
+                    name="CellNumber"
+                    id="Contact Number"
+                    value={props.val.CellNumber}
+                    inputComponent={TextMaskCustom}
+                />
+            </FormControl>
             
                 
         </div>
