@@ -4,8 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import Route from 'react-router-dom/Route';
 import Redirect from 'react-router-dom/Redirect';
 import Home from '../src/Pages/Home';
-import Appointments from './Pages/Appointments.js';
-import Registration from './Pages/Registration.js'
+import Appointments from './Pages/Appointments';
+import Registration from './Pages/Registration';
 
 class Routes extends Component{
     state = {
