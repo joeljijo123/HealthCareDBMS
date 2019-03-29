@@ -1,4 +1,4 @@
-import { Paper, TextField, ListItem, MenuItem, Typography } from "@material-ui/core";
+import { Paper, TextField, ListItem, MenuItem, Typography, Grid } from "@material-ui/core";
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import {Input, InputLabel, Button} from '@material-ui/core';  
@@ -13,6 +13,7 @@ function TextMaskCustom(props) {
     return (
       <MaskedInput
         {...other}
+        guide={false}
         mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
         placeholderChar={'\u2000'}
         showMask
@@ -23,57 +24,80 @@ function TextMaskCustom(props) {
 TextMaskCustom.propTypes = {
     inputRef: PropTypes.func.isRequired,
 };
-function validateUsername(){
-    return true;
-};
-function stepNext(props){
-    props.val.RegistrationStep=5;
-};
+function DateMaskCustom(props) {
+    const {...other } = props;
+  
+    return (
+      <MaskedInput
+        guide={false}
+        {...other}
+        mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+        placeholderChar={'\u2000'}
+        showMask
+      />
+    );
+}
+
+function SSNMaskCustom(props) {
+    const {...other } = props;
+  
+    return (
+      <MaskedInput
+        guide={false}
+        {...other}
+        mask={[/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+        placeholderChar={'\u2000'}
+        showMask
+      />
+    );
+}
+
 function BasicInformationPtTwo(props){
     
     return(
         <div>
-             <Typography>Basic Information Part 2</Typography>
+            <Typography>Personal Information</Typography>
+                    <FormControl margin="auto" fullWidth required>
+                        <InputLabel htmlFor="AddressStreet">Street Address</InputLabel>
+                        <Input name="AddressStreet" autoFocus value={props.val.AddressStreet} onChange={props.handleChange}></Input>
+                    </FormControl>
+                <Grid container spacing={8}>
+                    <Grid item xs={12} sm={5}>
+                        <FormControl margin="normal" fullWidth required>
+                            <InputLabel htmlFor="AddressCity">City</InputLabel>
+                            <Input name="AddressCity" autoFocus value={props.val.AddressCity} onChange={props.handleChange}></Input>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={2}>
+                        <FormControl margin="normal" fullWidth>
+                            <TextField
+                                id="State"
+                                select
+                                label="State"
+                                name="AddressState"
+                                variant="standard"
+                                onChange={props.handleChange}
+                                value={props.val.AddressState}   
+                                required                   
+                            >
+                                {Sexes.map(option => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={5}>
+                        <FormControl margin="normal" fullWidth required>
+                            <InputLabel htmlFor="AddressZip">Zip Code</InputLabel>
+                            <Input name="AddressZip" autoFocus value={props.val.AddressZip} onChange={props.handleChange}></Input>
+                        </FormControl>
+                    </Grid>
+                </Grid>
                 <FormControl margin="normal" fullWidth required>
-                    <InputLabel htmlFor="FirstName">First Name</InputLabel>
-                    <Input name="FirstName" autoFocus value={props.val.FirstName} onChange={props.handleChange}></Input>
-                </FormControl>
-                <FormControl margin="auto" fullWidth required>
-                    <InputLabel htmlFor="LastName">Last Name</InputLabel>
-                    <Input name="LastName" value={props.val.LastName} onChange={props.handleChange}></Input>
-                </FormControl>
-                <FormControl margin="normal" fullWidth>
-                    <TextField 
-                        required
-                        name="username" 
-                        label="Username" 
-                        variant="standard"
-                        onChange={props.handleChange}
-                        value={props.val.username}
-                        error={!validateUsername()}
-                        helperText={validateUsername() ? "":"Username is not valid"}
-                    />
-                </FormControl>
-                <FormControl margin="auto" fullWidth required>
-                    <TextField 
-                        name="password"
-                        type="password" 
-                        label="Password" 
-                        variant="standard"
-                        onChange={props.handleChange}
-                        value={props.val.password}
-                        required
-                    />
-                </FormControl>
-                <FormControl margin="auto" fullWidth required>
-                    <TextField 
-                        name="Email" 
-                        label="Email" 
-                        variant="standard"
-                        onChange={props.handleChange}
-                        value={props.val.Email}
-                        required
-                    />
+                    <InputLabel htmlFor="DateOfBirth">Date Of Birth</InputLabel>
+                    <Input name="DateOfBirth" value={props.val.DateOfBirth}  inputComponent={DateMaskCustom} onChange={props.handleChange}></Input>
                 </FormControl>
                 <FormControl margin="auto" fullWidth>
                     <TextField
@@ -93,6 +117,10 @@ function BasicInformationPtTwo(props){
                         ))}
                     </TextField>
                 </FormControl>
+                <FormControl margin="normal" fullWidth required>
+                    <InputLabel htmlFor="SSN">Social Security</InputLabel>
+                    <Input name="SSN" inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>
+                </FormControl>
                 <FormControl margin="normal" required>
                     <InputLabel htmlFor="CellNuber">Contact Number</InputLabel>
                     <Input
@@ -103,6 +131,8 @@ function BasicInformationPtTwo(props){
                         inputComponent={TextMaskCustom}
                     />
                 </FormControl>
+            
+                
         </div>
     );
 }

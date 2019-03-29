@@ -56,32 +56,53 @@ class RegistrationForm extends React.Component{
         super(props)
         this.state = {
             FirstName: "",
-            Minit: "",
             LastName: "",
             Sex:"",
             Email:"",
-            CellNumber: " ",
-            DateOfBirth:"",
-            AddressStreet: "",
-            AddressCity:"",
-            State: "",
-            AddressZip: "",
             username: "",
             password: "",
+            CellNumber: "",
+            AddressStreet: "",
+            AddressCity:"",
+            AddressState: "",
+            AddressZip: "",
+            DateOfBirth:"",
+            SSN: "",
+            userType: "",
             registrationStep: 0,
 
         };
         this.handleChange=this.handleChange.bind(this);
     }
+    EmptyEntries(){
+        return  this.state.FirstName === ""||
+                this.state.LastName === "" ||
+                this.state.Sex === "" ||
+                this.state.Email === "" ||
+                this.state.username === "" ||
+                this.state.password === "" ||
+                this.state.CellNumber === "" ||
+                this.state.AddressStreet === "" ||
+                this.state.AddressCity === "" ||
+                this.state.AddressState === "" ||
+                this.state.AddressZip === "" ||
+                this.state.DateOfBirth != 10 ||
+                this.state.SSN.length != 11 ||
+                this.state.registrationStep === 0
+    }
     handleChange = e =>{
         this.setState({
             [e.target.name] : e.target.value
         })
-        console.log(this.state.registrationStep);
+    }
+    registerUser(){
+        //backend call to add the user to the backend
+        window.location.replace('/');
     }
     homeRedirect = () =>{
         window.location.replace('/');
     }
+    
     stepNext=()=>{
         this.setState(state => ({
             registrationStep:state.registrationStep+1
@@ -108,6 +129,11 @@ class RegistrationForm extends React.Component{
                     ):(
                         <div>
                             <BasicInformationPtTwo handleChange={this.handleChange} val={this.state}/>
+                            <FormControl margin="normal" fullWidth >
+                                <Button disabled={!this.EmptyEntries()} onClick={this.registerUser}>
+                                    Register
+                                </Button>
+                            </FormControl>
                         </div>
 
                     )}

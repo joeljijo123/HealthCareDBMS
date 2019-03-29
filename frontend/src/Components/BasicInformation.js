@@ -5,35 +5,18 @@ import {Input, InputLabel, Button} from '@material-ui/core';
 import MaskedInput from 'react-text-mask';
 import PropTypes from 'prop-types'; 
 
-const Sexes = ['Male','Female']
 
-function TextMaskCustom(props) {
-    const {...other } = props;
-  
-    return (
-      <MaskedInput
-        {...other}
-        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-        placeholderChar={'\u2000'}
-        showMask
-      />
-    );
-}
+const userTypes = ['Doctor','Patient','Administrator']
 
-TextMaskCustom.propTypes = {
-    inputRef: PropTypes.func.isRequired,
-};
 function validateUsername(){
     return true;
 };
-function stepNext(props){
-    props.val.RegistrationStep=5;
-};
+
 function BasicInformation(props){
     
     return(
         <div>
-             <Typography>Basic Information</Typography>
+             <Typography>Registration Information</Typography>
                 <FormControl margin="normal" fullWidth required>
                     <InputLabel htmlFor="FirstName">First Name</InputLabel>
                     <Input name="FirstName" autoFocus value={props.val.FirstName} onChange={props.handleChange}></Input>
@@ -65,6 +48,24 @@ function BasicInformation(props){
                         required
                     />
                 </FormControl>
+                <FormControl margin="auto" fullWidth>
+                    <TextField
+                        id="userType"
+                        select
+                        label="Type of User"
+                        name="userType"
+                        variant="standard"
+                        onChange={props.handleChange}
+                        value={props.val.userType}   
+                        required                   
+                    >
+                        {userTypes.map(option => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </FormControl>
                 <FormControl margin="auto" fullWidth required>
                     <TextField 
                         name="Email" 
@@ -73,34 +74,6 @@ function BasicInformation(props){
                         onChange={props.handleChange}
                         value={props.val.Email}
                         required
-                    />
-                </FormControl>
-                <FormControl margin="auto" fullWidth>
-                    <TextField
-                        id="Sex"
-                        select
-                        label="Gender"
-                        name="Sex"
-                        variant="standard"
-                        onChange={props.handleChange}
-                        value={props.val.Sex}   
-                        required                   
-                    >
-                        {Sexes.map(option => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </FormControl>
-                <FormControl margin="normal" required>
-                    <InputLabel htmlFor="CellNuber">Contact Number</InputLabel>
-                    <Input
-                        onChange={props.handleChange}
-                        name="CellNumber"
-                        id="Contact Number"
-                        value={props.val.CellNumber}
-                        inputComponent={TextMaskCustom}
                     />
                 </FormControl>
         </div>
