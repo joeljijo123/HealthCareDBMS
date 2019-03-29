@@ -6,9 +6,9 @@ import HomeLogo  from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 import {Input, InputLabel, Button} from '@material-ui/core';    
-import MaskedInput from 'react-text-mask';
+import BasicInformation from '../Components/BasicInformation';
+import BasicInformationPtTwo from '../Components/BasicInformationPtTwo';
 
-const Sexes = ['Male','Female']
 
 const styles = theme => ({
     paperForm: {
@@ -46,22 +46,9 @@ const styles = theme => ({
     },
 });
 
-function TextMaskCustom(props) {
-    const {...other } = props;
+
   
-    return (
-      <MaskedInput
-        {...other}
-        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-        placeholderChar={'\u2000'}
-        showMask
-      />
-    );
-  }
-  
-  TextMaskCustom.propTypes = {
-    inputRef: PropTypes.func.isRequired,
-  };
+
   
 
 class RegistrationForm extends React.Component{
@@ -81,6 +68,7 @@ class RegistrationForm extends React.Component{
             AddressZip: "",
             username: "",
             password: "",
+            registrationStep: 0,
 
         };
         this.handleChange=this.handleChange.bind(this);
@@ -89,12 +77,15 @@ class RegistrationForm extends React.Component{
         this.setState({
             [e.target.name] : e.target.value
         })
+        console.log(this.state.registrationStep);
     }
-    validateUsername(){
-        return true;
-    }
-    homeRedirect =() =>{
+    homeRedirect = () =>{
         window.location.replace('/');
+    }
+    stepNext=()=>{
+        this.setState(state => ({
+            registrationStep:state.registrationStep+1
+        }))
     }
     render(){
         const {classes}=this.props;
@@ -104,83 +95,22 @@ class RegistrationForm extends React.Component{
                     <HomeLogo style={{color: "#212121"}} className={classes.icon} />
                 </IconButton>
                 <Typography variant="h3" className={classes.heading}>Medical Center Registration</Typography>
-                
                 <Paper elevation={10} className={classes.paperForm}>
-                    <Typography>Basic Information</Typography>
-                    <FormControl margin="normal" fullWidth required>
-                        <InputLabel htmlFor="FirstName">First Name</InputLabel>
-                        <Input name="FirstName" autoFocus value={this.state.FirstName} onChange={this.handleChange}></Input>
-                    </FormControl>
-                    <FormControl margin="auto" fullWidth required>
-                        <InputLabel htmlFor="LastName">Last Name</InputLabel>
-                        <Input name="LastName" value={this.state.LastName} onChange={this.handleChange}></Input>
-                    </FormControl>
-                    <FormControl margin="normal" fullWidth>
-                        <TextField 
-                            required
-                            name="username" 
-                            label="Username" 
-                            variant="standard"
-                            onChange={this.handleChange}
-                            value={this.state.username}
-                            error={!this.validateUsername()}
-                            helperText={this.validateUsername() ? "":"Username is not valid"}
-                        />
-                    </FormControl>
-                    <FormControl margin="auto" fullWidth required>
-                        <TextField 
-                            name="password"
-                            type="password" 
-                            label="Password" 
-                            variant="standard"
-                            onChange={this.handleChange}
-                            value={this.state.password}
-                            required
-                        />
-                    </FormControl>
-                    <FormControl margin="auto" fullWidth required>
-                        <TextField 
-                            name="Email" 
-                            label="Email" 
-                            variant="standard"
-                            onChange={this.handleChange}
-                            value={this.state.Email}
-                            required
-                        />
-                    </FormControl>
-                    <FormControl margin="auto" fullWidth>
-                        <TextField
-                            id="Sex"
-                            select
-                            label="Gender"
-                            name="Sex"
-                            variant="standard"
-                            onChange={this.handleChange}
-                            value={this.state.Sex}   
-                            required                   
-                        >
-                            {Sexes.map(option => (
-                                <MenuItem key={option} value={option}>
-                                    {option}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    </FormControl>
-                    <FormControl margin="normal" required>
-                        <InputLabel htmlFor="CellNuber">Contact Number</InputLabel>
-                        <Input
-                            onChange={this.handleChange}
-                            name="CellNumber"
-                            id="Contact Number"
-                            value={this.state.CellNumber}
-                            inputComponent={TextMaskCustom}
-                        />
-                    </FormControl>
-                    <FormControl margin="normal" fullWidth >
-                        <Button>
-                            Next
-                        </Button>
-                    </FormControl>
+                    {this.state.registrationStep===0 ? (
+                        <div>
+                            <BasicInformation handleChange={this.handleChange} val={this.state}/>
+                            <FormControl margin="normal" fullWidth >
+                                <Button onClick={this.stepNext}>
+                                    Next
+                                </Button>
+                            </FormControl>
+                        </div>
+                    ):(
+                        <div>
+                            <BasicInformationPtTwo handleChange={this.handleChange} val={this.state}/>
+                        </div>
+
+                    )}
                     
                 </Paper>
             </div>
