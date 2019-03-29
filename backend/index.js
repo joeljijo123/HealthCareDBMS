@@ -4,14 +4,14 @@ const mysql = require('mysql');
 
 const app = express();
 
-const selectAllStates = 'SELECT * FROM sys.user;';
+const selectAllStates = 'SELECT * FROM Clinic_Main.States_LookUp;';
 
 const connection = mysql.createConnection({
     host: 'localhost',
     port: '3306',
     user: 'root',
     password: 'coogs123',
-    database: 'sys'
+    database: 'Clinic_Main'
 })
 
 connection.connect(err => {
