@@ -28,7 +28,7 @@ app.get('/', (req,res) => {
 });
 
 app.get('/states', (req,res) => {
-   connection.query(selectAllStates,(err, results) => {
+   connection.query('SELECT * FROM Clinic_Main.States_LookUp;',(err, results) => {
        if(err) {
            return res.send(err)
        }
@@ -40,6 +40,19 @@ app.get('/states', (req,res) => {
    });
 
 });
+app.get('/sexes', (req,res) => {
+    connection.query('SELECT * FROM Clinic_Main.Sex_LookUp;',(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
 
 app.listen(4000, () => {
     console.log(`Producs server listening on port 4000`)

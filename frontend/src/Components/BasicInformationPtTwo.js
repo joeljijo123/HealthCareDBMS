@@ -15,16 +15,7 @@ const Sexes = [
         genderId:2
     }
 ];
-const States = [
-    {
-        state: 'Alabama',
-        stateID: 1
-    },
-    {
-        state:'Alaska',
-        stateID: 2
-    },
-];
+
 
 function TextMaskCustom(props) {
     const {...other } = props;
@@ -59,6 +50,7 @@ function DateMaskCustom(props) {
 
 function SSNMaskCustom(props) {
     const {...other } = props;
+
   
     return (
       <MaskedInput
@@ -100,9 +92,9 @@ function BasicInformationPtTwo(props){
                             value={props.val.AddressState}   
                             required                   
                         >
-                            {States.map(option => (
-                                <MenuItem key={option.stateID} value={option.stateID}>
-                                    {option.state}
+                            {props.val.states.map(option => (
+                                <MenuItem key={option.StateID} value={option.StateID}>
+                                    {option.StateString}
                                 </MenuItem>
                             ))}
                         </TextField>

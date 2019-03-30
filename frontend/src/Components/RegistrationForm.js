@@ -69,7 +69,9 @@ class RegistrationForm extends React.Component{
             DateOfBirth:"",
             SSN: "",
             userType: "",
-            registrationStep: 1,
+            registrationStep: 0,
+            states:[],
+            sexes:[],
 
         };
         this.handleChange=this.handleChange.bind(this);
@@ -90,6 +92,10 @@ class RegistrationForm extends React.Component{
                 this.state.SSN.length != 11 ||
                 this.state.registrationStep === 0
     }
+    componentDidMount(){
+        this.uploadStates();
+        this.uploadSexes();
+    }
     handleChange = e =>{
         this.setState({
             [e.target.name] : e.target.value
@@ -108,6 +114,20 @@ class RegistrationForm extends React.Component{
             registrationStep:state.registrationStep+1
         }))
     }
+
+    uploadStates=()=> {
+        fetch(`http://157.230.214.92:4000/states`)
+        .then(result => result.json())
+        .then(Response => this.setState({ states:Response.data }))
+        .catch(err => console.log(err))
+    }
+    uploadSexes=()=> {
+        fetch(`http://157.230.214.92:4000/sexes`)
+        .then(result => result.json())
+        .then(Response => this.setState({ states:Response.data }))
+        .catch(err => console.log(err))
+    }
+
     render(){
         const {classes}=this.props;
         return(
