@@ -47,7 +47,6 @@ class HomeLoginBox extends React.Component{
         })
         
     }
-    
     handleRegistration = () => {
         window.location.replace('/Registration');
     }
