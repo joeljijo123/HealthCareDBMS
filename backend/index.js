@@ -67,7 +67,20 @@ app.get('/sexes', (req,res) => {
     });
  
  });
-
+ app.get('/user/:LoginTableID', (req,res) => {
+    const LoginID = req.params.LoginTableID;
+    connection.query(`SELECT * FROM Clinic_Main.Patient WHERE PatientLoginID='${LoginID}'`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
 app.listen(4000, () => {
     console.log(`Producs server listening on port 4000`)
 });

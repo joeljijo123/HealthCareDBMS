@@ -34,7 +34,7 @@ class HomeLoginBox extends React.Component{
         super(props)
         this.state = {
             userType: null,
-            userID: "",
+            Username: "",
             password: ""
         };
         this.handleChange=this.handleChange.bind(this);
@@ -44,9 +44,6 @@ class HomeLoginBox extends React.Component{
         this.setState({
             [e.target.name] : e.target.value
         })
-        if(e.target.name === "userID"){
-            window.localStorage.setItem(e.target.name, e.target.value);
-        }
         
     }
     handleRegistration = () => {
@@ -54,9 +51,58 @@ class HomeLoginBox extends React.Component{
     }
     login = () => {
         //query to check the user an make syre they are in the database
-        window.location.replace('/Appointments');
-        window.localStorage.setItem("loggedIn", true);
-        console.log(this.state.password)
+        fetch(`http://157.230.214.92:4000/login/${this.state.Username}`)
+        .then(result => result.json())
+        .then(res => {
+            console.log("sdas");
+            if(res.data.length === 1){
+                console.log("")
+                if(res.data[0].Password === this.state.password){
+                    window.localStorage.setItem("loggedIn", true);
+                    window.localStorage.setItem("userID", res.data[0].LoginTableID);
+                    this.setUserType();
+                    window.location.replace('/Appointments');
+                }
+                else{
+                    window.localStorage.setItem("loggedIn", false);
+                }
+                console.log(res.data.length)
+            }
+            else{
+                window.localStorage.setItem("loggedIn", false);
+            }
+        })
+        .catch(err => console.log(err))
+
+    }
+    setUserType(){
+        fetch(`http://157.230.214.92:4000/user/${window.localStorage.userID}`)
+        .then(result => result.json())
+        .then(res => {
+            console.log("sdas");
+            if(res.data.length === 1){
+                console.log("")
+                if(res.data[0].Password === this.state.password){
+                    window.localStorage.setItem("loggedIn", true);
+                    
+                    this.setUserType();
+                    window.location.replace('/Appointments');
+                }
+                else{
+                    window.localStorage.setItem("loggedIn", false);
+                }
+                console.log(res.data.length)
+            }
+            else{
+                window.localStorage.setItem("loggedIn", false);
+            }
+        })
+        .catch(err => console.log(err))
+    }
+    invalidTextNeeded(){
+        console.log(window.localStorage.loggedIn === "false")
+        return window.localStorage.loggedIn === "false";
+
     }
     componentDidMount() {
         window.localStorage.setItem("loggedIn", null);
@@ -70,10 +116,10 @@ class HomeLoginBox extends React.Component{
         <Typography component="h1" variant="h4">
             Log In
         </Typography>
-        <form className={classes.form}>
+        <form className={classes.form} error>
             <FormControl margin="normal" fullWidth required>
-                <InputLabel htmlFor="User ID">User Id</InputLabel>
-                <Input name="userID" autoFocus value={this.state.userID} onChange={this.handleChange}></Input>
+                <InputLabel htmlFor="Username">Username</InputLabel>
+                <Input name="Username" autoFocus value={this.state.Username} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl margin="normal" fullWidth required>
                 <InputLabel htmlFor="Password">Password</InputLabel>
