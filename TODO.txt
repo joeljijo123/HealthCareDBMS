@@ -1,17 +1,29 @@
-Joel
-    ->
+Compete By Friday April 5th
+    Joel
+        ->Appointment Page
+        ->Registration Page
+        ->Organize components
+        ->Comment on all code
 
-Tommy
-    ->
+    Tommy
+        ->User Info for Doctor and Patient
 
-Kevin
-    ->
+    Kevin
+        ->Medica History Information for Patient
+        ->Organize components
 
-Zach
-    ->
+    Zach
+        ->Basic Information for Doctor and Patient
 
-Colby
-    ->
+    Colby
+        ->Looking at backend
 
 Later stuff
+    ->Locator Page (Zach)
+    ->Specialist Reccomendation
+    ->Prescription Addition
+    ->Administrator Function
+    ->WorkSchedule
+    ->Diagnosis
+    ->Look Up Patients
     ->
