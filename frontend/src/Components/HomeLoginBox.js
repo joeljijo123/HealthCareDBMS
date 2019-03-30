@@ -50,7 +50,6 @@ class HomeLoginBox extends React.Component{
         window.location.replace('/Registration');
     }
     login = () => {
-        //query to check the user an make syre they are in the database
         fetch(`http://157.230.214.92:4000/login/${this.state.Username}`)
         .then(result => result.json())
         .then(res => {
@@ -65,7 +64,6 @@ class HomeLoginBox extends React.Component{
                 else{
                     window.localStorage.setItem("loggedIn", false);
                 }
-                console.log(res.data.length)
             }
             else{
                 window.localStorage.setItem("loggedIn", false);
@@ -75,24 +73,22 @@ class HomeLoginBox extends React.Component{
 
     }
     setUserType(){
-        fetch(`http://157.230.214.92:4000/user/${window.localStorage.userID}`)
+        fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.userID}`)
         .then(result => result.json())
         .then(res => {
-            console.log("sdas");
             if(res.data.length === 1){
-                console.log("")
-                if(res.data[0].Password === this.state.password){
-                    window.localStorage.setItem("loggedIn", true);
-                    window.location.replace('/Appointments');
-                }
-                else{
-                    window.localStorage.setItem("loggedIn", false);
-                }
-                console.log(res.data.length)
+                window.localStorage.setItem("userType", res.data[0].RoleID);                
             }
-            else{
-                window.localStorage.setItem("loggedIn", false);
-            }
+            // else{
+            //     fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.userID}`)
+            //     .then(result => result.json())
+            //     .then(res => {
+            //         if(res.data.length === 1){
+            //             window.localStorage.setItem("userType", 2);                
+            //         }
+            //     })
+            //     .catch(err => console.log(err))
+            // }
         })
         .catch(err => console.log(err))
     }
