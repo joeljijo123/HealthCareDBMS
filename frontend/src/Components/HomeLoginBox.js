@@ -50,6 +50,7 @@ class HomeLoginBox extends React.Component{
     handleRegistration = () => {
         window.location.replace('/Registration');
     }
+
     login = () => {
         fetch(`http://157.230.214.92:4000/login/${this.state.Username}`)
         .then(result => result.json())
