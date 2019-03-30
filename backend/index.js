@@ -53,7 +53,8 @@ app.get('/sexes', (req,res) => {
     });
  
  });
- app.get('/login', (req,res) => {
+ app.get('/login/:username', (req,res) => {
+    const username = req.params.username;
     connection.query(`SELECT * FROM Clinic_Main.LoginTable WHERE username='${username}'`,(err, results) => {
         if(err) {
             return res.send(err)
