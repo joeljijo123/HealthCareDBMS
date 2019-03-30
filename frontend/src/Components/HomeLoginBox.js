@@ -34,6 +34,7 @@ class HomeLoginBox extends React.Component{
         super(props)
         this.state = {
             userType: null,
+            firstName:null,
             Username: "",
             password: ""
         };
@@ -59,6 +60,7 @@ class HomeLoginBox extends React.Component{
                 if(res.data[0].Password === this.state.password){
                     window.localStorage.setItem("loggedIn", true);
                     window.localStorage.setItem("userID", res.data[0].LoginTableID);
+                    this.setUserType();
                     window.location.replace('/Appointments');
                 }
                 else{
