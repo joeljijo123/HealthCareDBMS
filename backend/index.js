@@ -53,6 +53,19 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+ app.get('/login', (req,res) => {
+    connection.query(`SELECT * FROM Clinic_Main.LoginTable WHERE username='${username}'`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
 
 app.listen(4000, () => {
     console.log(`Producs server listening on port 4000`)

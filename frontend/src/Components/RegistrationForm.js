@@ -124,7 +124,7 @@ class RegistrationForm extends React.Component{
     uploadSexes=()=> {
         fetch(`http://157.230.214.92:4000/sexes`)
         .then(result => result.json())
-        .then(Response => this.setState({ states:Response.data }))
+        .then(Response => this.setState({ sexes:Response.data }))
         .catch(err => console.log(err))
     }
 

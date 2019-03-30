@@ -122,9 +122,9 @@ function BasicInformationPtTwo(props){
                     value={props.val.Sex}   
                     required                   
                 >
-                    {Sexes.map(option => (
-                        <MenuItem key={option.genderId} value={option.genderId}>
-                            {option.gender}
+                    {props.val.sexes.map(option => (
+                        <MenuItem key={option.SexID} value={option.SexID}>
+                            {option.Gender}
                         </MenuItem>
                     ))}
                 </TextField>
