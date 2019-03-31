@@ -100,7 +100,6 @@ class RegistrationForm extends React.Component{
         this.uploadSexes();
         this.uploadRoles();
         this.uploadRaces();
-        this.checkignbody();
     }
     handleChange = e =>{
         this.setState({
@@ -111,6 +110,10 @@ class RegistrationForm extends React.Component{
     registerUser=()=>{
         //backend call to add the user to the backend
         fetch(`http://157.230.214.92:4000/RegisterUser`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
             body: JSON.stringify({
                 FirstName:this.state.FirstName,
                 LastName:this.state.LastName,
@@ -127,22 +130,6 @@ class RegistrationForm extends React.Component{
                 SSN: this.state.SSN,
                 userType: this.state.userType,
                 raceID: this.state.raceID,
-            })
-        })
-        .catch(err => console.log(err))
-        window.location.replace('/');
-    }
-    checkignbody=()=>{
-        //backend call to add the user to the backend
-        fetch(`http://157.230.214.92:4000/registerLogin`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                LoginID: 1559,
-                username: "Joeeee",
-                password: "123456789",
             })
         })
         .catch(err => console.log(err))
