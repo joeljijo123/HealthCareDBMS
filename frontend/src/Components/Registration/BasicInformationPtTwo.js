@@ -41,7 +41,7 @@ function DateMaskCustom(props) {
       <MaskedInput
         guide={false}
         {...other}
-        mask={[/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/,'/', /\d/, /\d/]}
+        mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/]}
         placeholderChar={'\u2000'}
         showMask
       />

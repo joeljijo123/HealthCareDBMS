@@ -8,7 +8,12 @@ import PropTypes from 'prop-types';
 function validateUsername(){
     return true;
 };
-
+function validatePassword(props){
+    if(props.val.password.length >=6 || props.val.password.length <=1 ){
+        return true;
+    }
+    return false;
+};
 function BasicInformation(props){
     
     return(
@@ -40,6 +45,7 @@ function BasicInformation(props){
                         type="password" 
                         label="Password" 
                         variant="standard"
+                        error={!validatePassword(props)}
                         onChange={props.handleChange}
                         value={props.val.password}
                         required
