@@ -146,7 +146,7 @@ app.get('/sexes', (req,res) => {
              '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${loginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
                 console.log("here1")
                 if(err) {
-                    console.log("here2")
+                    console.log(err)
                     return res.send(err)
                 }
                 else{
