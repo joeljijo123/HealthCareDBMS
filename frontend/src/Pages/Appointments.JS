@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import NavigationBar from '../Components/NavigationBar';
+import NavigationBar from '../Components/GeneralComponents/NavigationBar';
 
 
 class Appointments extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import RegistrationForm from '../Components/RegistrationForm';
-import LoginImage from '../Components/BackgroundPicture.jpg';
+import RegistrationForm from '../Components/Registration/RegistrationForm';
+import LoginImage from '../Components/Home/BackgroundPicture.jpg';
 
 const divStyle = {
     style: {

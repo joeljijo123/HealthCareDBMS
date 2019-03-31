@@ -5,9 +5,6 @@ import {Input, InputLabel, Button} from '@material-ui/core';
 import MaskedInput from 'react-text-mask';
 import PropTypes from 'prop-types'; 
 
-
-const userTypes = ['Doctor','Patient','Administrator']
-
 function validateUsername(){
     return true;
 };

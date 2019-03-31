@@ -6,8 +6,8 @@ import HomeLogo  from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 import {Input, InputLabel, Button} from '@material-ui/core';    
-import BasicInformation from '../Components/BasicInformation';
-import BasicInformationPtTwo from '../Components/BasicInformationPtTwo';
+import BasicInformation from '../Registration/BasicInformation';
+import BasicInformationPtTwo from '../Registration/BasicInformationPtTwo';
 
 
 const styles = theme => ({
