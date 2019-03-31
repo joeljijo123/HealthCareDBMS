@@ -8,8 +8,14 @@ class Appointments extends Component {
     super(props)
     this.state = {
         firstName: "",
+        Facilities: []
     };
-}
+  }
+
+  componentDidMount(){
+    this.uploadFacilities();
+  }
+
   FirstName(){
     fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.userID}`)
       .then(result => result.json())
@@ -31,9 +37,14 @@ class Appointments extends Component {
       .catch(err => console.log(err))
     return this.state.firstName;
   }
+
+  uploadFacilities=()=> {
+    fetch(`http://157.230.214.92:4000/Facilities`)
+    .then(result => result.json())
+    .then(Response => this.setState({ Facilities:Response.data }))
+    .catch(err => console.log(err))
+}
   render() {
-    
-    
     return (
       <div>
         <NavigationBar title={'Welcome, '+this.FirstName()}/>
