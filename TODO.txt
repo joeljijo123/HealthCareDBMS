@@ -3,7 +3,7 @@ Pages and Components have been set up for the profile page
 Complete By Friday April 5th
     Joel
         ->Appointment Page
-        ->Registration Page
+        ->Registration Page //completed and connected to backend
         ->Comment on all code
 
     Tommy
