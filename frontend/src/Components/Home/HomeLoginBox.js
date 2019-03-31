@@ -55,7 +55,6 @@ class HomeLoginBox extends React.Component{
         fetch(`http://157.230.214.92:4000/login/${this.state.Username}`)
         .then(result => result.json())
         .then(res => {
-            console.log("sdas");
             if(res.data.length === 1){
                 console.log("")
                 if(res.data[0].Password === this.state.password){
