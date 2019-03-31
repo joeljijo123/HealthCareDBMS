@@ -109,7 +109,7 @@ function BasicInformationPtTwo(props){
             </Grid>
             <FormControl margin="normal" fullWidth required>
                 <InputLabel htmlFor="DateOfBirth">Date Of Birth</InputLabel>
-                <Input name="DateOfBirth" value={props.val.DateOfBirth}  inputComponent={DateMaskCustom} onChange={props.handleChange}></Input>
+                <Input name="DateOfBirth" placeholder="YYYY-MM-DD" value={props.val.DateOfBirth}  inputComponent={DateMaskCustom} onChange={props.handleChange}></Input>
             </FormControl>
             <FormControl margin="auto" fullWidth>
                 <TextField
@@ -149,7 +149,7 @@ function BasicInformationPtTwo(props){
             </FormControl>
             <FormControl margin="normal" fullWidth required>
                 <InputLabel htmlFor="SSN">Social Security</InputLabel>
-                <Input name="SSN" inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>
+                <Input name="SSN" placeholder="XXX-XX-XXXX" inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>
             </FormControl>
             <FormControl margin="normal" required>
                 <InputLabel htmlFor="CellNuber">Contact Number</InputLabel>
