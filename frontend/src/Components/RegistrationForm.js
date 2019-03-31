@@ -135,6 +135,10 @@ class RegistrationForm extends React.Component{
     checkignbody=()=>{
         //backend call to add the user to the backend
         fetch(`http://157.230.214.92:4000/registerLogin`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({
                 LoginID: 1559,
                 username: "Joeeee",
