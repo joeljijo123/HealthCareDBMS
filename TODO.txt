@@ -3,6 +3,11 @@ Pages and Components have been set up for the profile page
 Complete By Friday April 5th
     Joel
         ->Appointment Page
+            -Adding Appointment
+                *Select Facility
+                *Select Doctor
+                *Select Day
+                *Select Time
         ->Registration Page //completed and connected to backend
         ->Comment on all code
 
