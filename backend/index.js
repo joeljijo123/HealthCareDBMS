@@ -144,7 +144,9 @@ app.get('/sexes', (req,res) => {
     var userID=Math.floor(Math.random() *100);
     connection.query(`INSERT INTO Clinic_Main.Employee (EmployeeID, FirstName, LastName, RoleID, SSN, Email, CellNumber, DOB, SexID, EmployeeLoginID, AddressStreet, AddressCity, AddressStateID, AddressZip) VALUES ('${userID}', '${FirstName}', '${LastName}',
              '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${loginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
+                console.log("here1")
                 if(err) {
+                    console.log("here2")
                     return res.send(err)
                 }
                 else{
