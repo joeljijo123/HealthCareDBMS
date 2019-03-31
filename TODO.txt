@@ -1,4 +1,6 @@
-Compete By Friday April 5th
+Pages and Components have been set up for the profile page
+
+Complete By Friday April 5th
     Joel
         ->Appointment Page
         ->Registration Page
@@ -10,7 +12,6 @@ Compete By Friday April 5th
 
     Kevin
         ->Medica History Information for Patient
-        ->Organize components
 
     Zach
         ->Basic Information for Doctor and Patient
