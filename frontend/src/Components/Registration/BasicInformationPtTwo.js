@@ -68,7 +68,6 @@ function BasicInformationPtTwo(props){
     return(
         <div>
             <Typography>Personal Information</Typography>
-            <Typography>{props.val.AddressState}</Typography>
             <FormControl margin="auto" fullWidth required>
                 <InputLabel htmlFor="AddressStreet">Street Address</InputLabel>
                 <Input name="AddressStreet" autoFocus value={props.val.AddressStreet} onChange={props.handleChange}></Input>

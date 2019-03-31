@@ -134,6 +134,7 @@ class RegistrationForm extends React.Component{
         })
         .then(console.log('done'))
         .catch(err => console.log(err))
+        .then(this.homeRedirect());
         
     }
     homeRedirect = () =>{
