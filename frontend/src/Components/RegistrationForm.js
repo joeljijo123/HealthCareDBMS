@@ -72,6 +72,7 @@ class RegistrationForm extends React.Component{
             registrationStep: 0,
             states:[],
             sexes:[],
+            roles:[],
 
         };
         this.handleChange=this.handleChange.bind(this);
@@ -125,6 +126,12 @@ class RegistrationForm extends React.Component{
         fetch(`http://157.230.214.92:4000/sexes`)
         .then(result => result.json())
         .then(Response => this.setState({ sexes:Response.data }))
+        .catch(err => console.log(err))
+    }
+    uploadRoles=()=> {
+        fetch(`http://157.230.214.92:4000/roles`)
+        .then(result => result.json())
+        .then(Response => this.setState({ roles:Response.data }))
         .catch(err => console.log(err))
     }
 

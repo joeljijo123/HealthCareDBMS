@@ -53,6 +53,19 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+ app.get('/roles', (req,res) => {
+    connection.query('SELECT * FROM Clinic_Main.Role_LookUp;',(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
  app.get('/login/:username', (req,res) => {
     const username = req.params.username;
     connection.query(`SELECT * FROM Clinic_Main.LoginTable WHERE username='${username}'`,(err, results) => {
@@ -95,6 +108,7 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+ 
 app.listen(4000, () => {
     console.log(`Producs server listening on port 4000`)
 });

@@ -59,7 +59,7 @@ function BasicInformation(props){
                         value={props.val.userType}   
                         required                   
                     >
-                        {userTypes.map(option => (
+                        {props.val.roles.map(option => (
                             <MenuItem key={option} value={option}>
                                 {option}
                             </MenuItem>
