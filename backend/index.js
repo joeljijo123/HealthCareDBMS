@@ -140,7 +140,7 @@ app.get('/sexes', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
             SSN, userType, raceID}  =   req.body;
-    var loginID=Math.floor(Math.random() *1000);
+    var loginID=147
     var userID=Math.floor(Math.random() *100);
     connection.query(`INSERT INTO Clinic_Main.Employee (EmployeeID, FirstName, LastName, RoleID, SSN, Email, CellNumber, DOB, SexID, EmployeeLoginID, AddressStreet, AddressCity, AddressStateID, AddressZip) VALUES ('${userID}', '${FirstName}', '${LastName}',
              '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${loginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
