@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
-
+import AppointmentHistory from '../Components/Appointments/AppointmentHistory'
 
 class Appointments extends Component {
   constructor(props){
@@ -37,7 +37,7 @@ class Appointments extends Component {
     return (
       <div>
         <NavigationBar title={'Welcome, '+this.FirstName()}/>
-        
+        <AppointmentHistory/>
       </div>
         
     );

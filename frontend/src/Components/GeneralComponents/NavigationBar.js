@@ -41,6 +41,9 @@ const styles = {
     AppointmentPageRedirect = () =>{
       window.location.replace('/Appointments');
     }
+    ProfilePageRedirect = () =>{
+      window.location.replace('/Profile');
+    }
     logout = () =>{
       this.setState({loggedIn:false,userid:null,userType:null})
       localStorage.setItem("loggedIn", false);
@@ -72,7 +75,7 @@ const styles = {
                   </Toolbar>
                   <Tabs textColor="primary">
                       <Tab label="Appointments" onClick={this.AppointmentPageRedirect} hidden></Tab>
-                      <Tab label="My Profile" ></Tab>
+                      <Tab label="My Profile" onClick={this.ProfilePageRedirect}></Tab>
                       {localStorage.userType === "Doctor" ? (
                         <Tab label="My Schedule" ></Tab>
                       ):(
