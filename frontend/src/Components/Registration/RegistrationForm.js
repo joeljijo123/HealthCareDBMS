@@ -132,8 +132,9 @@ class RegistrationForm extends React.Component{
                 raceID: this.state.raceID,
             })
         })
+        .then(console.log('done'))
         .catch(err => console.log(err))
-        console.log('done');
+        
     }
     homeRedirect = () =>{
         window.location.replace('/');

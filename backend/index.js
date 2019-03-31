@@ -138,6 +138,7 @@ app.get('/sexes', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
             SSN, userType, raceID}  =   req.body;
+    console.log(req.body);
     connection.query(`CALL RegisterANewUser(
         '${FirstName}', 
         '${LastName}',
@@ -155,8 +156,8 @@ app.get('/sexes', (req,res) => {
         '${userType}',
         '${raceID}');`,(err, results) => {
         if(err) {
-        console.log(err)
-        return res.send(err)
+            console.log(err)
+            return res.send(err)
         }
         else{
             console.log("here");
