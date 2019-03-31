@@ -147,9 +147,10 @@ app.get('/sexes', (req,res) => {
             return res.send(err)
         }
         else if(userType===1 || userType===3) {
-            console.log("hhhd")
+            
             connection.query(`INSERT INTO Clinic_Main.Employee (EmployeeID, FirstName, LastName, RoleID, SSN, Email, CellNumber, DOB, SexID, EmployeeLoginID, AddressStreet, AddressCity, AddressStateID, AddressZip) VALUES ('${userID}', '${FirstName}', '${LastName}',
              '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${loginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
+                console.log("hhhd")
                 if(err) {
                     return res.send(err)
                 }
@@ -158,17 +159,17 @@ app.get('/sexes', (req,res) => {
                 }
             });    
         }
-        else if(userType===2){
-            connection.query(`INSERT INTO Clinic_Main.Patient (PatientID, FirstName, LastName, SexID, DOB, CellNumber, AddressStreet, AddressCity, AddressStateID, AddressZip, Email, SSN, PatientLoginID, RaceID) VALUES ('${userID}', '${FirstName}', '${LastName}', '${Sex}',
-             '${DateOfBirth}', '${CellNumber}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}', '${Email}', '${SSN}', '${loginID}', '${raceID}');`,(err, results) => {
-                if(err) {
-                    return res.send(err)
-                }
-                else{
-                    return res.send('Added Patient')
-                }
-            });
-        }
+        // else if(userType===2){
+        //     connection.query(`INSERT INTO Clinic_Main.Patient (PatientID, FirstName, LastName, SexID, DOB, CellNumber, AddressStreet, AddressCity, AddressStateID, AddressZip, Email, SSN, PatientLoginID, RaceID) VALUES ('${userID}', '${FirstName}', '${LastName}', '${Sex}',
+        //      '${DateOfBirth}', '${CellNumber}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}', '${Email}', '${SSN}', '${loginID}', '${raceID}');`,(err, results) => {
+        //         if(err) {
+        //             return res.send(err)
+        //         }
+        //         else{
+        //             return res.send('Added Patient')
+        //         }
+        //     });
+        // }
 
     });
  
