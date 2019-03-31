@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
+const bodyParser = require('body-parser';)
 
 const app = express();
 
@@ -22,6 +23,7 @@ connection.connect(err => {
 
 
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/', (req,res) => {
     res.send('hello from the products server')
@@ -124,15 +126,14 @@ app.get('/sexes', (req,res) => {
  });
  app.post('/Patient/registerLogin', (req,res) => {
     const {LoginID, username, password} = req.body;
-    console.log(LoginID);
-    // connection.query(`INSERT INTO Clinic_Main.LoginTable (LoginTableID, Username, Password) VALUES ('${LoginID}', '${username}', '${password}')`,(err, results) => {
-    //     if(err) {
-    //         return res.send(err)
-    //     }
-    //     else {
-    //         return res.send("added")
-    //     }
-    // })
+    connection.query(`INSERT INTO Clinic_Main.LoginTable (LoginTableID, Username, Password) VALUES ('${LoginID}', '${username}', '${password}')`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.send("added")
+        }
+    })
  
  });
  app.post('/RegisterUser', (req,res) => {
