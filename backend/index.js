@@ -138,51 +138,31 @@ app.get('/sexes', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
             SSN, userType, raceID}  =   req.body;
-    var loginID=147
-    var userID=Math.floor(Math.random() *100);
-    connection.query(`INSERT INTO Clinic_Main.Employee (EmployeeID, FirstName, LastName, RoleID, SSN, Email, CellNumber, DOB, SexID, EmployeeLoginID, AddressStreet, AddressCity, AddressStateID, AddressZip) VALUES ('${userID}', '${FirstName}', '${LastName}',
-             '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${loginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
-                console.log("here1")
-                if(err) {
-                    console.log(err)
-                    return res.send(err)
-                }
-                else{
-                    console.log("here");
-                    return res.send('Added Employee')
-                }
-            });    
-    // connection.query(`INSERT INTO Clinic_Main.LoginTable (LoginTableID, Username, Password) VALUES ('${loginID}', '${username}', '${password}');`,(err, results) => {
-    //     if(err) {
-    //         return res.send(err)
-    //     }
-    //     else if(userType===1 || userType===3) {
-            
-    //         connection.query(`INSERT INTO Clinic_Main.Employee (EmployeeID, FirstName, LastName, RoleID, SSN, Email, CellNumber, DOB, SexID, EmployeeLoginID, AddressStreet, AddressCity, AddressStateID, AddressZip) VALUES ('${userID}', '${FirstName}', '${LastName}',
-    //          '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${loginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
-    //             console.log("hhhd")
-    //             if(err) {
-    //                 return res.send(err)
-    //             }
-    //             else{
-    //                 return res.send('Added Employee')
-    //             }
-    //         });    
-    //     }
-    //     else if(userType===2){
-    //         connection.query(`INSERT INTO Clinic_Main.Patient (PatientID, FirstName, LastName, SexID, DOB, CellNumber, AddressStreet, AddressCity, AddressStateID, AddressZip, Email, SSN, PatientLoginID, RaceID) VALUES ('${userID}', '${FirstName}', '${LastName}', '${Sex}',
-    //          '${DateOfBirth}', '${CellNumber}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}', '${Email}', '${SSN}', '${loginID}', '${raceID}');`,(err, results) => {
-    //             if(err) {
-    //                 return res.send(err)
-    //             }
-    //             else{
-    //                 return res.send('Added Patient')
-    //             }
-    //         });
-    //     }
-
-    // });
- 
+    connection.query(`CALL RegisterANewUser(
+        '${FirstName}', 
+        '${LastName}',
+        '${Sex}', 
+        '${Email}', 
+        '${username}', 
+        '${password}', 
+        '${CellNumber}', 
+        '${AddressStreet}',
+        '${AddressCity}', 
+        '${AddressState}', 
+        '${AddressZip}',
+        '${DateOfBirth}', 
+        '${SSN}', 
+        '${userType}',
+        '${raceID}');`,(err, results) => {
+        if(err) {
+        console.log(err)
+        return res.send(err)
+        }
+        else{
+            console.log("here");
+            return res.send('Added Employee')
+        }
+    }); 
  });
  
 app.listen(4000, () => {
