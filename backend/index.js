@@ -148,7 +148,8 @@ app.get('/sexes', (req,res) => {
         }
         else if(userType===1 || userType===3) {
             console.log("hhhd")
-            connection.query(`INSERT INTO Clinic_Main.Employee (EmployeeID, FirstName, LastName, RoleID, SSN, Email, CellNumber, DOB, SexID, EmployeeLoginID, AddressStreet, AddressCity, AddressStateID, AddressZip) VALUES ('${userID}', '${FirstName}', '${LastName}', '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${LoginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
+            connection.query(`INSERT INTO Clinic_Main.Employee (EmployeeID, FirstName, LastName, RoleID, SSN, Email, CellNumber, DOB, SexID, EmployeeLoginID, AddressStreet, AddressCity, AddressStateID, AddressZip) VALUES ('${userID}', '${FirstName}', '${LastName}',
+             '${userType}', '${SSN}', '${Email}', '${CellNumber}', '${DateOfBirth}', '${Sex}', '${loginID}', '${AddressStreet}', '${AddressCity}', '${AddressState}', '${AddressZip}');`,(err, results) => {
                 if(err) {
                     return res.send(err)
                 }
