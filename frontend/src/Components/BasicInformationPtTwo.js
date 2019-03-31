@@ -24,7 +24,7 @@ function TextMaskCustom(props) {
       <MaskedInput
         {...other}
         guide={false}
-        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+        mask={[/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
         placeholderChar={'\u2000'}
         showMask
       />
@@ -41,7 +41,7 @@ function DateMaskCustom(props) {
       <MaskedInput
         guide={false}
         {...other}
-        mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+        mask={[/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/,'/', /\d/, /\d/]}
         placeholderChar={'\u2000'}
         showMask
       />
@@ -141,8 +141,8 @@ function BasicInformationPtTwo(props){
                     required                   
                 >
                     {props.val.races.map(option => (
-                        <MenuItem key={option.SexID} value={option.SexID}>
-                            {option.Gender}
+                        <MenuItem key={option.RaceID} value={option.RaceID}>
+                            {option.Race}
                         </MenuItem>
                     ))}
                 </TextField>

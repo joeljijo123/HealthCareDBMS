@@ -122,6 +122,18 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+ app.post('/Patient/registerLogin', (req,res) => {
+    const {LoginID, username, password} = req.body;
+    connection.query(`INSERT INTO Clinic_Main.LoginTable (LoginTableID, Username, Password) VALUES ('${LoginID}', '${username}', '${password}');`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json("added")
+        }
+    })
+ 
+ });
  app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 

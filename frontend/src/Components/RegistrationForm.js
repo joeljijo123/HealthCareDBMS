@@ -100,15 +100,49 @@ class RegistrationForm extends React.Component{
         this.uploadSexes();
         this.uploadRoles();
         this.uploadRaces();
+        this.checkignbody();
     }
     handleChange = e =>{
         this.setState({
             [e.target.name] : e.target.value
         })
+        console.log(this.state.CellNumber)
     }
-    registerUser(){
+    registerUser=()=>{
         //backend call to add the user to the backend
+        fetch(`http://157.230.214.92:4000/RegisterUser`, {
+            body: JSON.stringify({
+                FirstName:this.state.FirstName,
+                LastName:this.state.LastName,
+                Sex: this.state.Sex,
+                Email: this.state.Email,
+                username: this.state.username,
+                password: this.state.password,
+                CellNumber: this.state.CellNumber,
+                AddressStreet: this.state.AddressStreet,
+                AddressCity: this.state.AddressCity,
+                AddressState: this.state.AddressState,
+                AddressZip: this.state.AddressZip,
+                DateOfBirth: this.state.DateOfBirth,
+                SSN: this.state.SSN,
+                userType: this.state.userType,
+                raceID: this.state.raceID,
+            })
+        })
+        .catch(err => console.log(err))
         window.location.replace('/');
+    }
+    checkignbody=()=>{
+        //backend call to add the user to the backend
+        fetch(`http://157.230.214.92:4000/registerLogin`, {
+            body: JSON.stringify({
+                LoginID: 1559,
+                username: "Joeeee",
+                password: "123456789",
+            })
+        })
+        .catch(err => console.log(err))
+        console.log('done');
     }
     homeRedirect = () =>{
         window.location.replace('/');
@@ -138,13 +172,12 @@ class RegistrationForm extends React.Component{
         .then(Response => this.setState({ roles:Response.data }))
         .catch(err => console.log(err))
     }
-    uploadRoles=()=> {
+    uploadRaces=()=> {
         fetch(`http://157.230.214.92:4000/races`)
         .then(result => result.json())
         .then(Response => this.setState({ races:Response.data }))
         .catch(err => console.log(err))
     }
-
     render(){
         const {classes}=this.props;
         return(
