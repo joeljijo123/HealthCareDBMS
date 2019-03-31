@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const selectAllStates = 'SELECT * FROM Clinic_Main.States_LookUp;';
-
 const connection = mysql.createConnection({
     host: 'localhost',
     port: '3306',
