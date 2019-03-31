@@ -60,8 +60,8 @@ function BasicInformation(props){
                         required                   
                     >
                         {props.val.roles.map(option => (
-                            <MenuItem key={option} value={option}>
-                                {option}
+                            <MenuItem key={option.RoleID} value={option.RoleID}>
+                                {option.RoleTitle}
                             </MenuItem>
                         ))}
                     </TextField>

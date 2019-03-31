@@ -129,6 +129,24 @@ function BasicInformationPtTwo(props){
                     ))}
                 </TextField>
             </FormControl>
+            <FormControl margin="auto" fullWidth>
+                <TextField
+                    id="Race"
+                    select
+                    label="Race"
+                    name="raceID"
+                    variant="standard"
+                    onChange={props.handleChange}
+                    value={props.val.raceID}   
+                    required                   
+                >
+                    {props.val.races.map(option => (
+                        <MenuItem key={option.SexID} value={option.SexID}>
+                            {option.Gender}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </FormControl>
             <FormControl margin="normal" fullWidth required>
                 <InputLabel htmlFor="SSN">Social Security</InputLabel>
                 <Input name="SSN" inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>

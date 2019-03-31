@@ -70,9 +70,11 @@ class RegistrationForm extends React.Component{
             SSN: "",
             userType: "",
             registrationStep: 0,
+            raceID: "",
             states:[],
             sexes:[],
             roles:[],
+            races:[],
 
         };
         this.handleChange=this.handleChange.bind(this);
@@ -96,6 +98,8 @@ class RegistrationForm extends React.Component{
     componentDidMount(){
         this.uploadStates();
         this.uploadSexes();
+        this.uploadRoles();
+        this.uploadRaces();
     }
     handleChange = e =>{
         this.setState({
@@ -132,6 +136,12 @@ class RegistrationForm extends React.Component{
         fetch(`http://157.230.214.92:4000/roles`)
         .then(result => result.json())
         .then(Response => this.setState({ roles:Response.data }))
+        .catch(err => console.log(err))
+    }
+    uploadRoles=()=> {
+        fetch(`http://157.230.214.92:4000/races`)
+        .then(result => result.json())
+        .then(Response => this.setState({ races:Response.data }))
         .catch(err => console.log(err))
     }
 
