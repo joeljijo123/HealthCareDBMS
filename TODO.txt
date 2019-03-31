@@ -10,7 +10,7 @@ Complete By Friday April 5th
         ->User Info for Doctor and Patient
 
     Kevin
-        ->Medica History Information for Patient
+        ->Medical History Information for Patient
 
     Zach
         ->Basic Information for Doctor and Patient
