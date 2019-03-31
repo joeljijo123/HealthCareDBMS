@@ -7,6 +7,7 @@ import Home from './Pages/Home';
 import Appointments from './Pages/Appointments';
 import Registration from './Pages/Registration';
 import Profile from './Pages/Profile';
+import Scheduling from './Pages/Scheduling';
 
 class Paths extends Component{
     state = {
@@ -21,6 +22,7 @@ class Paths extends Component{
                     <Route path="/Appointments" exact component={Appointments}/>
                     <Route path="/Registration" exact component={Registration}/>
                     <Route path="/Profile" exact component={Profile}/>
+                    <Route path="/Scheduling" exact component={Scheduling}/>
                 </div>
             </BrowserRouter>
         );
