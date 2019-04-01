@@ -11,20 +11,20 @@ function WhichDoctor(props){
         <div>
             <FormControl margin="10" fullWidth>
                     <TextField
-                        id="FacilityID"
+                        id="DoctorID"
                         select
-                        label="Please Choose A Facility"
-                        name="FacilityID"
+                        label="Please Choose A Doctor"
+                        name="DoctorID"
                         variant="standard"
                         onChange={props.handleChange}
                         value={props.val.DoctorID}   
                         required                   
                     >
-                        {props.val.Doctors.map(option => (
-                            <MenuItem key={option.FacilityID} value={option.FacilityID}>
-                                {option.FacilityName}
-                            </MenuItem>
-                        ))}
+                    {props.val.Doctors.map(option => (
+                        <MenuItem key={option.EmployeeID} value={option.EmployeeID}>
+                            Dr. {option.FirstName}
+                        </MenuItem>
+                    ))}
                     </TextField>
                 </FormControl>
         </div>
