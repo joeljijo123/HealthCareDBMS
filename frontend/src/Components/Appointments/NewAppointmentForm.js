@@ -1,4 +1,3 @@
-import { Paper, TextField, ListItem, MenuItem, Typography } from "@material-ui/core";
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -92,10 +91,10 @@ class NewAppointmentForm extends React.Component{
         this.setState({step: this.state.step-1})
     };
     render(){
-        const {classes}=this.props;
+        // const {classes}=this.props;
         return(
             <div>
-                <Button variant="filled" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     Add New Appointment
                 </Button>
                 <Dialog marginTop='5%' open={this.state.openForm} onClose={this.handleClose}>
@@ -107,7 +106,7 @@ class NewAppointmentForm extends React.Component{
                         {this.getStepInfo(this.state.step)}
                     </DialogContent>
                     <DialogActions>
-                        {this.state.step != 0 ? (
+                        {this.state.step !== 0 ? (
                             <Button onClick={this.handleBackStep} color="primary">
                                 Back
                             </Button>

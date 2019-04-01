@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RegistrationForm from '../Components/Registration/RegistrationForm';
 import LoginImage from '../Components/Home/BackgroundPicture.jpg';
 

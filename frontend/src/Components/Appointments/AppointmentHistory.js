@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import NewAppointmentForm from './NewAppointmentForm';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -78,26 +72,25 @@ class AppointmentHistory extends React.Component{
                 <NewAppointmentForm/>
                 <div className={classes.root}>
                     {this.state.Appointments.map(option => (
-                        <FormControl fullWidth>
-                            <ExpansionPanel square expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography className={classes.heading}>Patient: {option.Patient}</Typography>
-                                    <Typography className={classes.heading}>Doctor: {option.Doctor}</Typography>
-                                    <Typography className={classes.heading}>Facility: {option.FacilityName}</Typography>
-                                    <Typography className={classes.heading}>Date: {option.AppointmentDate.substr(0,10)}</Typography>
-                                    <Typography className={classes.heading}>Time: {option.AppointmentTime}</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Typography className={classes.secondaryHeading}>
-                                        Reason: {option.Reason}
+                            <FormControl key={option.idAppointment} fullWidth>
+                                <ExpansionPanel square expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
+                                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                        <Typography className={classes.heading}>Patient: {option.Patient}</Typography>
+                                        <Typography className={classes.heading}>Doctor: Dr. {option.Doctor}</Typography>
+                                        <Typography className={classes.heading}>Facility: {option.FacilityName}</Typography>
+                                        <Typography className={classes.heading}>Date: {option.AppointmentDate.substr(0,10)}</Typography>
+                                        <Typography className={classes.heading}>Time: {option.AppointmentTime}</Typography>
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
                                         <Typography className={classes.secondaryHeading}>
-                                        AppointmentID: {option.AppointmentID}
+                                            Reason: {option.Reason} <br/>
+                                            AppointmentID: {option.idAppointment}
+                                            
                                         </Typography>
-                                    </Typography>
-                                    
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        </FormControl>
+                                        
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
+                            </FormControl>
                             
                     ))}
                     

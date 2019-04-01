@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
 import AppointmentHistory from '../Components/Appointments/AppointmentHistory'
 
@@ -14,13 +13,13 @@ class Appointments extends Component {
 
   FirstName(){
     if(window.localStorage.userType===2){
-      fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.userID}`)
+      fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
       .then(result => result.json())
       .then(res => {this.setState(  { firstName: res.data[0].FirstName  } )})
       .catch(err => console.log(err))
     }
     else{
-      fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.userID}`)
+      fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.LoginTableID}`)
       .then(result => result.json())
       .then(res => {this.setState(  { firstName: res.data[0].FirstName  } )})
       .catch(err => console.log(err))
@@ -32,7 +31,7 @@ class Appointments extends Component {
   render() {
     return (
       <div>
-        <NavigationBar title={'Welcome, '+this.FirstName()}/>
+        <NavigationBar title={'Welcome, '+this.FirstName()} Tab={0}/>
         <AppointmentHistory val={this.state}/>
       </div>
         

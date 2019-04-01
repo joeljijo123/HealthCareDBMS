@@ -1,20 +1,8 @@
-import { Paper, TextField, ListItem, MenuItem, Typography, Grid } from "@material-ui/core";
+import {  TextField, MenuItem, Typography, Grid, Input, InputLabel } from "@material-ui/core";
 import React from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import {Input, InputLabel, Button} from '@material-ui/core';  
+import FormControl from '@material-ui/core/FormControl';  
 import MaskedInput from 'react-text-mask';
 import PropTypes from 'prop-types'; 
-
-const Sexes = [
-    {
-        gender: 'Male',
-        genderId: 1
-    },
-    {
-        gender:'Female',
-        genderId:2
-    }
-];
 
 
 function TextMaskCustom(props) {

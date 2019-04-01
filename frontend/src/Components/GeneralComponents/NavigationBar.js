@@ -4,8 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Tab, Tabs, CssBaseline } from '@material-ui/core';
 
 const styles = {
@@ -33,6 +31,7 @@ const styles = {
       loggedIn: null,
       userid: null,
       userType: null,
+      currentTab: this.props.Tab,
     };
 
     logInSet(storageLoggedIn) {
@@ -63,7 +62,6 @@ const styles = {
     render() {
       const { classes, title } = this.props;
       const { loggedIn } = this.state;
-
       return (
         <div className={classes.root}>
           <AppBar className={classes.bar} position="static">
@@ -76,7 +74,7 @@ const styles = {
                     </Typography>
                     <CssBaseline/>
                   </Toolbar>
-                  <Tabs textColor="primary" value={1}>
+                  <Tabs textColor="primary" value={this.state.currentTab}>
                       <Tab label="Appointments" onClick={this.AppointmentPageRedirect}></Tab>
                       <Tab label="My Profile" onClick={this.ProfilePageRedirect}></Tab>
                       {window.localStorage.userType !== "2" ? (

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-import './Home.css';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
 
 class Scheduling extends Component {
   render() { 
     return (
-      <div className='Home-image'>
-        <NavigationBar title={"The Scheduling Page"}/>
+      <div>
+        <NavigationBar title={"The Scheduling Page"} Tab={2}/>
         <h1>Do Scheduling Stuff Here, This page is only seen by Employeess</h1>
       </div>
     );

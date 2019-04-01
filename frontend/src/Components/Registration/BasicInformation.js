@@ -1,9 +1,8 @@
-import { Paper, TextField, ListItem, MenuItem, Typography } from "@material-ui/core";
+import { TextField,  MenuItem, Typography } from "@material-ui/core";
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
-import {Input, InputLabel, Button} from '@material-ui/core';  
-import MaskedInput from 'react-text-mask';
-import PropTypes from 'prop-types'; 
+import {Input, InputLabel} from '@material-ui/core';  
+
 
 function validateUsername(){
     return true;

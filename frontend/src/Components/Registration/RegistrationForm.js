@@ -1,11 +1,11 @@
-import { Paper, TextField, ListItem, MenuItem, Typography } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import HomeLogo  from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
-import {Input, InputLabel, Button} from '@material-ui/core';    
+import {Button} from '@material-ui/core';    
 import BasicInformation from '../Registration/BasicInformation';
 import BasicInformationPtTwo from '../Registration/BasicInformationPtTwo';
 
@@ -91,8 +91,8 @@ class RegistrationForm extends React.Component{
                 this.state.AddressCity === "" ||
                 this.state.AddressState === "" ||
                 this.state.AddressZip === "" ||
-                this.state.DateOfBirth != 10 ||
-                this.state.SSN.length != 11 ||
+                this.state.DateOfBirth !== 10 ||
+                this.state.SSN.length !== 11 ||
                 this.state.registrationStep === 0
     }
     componentDidMount(){

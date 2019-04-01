@@ -5,8 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import {Input, InputLabel, Button} from '@material-ui/core';
-import {Link} from 'react-router-dom';
-import Route from 'react-router-dom/Route'
 
 const styles = theme =>({
   root: {
@@ -58,51 +56,49 @@ class HomeLoginBox extends React.Component{
             if(res.data.length === 1){
                 console.log("")
                 if(res.data[0].Password === this.state.password){
-                    window.localStorage.setItem("loggedIn", true);
-                    window.localStorage.setItem("userID", res.data[0].LoginTableID);
+                    window.localStorage.setItem("loggedIn", 'true');
+                    window.localStorage.setItem("LoginTableID", res.data[0].LoginTableID);
                     this.setUserType();
                     window.location.replace('/Appointments');
                 }
                 else{
-                    window.localStorage.setItem("loggedIn", false);
+                    window.localStorage.setItem("loggedIn", 'false');
                 }
             }
             else{
-                window.localStorage.setItem("loggedIn", false);
+                window.localStorage.setItem("loggedIn", 'false');
             }
         })
         .catch(err => console.log(err))
 
     }
     setUserType(){
-        fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.userID}`)
+        fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.LoginTableID}`)
         .then(result => result.json())
         .then(res => {
             if(res.data.length === 1){
-                window.localStorage.setItem("userType", res.data[0].RoleID);                
+                window.localStorage.setItem("userType", res.data[0].RoleID); 
+                window.localStorage.setItem("userID", res.data[0].EmployeeID);                
             }
-            // else{
-            //     fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.userID}`)
-            //     .then(result => result.json())
-            //     .then(res => {
-            //         if(res.data.length === 1){
-            //             window.localStorage.setItem("userType", 2);                
-            //         }
-            //     })
-            //     .catch(err => console.log(err))
-            // }
+            else{
+                fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
+                .then(result => result.json())
+                .then(res => {
+                    if(res.data.length === 1){
+                        window.localStorage.setItem("userType", res.data[0].RoleID); 
+                        window.localStorage.setItem("userID", res.data[0].PatientID);                 
+                    }
+                })
+                .catch(err => console.log(err))
+            }
         })
         .catch(err => console.log(err))
-    }
-    invalidTextNeeded(){
-        console.log(window.localStorage.loggedIn === "false")
-        return window.localStorage.loggedIn === "false";
-
     }
     componentDidMount() {
         window.localStorage.setItem("loggedIn", null);
         window.localStorage.setItem("userID", null);
         window.localStorage.setItem("userType", null);
+        window.localStorage.setItem("LoginTableID", null);
     }
   render(){
     const {classes}=this.props;
@@ -111,7 +107,7 @@ class HomeLoginBox extends React.Component{
         <Typography component="h1" variant="h4">
             Log In
         </Typography>
-        <form className={classes.form} error>
+        <form className={classes.form}>
             <FormControl margin="normal" fullWidth required>
                 <InputLabel htmlFor="Username">Username</InputLabel>
                 <Input name="Username" autoFocus value={this.state.Username} onChange={this.handleChange}></Input>
