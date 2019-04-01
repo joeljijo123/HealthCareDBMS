@@ -61,6 +61,7 @@ class NewAppointmentForm extends React.Component{
             case 0:
                 return <WhichFacility val={this.state} handleChange={this.handleChange}/>
             case 1:
+                this.uploadDoctors();
                 return <WhichDoctor val={this.state} handleChange={this.handleChange}/>
             case 2:
                 return <CompleteNewAppointment  val={this.state} handleChange={this.handleChange}/>
@@ -72,6 +73,12 @@ class NewAppointmentForm extends React.Component{
         fetch(`http://157.230.214.92:4000/Facilities`)
         .then(result => result.json())
         .then(Response => this.setState({ Facilities:Response.data }))
+        .catch(err => console.log(err))
+    };
+    uploadDoctors=()=> {
+        fetch(`http://157.230.214.92:4000/Doctors/${this.state.FacilityID}`)
+        .then(result => result.json())
+        .then(Response => this.setState({ Doctors:Response.data }))
         .catch(err => console.log(err))
     };
     handleNextStep= () =>{
