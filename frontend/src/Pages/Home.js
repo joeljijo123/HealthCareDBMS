@@ -12,7 +12,7 @@ class Home extends Component {
         <HomeLoginBox/>
       </div>
     );
-  }
+  } 
 }
 
 export default Home;

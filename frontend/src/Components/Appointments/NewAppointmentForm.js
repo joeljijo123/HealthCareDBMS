@@ -28,12 +28,13 @@ class NewAppointmentForm extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            openForm: false,
-            step: 0,
+            openForm: true,
+            step: 2,
             FacilityID: null,
             DoctorID: null,
             Facilities: [],
             Doctors: [],
+            AppointmentDate: null
         };
     }
 
@@ -49,6 +50,22 @@ class NewAppointmentForm extends React.Component{
         this.setState({ openForm: false });
     };
 
+    AppointmentDateChange = (e) =>{
+        let ApptDate = new Date(e);
+        ApptDate = ApptDate.getFullYear() + '-' + (this.fixMonth(ApptDate)) + '-' + ApptDate.getDate();
+        this.setState({AppointmentDate:ApptDate});
+        console.log(this.state.AppointmentDate)
+    }
+
+    fixMonth=(date)=>{
+        if(date.getMonth() +1<10){
+            return "0" +(date.getMonth() +1);
+        }
+        else{
+            return date.getMonth()+1;
+        }
+    }
+
     handleChange = e =>{
         this.setState({
             [e.target.name] : e.target.value
@@ -63,7 +80,7 @@ class NewAppointmentForm extends React.Component{
                 this.uploadDoctors();
                 return <WhichDoctor val={this.state} handleChange={this.handleChange}/>
             case 2:
-                return <CompleteNewAppointment  val={this.state} handleChange={this.handleChange}/>
+                return <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
             default:
                 return "Cannot Find Appointment Step"
         }
@@ -113,7 +130,7 @@ class NewAppointmentForm extends React.Component{
                         ):(
                             <div/>
                         )}
-                        <Button disabled onClick={this.handleNextStep} color="primary">
+                        <Button onClick={this.handleNextStep} color="primary">
                             Next
                         </Button>
                         {this.state.step === 2 ? (
