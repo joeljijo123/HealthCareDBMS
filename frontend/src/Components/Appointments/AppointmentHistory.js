@@ -44,7 +44,23 @@ class AppointmentHistory extends React.Component{
             Appointments: [],
         };
     }
-
+    grabAppointments=()=>{
+        //backend call to grab the appointments for the user
+        fetch(`http://157.230.214.92:4000/Appointments`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                UserType: window.localStorage.userType,
+                UserID: window.localStorage.userID,
+            })
+        })
+        .then(result => result.json())
+        .then(Response => this.setState({ Appointments:Response.data }))
+        .catch(err => console.log(err));
+        
+    }
     handleChange = panel => (event, expanded) => {
         this.setState({
             expanded: expanded ? panel : false,
@@ -57,19 +73,21 @@ class AppointmentHistory extends React.Component{
             <div>
                 <NewAppointmentForm/>
                 <div className={classes.root}>
+                    {this.state.Appointments.map(option => (
+                        <ExpansionPanel expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classes.heading}>{option.idAppointment}</Typography>
+                                <Typography className={classes.secondaryHeading}>{option.AppointmentDate}</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Typography>
+                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
+                                maximus est, id dignissim quam.
+                                </Typography>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                    ))}
                     
-                    <ExpansionPanel expanded={expanded === 'panel1'}  onChange={this.handleChange('panel1')}>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>General settings</Typography>
-                            <Typography className={classes.secondaryHeading}>I am an expansion panel</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <Typography>
-                            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                            maximus est, id dignissim quam.
-                            </Typography>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
                     
                 </div>
             </div>

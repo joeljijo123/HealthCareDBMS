@@ -76,8 +76,8 @@ const styles = {
                     </Typography>
                     <CssBaseline/>
                   </Toolbar>
-                  <Tabs textColor="primary">
-                      <Tab label="Appointments" onClick={this.AppointmentPageRedirect} hidden></Tab>
+                  <Tabs textColor="primary" value={1}>
+                      <Tab label="Appointments" onClick={this.AppointmentPageRedirect}></Tab>
                       <Tab label="My Profile" onClick={this.ProfilePageRedirect}></Tab>
                       {window.localStorage.userType !== "2" ? (
                         <Tab label="My Schedule" onClick={this.SchedulePageRedirect}></Tab>

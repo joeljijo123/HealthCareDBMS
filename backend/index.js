@@ -147,8 +147,26 @@ app.get('/sexes', (req,res) => {
             })
         }
     });
- 
  });
+ app.post('/Appointments', (req,res) => {
+    const { UserType, UserID}  =   req.body;
+    console.log(req.body);
+    connection.query(`CALL AppointmentHistory(
+        '${UserType}', 
+        '${UserID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data: results
+            })
+        }
+    }); 
+ });
+ 
+app.l
  app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
