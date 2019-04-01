@@ -16,7 +16,8 @@ const styles = theme =>({
         display: "flex",
         flexDirection: 'column',
         backgroundColor: "#a09d9d",
-        padding: theme.spacing.unit*3
+        padding: theme.spacing.unit*3,
+        margin:"auto"
   
     },
     heading: {
@@ -69,8 +70,8 @@ class AppointmentHistory extends React.Component{
         const { expanded } = this.state;
         return(
             <div>
-                <NewAppointmentForm/>
                 <div className={classes.root}>
+                    <NewAppointmentForm/>
                     {this.state.Appointments.map(option => (
                             <FormControl key={option.idAppointment} fullWidth>
                                 <ExpansionPanel square expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>

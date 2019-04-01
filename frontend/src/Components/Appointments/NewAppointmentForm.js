@@ -113,7 +113,7 @@ class NewAppointmentForm extends React.Component{
                         ):(
                             <div/>
                         )}
-                        <Button onClick={this.handleNextStep} color="primary">
+                        <Button disabled onClick={this.handleNextStep} color="primary">
                             Next
                         </Button>
                         {this.state.step === 2 ? (
