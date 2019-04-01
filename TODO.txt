@@ -6,9 +6,10 @@ Password: Password
 Complete By Friday April 5th
     Joel
         ->Appointment Page
+            -AppointmentHistory
+                *Show History Depening on User //completed
+                *For Doctors, link the Patient ID to the Patiend Medical History and General Information Pages
             -Adding Appointment
-                *Select Facility
-                *Select Doctor
                 *Select Day
                 *Select Time
         ->Registration Page //completed and connected to backend
