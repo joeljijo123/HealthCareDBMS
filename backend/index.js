@@ -178,7 +178,7 @@ app.get('/sexes', (req,res) => {
         else{
             console.log(results);
             return res.json({
-                data: results
+                data: results[0]
             })
         }
     }); 
