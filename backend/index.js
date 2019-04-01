@@ -123,8 +123,21 @@ app.get('/sexes', (req,res) => {
  
  });
  app.get('/Facilities', (req,res) => {
-    const LoginID = req.params.LoginTableID;
     connection.query(`SELECT * FROM Clinic_Main.MedicalOffice`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
+ app.get('/Doctors:FacilityID', (req,res) => {
+    const FacilityID = req.params.FacilityID;
+    connection.query(`CALL RetrieveDoctorsWorkingAtFacility(${FacilityID})`,(err, results) => {
         if(err) {
             return res.send(err)
         }

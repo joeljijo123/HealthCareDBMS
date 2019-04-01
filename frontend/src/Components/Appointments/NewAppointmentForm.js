@@ -59,11 +59,11 @@ class NewAppointmentForm extends React.Component{
     getStepInfo(step){
         switch(step){
             case 0:
-                return <WhichFacility props={this.props} handleChange={this.handleChange}/>
+                return <WhichFacility val={this.state} handleChange={this.handleChange}/>
             case 1:
-                return <WhichDoctor props={this.props} handleChange={this.handleChange}/>
+                return <WhichDoctor val={this.state} handleChange={this.handleChange}/>
             case 2:
-                return <CompleteNewAppointment  props={this.props} handleChange={this.handleChange}/>
+                return <CompleteNewAppointment  val={this.state} handleChange={this.handleChange}/>
             default:
                 return "Cannot Find Appointment Step"
         }
