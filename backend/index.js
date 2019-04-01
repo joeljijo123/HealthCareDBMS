@@ -148,6 +148,23 @@ app.get('/sexes', (req,res) => {
         }
     });
  });
+ app.get('/Appointments/:UserID/:UserType', (req,res) => {
+    const {UserID,UserType} = req.params;
+    connection.query(`CALL AppointmentHistory(
+        '${UserType}', 
+        '${UserID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            console.log("results");
+            return res.json({
+                data: results
+            })
+        }
+    }); 
+ });
  app.post('/Appointments', (req,res) => {
     const { UserType, UserID}  =   req.body;
     console.log(req.body);
