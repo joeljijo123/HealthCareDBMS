@@ -135,7 +135,7 @@ app.get('/sexes', (req,res) => {
     });
  
  });
- app.get('/Doctors:FacilityID', (req,res) => {
+ app.get('/Doctors/:FacilityID', (req,res) => {
     const FacilityID = req.params.FacilityID;
     connection.query(`CALL RetrieveDoctorsWorkingAtFacility(${FacilityID})`,(err, results) => {
         if(err) {
