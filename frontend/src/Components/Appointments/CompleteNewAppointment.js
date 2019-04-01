@@ -21,7 +21,7 @@ const styles = theme => ({
 
   const TealTheme = createMuiTheme({
     palette: {
-      primary: {main: teal[600]},
+      primary: {main: '#a09d9d'},
     },
     overrides: {
         MuiPickersToolbar: {
@@ -59,9 +59,10 @@ function CompleteNewAppointment(props){
                         <DatePicker
                             minDate={new Date()}
                             label="Desired Delivery"
-                            value={this.state.DeliveryDate}
-                            onChange={this.dateChanged}
+                            value={props.val.AppointmentDate}
+                            onChange={e=> props.AppointmentDateChange(e)}
                         />
+
                     </MuiPickersUtilsProvider>
                 </MuiThemeProvider>
             </FormControl>

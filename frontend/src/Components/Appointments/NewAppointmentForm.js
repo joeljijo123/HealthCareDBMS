@@ -29,7 +29,7 @@ class NewAppointmentForm extends React.Component{
         super(props)
         this.state = {
             openForm: true,
-            step: 2,
+            step: 0,
             FacilityID: null,
             DoctorID: null,
             Facilities: [],
@@ -54,11 +54,10 @@ class NewAppointmentForm extends React.Component{
         let ApptDate = new Date(e);
         ApptDate = ApptDate.getFullYear() + '-' + (this.fixMonth(ApptDate)) + '-' + ApptDate.getDate();
         this.setState({AppointmentDate:ApptDate});
-        console.log(this.state.AppointmentDate)
     }
 
     fixMonth=(date)=>{
-        if(date.getMonth() +1<10){
+        if(date.getMonth() + 1 < 10){
             return "0" +(date.getMonth() +1);
         }
         else{
@@ -78,7 +77,7 @@ class NewAppointmentForm extends React.Component{
                 return <WhichFacility val={this.state} handleChange={this.handleChange}/>
             case 1:
                 this.uploadDoctors();
-                return <WhichDoctor val={this.state} handleChange={this.handleChange}/>
+                return <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
             case 2:
                 return <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
             default:
@@ -99,6 +98,7 @@ class NewAppointmentForm extends React.Component{
     };
     handleNextStep= () =>{
         this.setState({step: this.state.step+1})
+        console.log(this.state.AppointmentDate)
     };
     handleSubmit= () =>{
         window.location.replace('/Appointments');
