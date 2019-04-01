@@ -74,6 +74,7 @@ function BasicInformation(props){
                         name="Email" 
                         label="Email" 
                         variant="standard"
+                        type="email"
                         onChange={props.handleChange}
                         value={props.val.Email}
                         required

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import NewAppointmentForm from './NewAppointmentForm';
+import { Typography } from '@material-ui/core';
 
 const styles = theme =>({
     root: {
@@ -15,20 +17,20 @@ const styles = theme =>({
       padding: theme.spacing.unit*3
   
     },
-  });
+});
 
-  
-class AppointmentHistory extends Component {
-    render() { 
-        const {classes}=this.props;
-        return (
-        <div >
-            <Paper className={classes.root}>
-                <h1>This is the Appointment History Page</h1>
-            </Paper>
+function NewAppointment(){
+   
+};
+
+function AppointmentHistory(props){
+    
+    return(
+        <div>
+              <h1>AppointmentHistory Page</h1>
+              <NewAppointmentForm newAppointmentVals={props}/>
         </div>
-        );
-    }
+    );
 }
 
 AppointmentHistory.propTypes = {

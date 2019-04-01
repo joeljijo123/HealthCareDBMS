@@ -105,7 +105,6 @@ class RegistrationForm extends React.Component{
         this.setState({
             [e.target.name] : e.target.value
         })
-        console.log(this.state.CellNumber)
     }
     registerUser=()=>{
         //backend call to add the user to the backend
