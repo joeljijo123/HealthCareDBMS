@@ -85,7 +85,7 @@ class HomeLoginBox extends React.Component{
                 .then(result => result.json())
                 .then(res => {
                     if(res.data.length === 1){
-                        window.localStorage.setItem("userType", res.data[0].RoleID); 
+                        window.localStorage.setItem("userType", 2); 
                         window.localStorage.setItem("userID", res.data[0].PatientID);                 
                     }
                 })

@@ -28,14 +28,14 @@ class NewAppointmentForm extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            openForm: true,
+            openForm: false,
             step: 0,
             FacilityID: null,
             DoctorID: "",
             AppointmentTimeID:"",
             Facilities: [],
             Doctors: [],
-            AppointmentTimes: [],
+            AppointmentTimes: [1,2,3],
             AppointmentDate: null
         };
     }
@@ -81,7 +81,7 @@ class NewAppointmentForm extends React.Component{
                 this.uploadDoctors();
                 return <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
             case 2:
-                this.uploadTimes();
+                //this.uploadTimes();
                 return <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
             default:
                 return "Cannot Find Appointment Step"
@@ -100,7 +100,7 @@ class NewAppointmentForm extends React.Component{
         .catch(err => console.log(err))
     };
     uploadTimes=()=> {
-        fetch(`http://157.230.214.92:4000/Appointments/`, {
+        fetch(`http://157.230.214.92:4000/AppointmentTimes/`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

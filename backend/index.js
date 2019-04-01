@@ -149,10 +149,10 @@ app.get('/sexes', (req,res) => {
     });
  });
  app.post('/AppointmentTimes', (req,res) => {
-    const { DoctorID, FaciltiyID, AppDate}  =   req.body;
+    const { DoctorID, FacilityID, AppDate}  =   req.body;
     connection.query(`CALL FindAvailableAppointmentTimes(
         '${DoctorID}', 
-        '${FaciltiyID}',
+        '${FacilityID}',
         '${AppDate}');`,(err, results) => {
         if(err) {
             console.log(err)
