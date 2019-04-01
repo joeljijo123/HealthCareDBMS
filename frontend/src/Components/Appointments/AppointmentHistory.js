@@ -44,7 +44,27 @@ class AppointmentHistory extends React.Component{
             Appointments: [],
         };
     }
+    componentDidMount(){
+        this.grabAppointments();
+    }
     grabAppointments=()=>{
+        //backend call to grab the appointments for the user
+        fetch(`http://157.230.214.92:4000/Appointments/`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                UserType: window.localStorage.userType,
+                UserID: window.localStorage.userID,
+            })
+        })
+        .then(result => result.json())
+        .then(Response => this.setState({ Appointments:Response.data}))
+        .catch(err => console.log(err));
+        
+    }
+    grabAppointmentsParams=()=>{
         //backend call to grab the appointments for the user
         fetch(`http://157.230.214.92:4000/Appointments/${window.localStorage.userID}/${window.localStorage.userType}`)
         .then(result => result.json())
