@@ -148,6 +148,23 @@ app.get('/sexes', (req,res) => {
         }
     });
  });
+ app.post('/AppointmentTimes', (req,res) => {
+    const { DoctorID, FaciltiyID, AppDate}  =   req.body;
+    connection.query(`CALL FindAvailableAppointmentTimes(
+        '${DoctorID}', 
+        '${FaciltiyID}',
+        '${AppDate}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data: results[0]
+            })
+        }
+    }); 
+ });
  app.post('/Appointments', (req,res) => {
     const { UserType, UserID}  =   req.body;
     connection.query(`CALL AppointmentHistory(

@@ -1,4 +1,5 @@
 import React from 'react';
+import { TextField, MenuItem } from "@material-ui/core";
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
@@ -25,24 +26,30 @@ const styles = theme => ({
     },
   })
 
+
+  //This function should allow the user to select a time for the appointment 
 function CompleteNewAppointment(props){
     const { classes } = props;
     return(
         <div>
-            <FormControl className={classes.PriceMargin}>
-                <MuiThemeProvider theme={TealTheme}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils} theme={TealTheme}>
-                    
-                        <DatePicker
-                            minDate={new Date()}
-                            label="Desired Delivery"
-                            value={props.val.AppointmentDate}
-                            onChange={e=> props.AppointmentDateChange(e)}
-                        />
-
-                    </MuiPickersUtilsProvider>
-                </MuiThemeProvider>
-            </FormControl>
+            <FormControl margin="10" fullWidth>
+                    <TextField
+                        id="AppointmentTimeID"
+                        select
+                        label="Please Choose A Time"
+                        name="AppointmentTimeID"
+                        variant="standard"
+                        onChange={e=>props.handleChange(e)}
+                        value={props.val.AppointmentTimeID}   
+                        required                   
+                    >
+                    {props.val.AppointmentTimes.map(option => (
+                        <MenuItem key={option.TimeSlotID} value={option.TimeSlotID}>
+                            {option.AppointmentTime}
+                        </MenuItem>
+                    ))}
+                    </TextField>
+                </FormControl>
         </div>
     );
 }

@@ -32,8 +32,10 @@ class NewAppointmentForm extends React.Component{
             step: 0,
             FacilityID: null,
             DoctorID: "",
+            AppointmentTimeID:"",
             Facilities: [],
             Doctors: [],
+            AppointmentTimes: [],
             AppointmentDate: null
         };
     }
@@ -79,6 +81,7 @@ class NewAppointmentForm extends React.Component{
                 this.uploadDoctors();
                 return <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
             case 2:
+                this.uploadTimes();
                 return <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
             default:
                 return "Cannot Find Appointment Step"
@@ -95,6 +98,22 @@ class NewAppointmentForm extends React.Component{
         .then(result => result.json())
         .then(Response => this.setState({ Doctors:Response.data }))
         .catch(err => console.log(err))
+    };
+    uploadTimes=()=> {
+        fetch(`http://157.230.214.92:4000/Appointments/`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                DoctorID: this.state.DoctorID,
+                FacilityID: this.state.FacilityID,
+                AppDate: this.state.AppointmentDate,
+            })
+        })
+        .then(result => result.json())
+        .then(Response => this.setState({ AppointmentTimes:Response.data}))
+        .catch(err => console.log(err));
     };
     handleNextStep= () =>{
         this.setState({step: this.state.step+1})
