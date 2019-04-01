@@ -13,6 +13,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { FormControl } from '@material-ui/core';
 
 const styles = theme =>({
     root: {
@@ -26,7 +27,7 @@ const styles = theme =>({
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
+        flexBasis: '20%',
         flexShrink: 0,
       },
       secondaryHeading: {
@@ -64,15 +65,6 @@ class AppointmentHistory extends React.Component{
         .catch(err => console.log(err));
         
     }
-    grabAppointmentsParams=()=>{
-        //backend call to grab the appointments for the user
-        fetch(`http://157.230.214.92:4000/Appointments/${window.localStorage.userID}/${window.localStorage.userType}`)
-        .then(result => result.json())
-        .then(Response => this.setState({ Appointments:Response.data }))
-        .then(console.log(this.state.Appointments))
-        .catch(err => console.log(err));
-        
-    }
     handleChange = panel => (event, expanded) => {
         this.setState({
             expanded: expanded ? panel : false,
@@ -86,18 +78,27 @@ class AppointmentHistory extends React.Component{
                 <NewAppointmentForm/>
                 <div className={classes.root}>
                     {this.state.Appointments.map(option => (
-                        <ExpansionPanel expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classes.heading}>{option.idAppointment}</Typography>
-                                <Typography className={classes.secondaryHeading}>{option.AppointmentDate}</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Typography>
-                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                                maximus est, id dignissim quam.
-                                </Typography>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                        <FormControl fullWidth>
+                            <ExpansionPanel square expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography className={classes.heading}>Patient: {option.Patient}</Typography>
+                                    <Typography className={classes.heading}>Doctor: {option.Doctor}</Typography>
+                                    <Typography className={classes.heading}>Facility: {option.FacilityName}</Typography>
+                                    <Typography className={classes.heading}>Date: {option.AppointmentDate.substr(0,10)}</Typography>
+                                    <Typography className={classes.heading}>Time: {option.AppointmentTime}</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Typography className={classes.secondaryHeading}>
+                                        Reason: {option.Reason}
+                                        <Typography className={classes.secondaryHeading}>
+                                        AppointmentID: {option.AppointmentID}
+                                        </Typography>
+                                    </Typography>
+                                    
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </FormControl>
+                            
                     ))}
                     
                     

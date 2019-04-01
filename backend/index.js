@@ -148,26 +148,8 @@ app.get('/sexes', (req,res) => {
         }
     });
  });
- app.get('/Appointments/:UserID/:UserType', (req,res) => {
-    const {UserID,UserType} = req.params;
-    connection.query(`CALL AppointmentHistory(
-        '${UserType}', 
-        '${UserID}');`,(err, results) => {
-        if(err) {
-            console.log(err)
-            return res.send(err)
-        }
-        else{
-            console.log("results");
-            return res.json({
-                data: results
-            })
-        }
-    }); 
- });
  app.post('/Appointments', (req,res) => {
     const { UserType, UserID}  =   req.body;
-    console.log(req.body);
     connection.query(`CALL AppointmentHistory(
         '${UserType}', 
         '${UserID}');`,(err, results) => {
@@ -188,7 +170,6 @@ app.l
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
             SSN, userType, raceID}  =   req.body;
-    console.log(req.body);
     connection.query(`CALL RegisterANewUser(
         '${FirstName}', 
         '${LastName}',
@@ -210,7 +191,6 @@ app.l
             return res.send(err)
         }
         else{
-            console.log("here");
             return res.send('Added Employee')
         }
     }); 
