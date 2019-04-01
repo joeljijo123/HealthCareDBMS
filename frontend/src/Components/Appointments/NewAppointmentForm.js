@@ -31,7 +31,7 @@ class NewAppointmentForm extends React.Component{
             openForm: true,
             step: 0,
             FacilityID: null,
-            DoctorID: null,
+            DoctorID: "",
             Facilities: [],
             Doctors: [],
             AppointmentDate: null

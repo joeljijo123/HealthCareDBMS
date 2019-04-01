@@ -23,29 +23,6 @@ const styles = theme => ({
     palette: {
       primary: {main: '#a09d9d'},
     },
-    overrides: {
-        MuiPickersToolbar: {
-          toolbar: {
-            backgroundColor: teal[600],
-          },
-        },
-        MuiPickersDay: {
-          day: {
-            color: teal[600],
-          },
-          isSelected: {
-            backgroundColor: teal["600"],
-          },
-          current: {
-            color: teal["600"],
-          },
-        },
-        MuiPickersModal: {
-          dialogAction: {
-            color: teal["600"],
-          },
-        },
-      },
   })
 
 function CompleteNewAppointment(props){
