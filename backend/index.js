@@ -159,6 +159,7 @@ app.get('/sexes', (req,res) => {
             return res.send(err)
         }
         else{
+            console.log(results);
             return res.json({
                 data: results
             })
