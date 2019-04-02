@@ -36,7 +36,8 @@ class NewAppointmentForm extends React.Component{
             Facilities: [],
             Doctors: [],
             AppointmentTimes: [1,2,3],
-            AppointmentDate: null
+            AppointmentDate: null,
+            AppointmentDateDB: null,
         };
     }
 
@@ -52,10 +53,18 @@ class NewAppointmentForm extends React.Component{
         this.setState({ openForm: false });
     };
 
-    AppointmentDateChange = (e) =>{
-        let ApptDate = new Date(e);
-        ApptDate = ApptDate.getFullYear() + '-' + (this.fixMonth(ApptDate)) + '-' + ApptDate.getDate();
-        this.setState({AppointmentDate:ApptDate});
+    AppointmentDateChange = (d) =>{
+        let ApptDate=new Date(d)
+        ApptDate = this.FormatDate(ApptDate);
+        this.setState({AppointmentDateDB:ApptDate});
+        this.setState({
+            AppointmentDate: d
+        })
+    }
+
+    FormatDate=(date)=>{
+        date = date.getFullYear() + '-' + (this.fixMonth(date)) + '-' + date.getDate();
+        return date;
     }
 
     fixMonth=(date)=>{
@@ -81,7 +90,7 @@ class NewAppointmentForm extends React.Component{
                 this.uploadDoctors();
                 return <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
             case 2:
-                //this.uploadTimes();
+                this.uploadTimes();
                 return <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
             default:
                 return "Cannot Find Appointment Step"
@@ -108,7 +117,7 @@ class NewAppointmentForm extends React.Component{
             body: JSON.stringify({
                 DoctorID: this.state.DoctorID,
                 FacilityID: this.state.FacilityID,
-                AppDate: this.state.AppointmentDate,
+                AppDate: this.state.AppointmentDateDB,
             })
         })
         .then(result => result.json())
@@ -117,7 +126,6 @@ class NewAppointmentForm extends React.Component{
     };
     handleNextStep= () =>{
         this.setState({step: this.state.step+1})
-        console.log(this.state.AppointmentDate)
     };
     handleSubmit= () =>{
         window.location.replace('/Appointments');

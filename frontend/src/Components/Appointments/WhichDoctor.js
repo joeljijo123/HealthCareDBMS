@@ -1,5 +1,5 @@
 import { TextField, MenuItem } from "@material-ui/core";
-import React from 'react';
+import React, { useState } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -13,7 +13,7 @@ const TealTheme = createMuiTheme({
   })
 
 function WhichDoctor(props){
-    
+    const [selectedDate, handleDateChange] = useState(new Date());
     return(
         <div>
             <FormControl margin="10" fullWidth>
@@ -33,18 +33,15 @@ function WhichDoctor(props){
                         </MenuItem>
                     ))}
                     </TextField>
-                    <MuiThemeProvider theme={TealTheme}>
-                      <MuiPickersUtilsProvider utils={DateFnsUtils} theme={TealTheme}>
-                      
-                          <DatePicker
-                              minDate={new Date()}
-                              label="Desired Delivery"
-                              value={props.val.AppointmentDate}
-                              onChange={e=> props.AppointmentDateChange(e)}
-                          />
-
-                      </MuiPickersUtilsProvider>
-                    </MuiThemeProvider>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                            minDate={new Date()}
+                            label="Desired Delivery"
+                            name="AppointmentDate"
+                            value={props.val.AppointmentDate}
+                            onChange={props.AppointmentDateChange}
+                        />
+                    </MuiPickersUtilsProvider>
                 </FormControl>
         </div>
     );
