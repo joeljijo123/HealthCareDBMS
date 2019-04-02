@@ -7,7 +7,7 @@ function WhichFacility(props){
     
     return(
         <div>
-            <FormControl margin="10" fullWidth>
+            <FormControl margin="normal" fullWidth>
                     <TextField
                         id="FacilityID"
                         select

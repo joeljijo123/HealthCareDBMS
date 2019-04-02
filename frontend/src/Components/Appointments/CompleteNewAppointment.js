@@ -1,12 +1,8 @@
 import React from 'react';
 import { TextField, MenuItem } from "@material-ui/core";
-import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
 import FormControl from '@material-ui/core/FormControl';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 const styles = theme => ({
     container: {
@@ -20,19 +16,12 @@ const styles = theme => ({
     },
   });
 
-  const TealTheme = createMuiTheme({
-    palette: {
-      primary: {main: '#a09d9d'},
-    },
-  })
-
 
   //This function should allow the user to select a time for the appointment 
 function CompleteNewAppointment(props){
-    const { classes } = props;
     return(
         <div>
-            <FormControl margin="10" fullWidth>
+            <FormControl fullWidth>
                     <TextField
                         id="AppointmentTimeID"
                         select
@@ -46,6 +35,7 @@ function CompleteNewAppointment(props){
                     {props.val.AppointmentTimes.map(option => (
                         <MenuItem key={option.TimeSlotID} value={option.TimeSlotID}>
                             {option.AppointmentTime}
+                            {console.log(option.TimeSlotID)}
                         </MenuItem>
                     ))}
                     </TextField>

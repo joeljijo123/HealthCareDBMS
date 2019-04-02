@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -13,31 +11,20 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 
-const styles = theme => ({
-    paperForm: {
-        width: '25%',
-        marginLeft: '7%',
-        marginTop: '-15%',
-        padding: theme.spacing.unit*2,
-        flexDirection: 'column',
-        backgroundColor: "#e0e0e0",
-    },
-});
-
 class NewAppointmentForm extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             openForm: false,
             step: 0,
-            FacilityID: null,
+            FacilityID: "",
             DoctorID: "",
             AppointmentTimeID:"",
             Facilities: [],
             Doctors: [],
             AppointmentTimes: [1,2,3],
             AppointmentDate: null,
-            AppointmentDateDB: null,
+            DBFormattedDate: null,
         };
     }
 
@@ -56,7 +43,7 @@ class NewAppointmentForm extends React.Component{
     AppointmentDateChange = (d) =>{
         let ApptDate=new Date(d)
         ApptDate = this.FormatDate(ApptDate);
-        this.setState({AppointmentDateDB:ApptDate});
+        this.setState({DBFormattedDate:ApptDate});
         this.setState({
             AppointmentDate: d
         })
@@ -85,13 +72,35 @@ class NewAppointmentForm extends React.Component{
     getStepInfo(step){
         switch(step){
             case 0:
-                return <WhichFacility val={this.state} handleChange={this.handleChange}/>
+                return (<div>
+                            <WhichFacility val={this.state} handleChange={this.handleChange}/>
+                            <Button onClick={this.handleNextStep} disabled={this.state.FacilityID===""} color="primary">
+                                Next
+                            </Button>
+                        </div>)
             case 1:
                 this.uploadDoctors();
-                return <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
+                return (<div>
+                            <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
+                            <Button onClick={this.handleBackStep} color="primary">
+                                Back
+                            </Button>
+                            <Button onClick={this.handleNextStep} disabled={this.state.DoctorID==="" || this.state.AppointmentDate===""} color="primary">
+                                Next
+                            </Button>
+                        </div>)
             case 2:
                 this.uploadTimes();
-                return <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
+                return (<div>
+                            <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
+                            <Button onClick={this.handleBackStep} color="primary">
+                                Back
+                            </Button>
+                            <Button onClick={this.handleSubmit} color="primary">
+                                Submit
+                            </Button>
+
+                        </div>) 
             default:
                 return "Cannot Find Appointment Step"
         }
@@ -117,7 +126,7 @@ class NewAppointmentForm extends React.Component{
             body: JSON.stringify({
                 DoctorID: this.state.DoctorID,
                 FacilityID: this.state.FacilityID,
-                AppDate: this.state.AppointmentDateDB,
+                AppDate: this.state.DBFormattedDate,
             })
         })
         .then(result => result.json())
@@ -128,8 +137,8 @@ class NewAppointmentForm extends React.Component{
         this.setState({step: this.state.step+1})
     };
     handleSubmit= () =>{
-        window.location.replace('/Appointments');
-        
+        this.setState({openForm:false})
+        //window.location.replace('/Appointments')
     };
     handleBackStep= () =>{
         this.setState({step: this.state.step-1})
@@ -141,7 +150,7 @@ class NewAppointmentForm extends React.Component{
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     Add New Appointment
                 </Button>
-                <Dialog marginTop='5%' open={this.state.openForm} onClose={this.handleClose}>
+                <Dialog open={this.state.openForm} onClose={this.handleClose}>
                     <DialogTitle id="form-dialog-title">Book an Appointment</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -150,23 +159,6 @@ class NewAppointmentForm extends React.Component{
                         {this.getStepInfo(this.state.step)}
                     </DialogContent>
                     <DialogActions>
-                        {this.state.step !== 0 ? (
-                            <Button onClick={this.handleBackStep} color="primary">
-                                Back
-                            </Button>
-                        ):(
-                            <div/>
-                        )}
-                        <Button onClick={this.handleNextStep} color="primary">
-                            Next
-                        </Button>
-                        {this.state.step === 2 ? (
-                            <Button onClick={this.handleSubmit} color="primary">
-                                Submit
-                            </Button>
-                        ):(
-                            <div/>
-                        )}
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
@@ -178,8 +170,5 @@ class NewAppointmentForm extends React.Component{
     
 }
 
-NewAppointmentForm.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
   
-  export default withStyles(styles)(NewAppointmentForm);
+  export default (NewAppointmentForm);

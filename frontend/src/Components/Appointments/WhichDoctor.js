@@ -1,22 +1,14 @@
 import { TextField, MenuItem } from "@material-ui/core";
-import React, { useState } from 'react';
+import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-const TealTheme = createMuiTheme({
-    palette: {
-      primary: {main: '#a09d9d'},
-    },
-   
-  })
 
 function WhichDoctor(props){
-    const [selectedDate, handleDateChange] = useState(new Date());
     return(
         <div>
-            <FormControl margin="10" fullWidth>
+            <FormControl margin="normal" fullWidth>
                     <TextField
                         id="DoctorID"
                         select
