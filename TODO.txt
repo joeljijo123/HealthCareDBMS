@@ -36,3 +36,17 @@ Later stuff
     ->WorkSchedule
     ->Diagnosis
     ->Look Up Patients
+
+
+Friday
+    -Appointment Addition
+        Query only correct status Appointment
+        Specialist Reccomendation
+    -Appointment Cancellation
+        Cant Cancel Done Appointment
+    -Sheduling for Doctors
+    
+Future
+    -Administrator Functionalities 
+        Cancelling Appointment 
+    -
