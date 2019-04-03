@@ -12,11 +12,12 @@ class Appointments extends Component {
   }
 
   FirstName(){
-    if(window.localStorage.userType === 2){
+    if(window.localStorage.userType === "2"){
       fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
-      .then()
       .then(result => result.json())
-      .then(res => {this.setState(  { firstName: res.data[0].FirstName  } )})
+      .then(res => {
+          this.setState(  { firstName: res.data[0].FirstName  } )
+        })
       .catch(err => console.log(err))
     }
   

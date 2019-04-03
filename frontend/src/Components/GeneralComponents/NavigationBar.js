@@ -57,11 +57,9 @@ const styles = {
     componentDidMount() {
       if(localStorage.userID !== null){
         this.setState({loggedIn: true, userType: localStorage.userType});
-        console.log("here")
       }
       else{
         this.setState({loggedIn:false,userid:null,userType:null})
-        console.log("here2")
       }
       //HardCoding
       //Query to see if the user is an employee or a Patient then
@@ -73,7 +71,6 @@ const styles = {
         <div className={classes.root}>
           <AppBar className={classes.bar} position="static">
             <Toolbar>
-              {/* {console.log(loggedIn)} */}
               {window.localStorage.loggedIn === "true" ? (
                 <div>
                   <Toolbar >
