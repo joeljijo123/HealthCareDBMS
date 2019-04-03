@@ -182,8 +182,7 @@ app.get('/sexes', (req,res) => {
     }); 
  });
  
-app.l
- app.post('/RegisterUser', (req,res) => {
+app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
             SSN, userType, raceID}  =   req.body;
