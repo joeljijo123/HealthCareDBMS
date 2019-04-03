@@ -98,6 +98,7 @@ class HomeLoginBox extends React.Component{
         window.localStorage.setItem("userID", null);
         window.localStorage.setItem("userType", null);
         window.localStorage.setItem("LoginTableID", null);
+        window.localStorage.setItem("loggedIn", false);
     }
   render(){
     const {classes}=this.props;
