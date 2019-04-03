@@ -48,16 +48,22 @@ const styles = {
     }
     logout = () =>{
       this.setState({loggedIn:false,userid:null,userType:null})
-      localStorage.setItem("loggedIn", false);
       localStorage.setItem("userID", null);
       localStorage.setItem("userType", null);
+      localStorage.setItem("LoginTableID", null);
+      localStorage.setItem("loggedIn", false);
       window.location.replace('/')
     }
     componentDidMount() {
-      this.setState({loggedIn:this.logInSet("loggedIn")});
+      if(localStorage.userID !== null){
+        this.setState({loggedIn: true, userType: localStorage.userType});
+      }
+      else{
+        this.setState({loggedIn:false,userid:null,userType:null})
+      }
       //HardCoding
       //Query to see if the user is an employee or a Patient then
-      this.setState({userType: localStorage.userType});
+      
     }
     render() {
       const { classes, title } = this.props;
