@@ -49,4 +49,5 @@ Friday
 Future
     -Administrator Functionalities 
         Cancelling Appointment 
-    -
+
+ 
