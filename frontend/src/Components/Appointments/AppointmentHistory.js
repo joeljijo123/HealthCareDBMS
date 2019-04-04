@@ -85,8 +85,8 @@ class AppointmentHistory extends React.Component{
                                     <ExpansionPanelDetails>
                                         <Typography className={classes.secondaryHeading}>
                                             Reason: {option.Reason} <br/>
-                                            AppointmentID: {option.idAppointment}
-                                            
+                                            AppointmentID: {option.idAppointment} <br/>
+                                            Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}
                                         </Typography>
                                         
                                     </ExpansionPanelDetails>
