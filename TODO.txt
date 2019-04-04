@@ -14,6 +14,7 @@ Complete By Friday April 5th
                 *Select Time
         ->Registration Page //completed and connected to backend
         ->Comment on all code
+        ->Add the Rest of the races
 
     Tommy
         ->User Info for Doctor and Patient
