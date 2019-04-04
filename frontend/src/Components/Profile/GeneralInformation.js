@@ -39,6 +39,8 @@ class GeneralInformation extends React.Component {
 		};
 		this.handleChange=this.handleChange.bind(this);
 		this.editMode=this.editMode.bind(this);
+		this.saveChanges=this.saveChanges.bind(this);
+		this.revertChanges=this.revertChanges.bind(this);
 	}
 	retrieveUserInfo() {
 		if(window.localStorage.userType===2){
