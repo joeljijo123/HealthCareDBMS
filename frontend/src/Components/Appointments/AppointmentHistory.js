@@ -75,6 +75,20 @@ class AppointmentHistory extends React.Component{
             expanded: expanded ? panel : false,
         });
     };
+    handleAppointmentCancel = (AppID) => {
+        fetch(`http://157.230.214.92:4000/AppointmentCancel/`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                AppointmentID: AppID,
+                
+            })
+        })
+        .then(result => result.json())
+        .catch(err => console.log(err));
+    };
     render(){
         const{classes}=this.props;
         const { expanded } = this.state;
@@ -97,8 +111,8 @@ class AppointmentHistory extends React.Component{
                                             Reason: {option.Reason}<br/>
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
-                                            Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
-                                            <Button variant="raised" fullWidth  color="secondary" onClick={this.handleClickOpen}>
+                                            Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/><br/>
+                                            <Button variant="raised" fullWidth  color="secondary" onClick={this.handleAppointmentCancel(option.idAppointment)} marginTop="10%">
                                                 Cancel Appointment
                                             </Button>
                                         </Typography>

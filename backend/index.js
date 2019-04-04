@@ -183,6 +183,21 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
+
+ app.post('/AppointmentCancel', (req,res) => {
+    const { AppointmentID }  =   req.body;
+    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID = '2' WHERE (idAppointment = '${AppointmentID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data: results[0]
+            })
+        }
+    }); 
+ });
  
 app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
