@@ -32,6 +32,7 @@ class NewAppointmentForm extends React.Component{
             Facilities: [],
             Doctors: [],
             AppointmentTimes: [1,2,3],
+            Reason: null,
             AppointmentDate: null,
             DBFormattedDate: null,
         };
@@ -147,6 +148,7 @@ class NewAppointmentForm extends React.Component{
     };
     handleSubmit= () =>{
         this.setState({openForm:false})
+        this.addAppointment();
         //window.location.replace('/Appointments')
     };
     handleBackStep= () =>{

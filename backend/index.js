@@ -184,7 +184,7 @@ app.get('/sexes', (req,res) => {
     }); 
  });
 
- app.post('/AppointmentCancel', (req,res) => {
+ app.post('/CancelAppointment', (req,res) => {
     const { AppointmentID }  =   req.body;
     connection.query(`UPDATE Clinic_Main.Appointment SET StatusID = '2' WHERE (idAppointment = '${AppointmentID}');`,(err, results) => {
         if(err) {

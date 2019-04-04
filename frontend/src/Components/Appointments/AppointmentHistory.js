@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = theme =>({
     root: {
@@ -48,6 +49,7 @@ class AppointmentHistory extends React.Component{
         this.state = {
             expanded: null,
             Appointments: [],
+            cancelApptShow: false,
         };
     }
     componentDidMount(){
@@ -74,19 +76,20 @@ class AppointmentHistory extends React.Component{
         this.setState({
             expanded: expanded ? panel : false,
         });
-    };
+    }
+    
     handleAppointmentCancel = (AppID) => {
-        fetch(`http://157.230.214.92:4000/AppointmentCancel/`, {
+        fetch(`http://157.230.214.92:4000/CancelAppointment/`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
                 AppointmentID: AppID,
-                
             })
         })
-        .then(result => result.json())
+        .then(alert("Appointment has been Cancelled"))
+        .then(window.location.replace('/Appointments'))
         .catch(err => console.log(err));
     };
     render(){
@@ -112,7 +115,7 @@ class AppointmentHistory extends React.Component{
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/><br/>
-                                            <Button variant="raised" fullWidth  color="secondary" onClick={this.handleAppointmentCancel(option.idAppointment)} marginTop="10%">
+                                            <Button variant="raised" fullWidth  color="secondary"  onClick={() => { this.handleAppointmentCancel(option.idAppointment) }} marginTop="10%">
                                                 Cancel Appointment
                                             </Button>
                                         </Typography>
