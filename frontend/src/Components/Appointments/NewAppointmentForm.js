@@ -106,7 +106,7 @@ class NewAppointmentForm extends React.Component{
                             <Button onClick={this.handleBackStep} color="primary">
                                 Back
                             </Button>
-                            <Button onClick={this.handleSubmit} color="primary">
+                            <Button onClick={this.handleSubmit} disabled={this.state.AppointmentTimeID=== ""} color="primary">
                                 Submit
                             </Button>
 
@@ -148,8 +148,22 @@ class NewAppointmentForm extends React.Component{
     };
     handleSubmit= () =>{
         this.setState({openForm:false})
-        this.addAppointment();
-        //window.location.replace('/Appointments')
+        fetch(`http://157.230.214.92:4000/AddAppointment`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                FacilityID: this.state.FacilityID,
+                DoctorID:   this.state.DoctorID,
+                PatientID:  this.state.PatientID,
+                Reason:     this.state.Reason,
+                TimeID:     this.state.TimeID,
+                AppDate:    this.state.AppointmentDate
+            })
+        })
+        .catch(err => console.log(err))
+        .then(window.location.replace('/Appointments'));
     };
     handleBackStep= () =>{
         this.setState({step: this.state.step-1})

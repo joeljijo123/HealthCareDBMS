@@ -196,6 +196,25 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
+
+ app.post('/AddAppointment', (req,res) => {
+    const { FacilityID, DoctorID, PatientID, Reason, TimeID, AppDate  }  =   req.body;
+    connection.query(`call AddNewAppointment(
+        '${FacilityID}',
+        '${DoctorID}',
+        '${PatientID}',
+        '${Reason}',
+        '${TimeID}',
+        '${AppDate}', );`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Added Appointment")
+        }
+    }); 
+ });
  
 app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
