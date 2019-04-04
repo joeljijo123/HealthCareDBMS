@@ -148,6 +148,7 @@ class NewAppointmentForm extends React.Component{
     };
     handleSubmit= () =>{
         this.setState({openForm:false})
+        this.handleDateFormat()
         fetch(`http://157.230.214.92:4000/AddAppointment`, {
             method:"POST",
             headers: {

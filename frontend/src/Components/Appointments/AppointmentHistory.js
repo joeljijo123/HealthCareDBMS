@@ -88,8 +88,7 @@ class AppointmentHistory extends React.Component{
                 AppointmentID: AppID,
             })
         })
-        .then(alert("Appointment has been Cancelled"))
-        .then(window.location.replace('/Appointments'))
+        .then(this.grabAppointments)
         .catch(err => console.log(err));
     };
     render(){
@@ -115,7 +114,7 @@ class AppointmentHistory extends React.Component{
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/><br/>
-                                            <Button variant="raised" fullWidth  color="secondary"  onClick={() => { this.handleAppointmentCancel(option.idAppointment) }} marginTop="10%">
+                                            <Button variant="raised" fullWidth  color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                 Cancel Appointment
                                             </Button>
                                         </Typography>
