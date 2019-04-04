@@ -148,6 +148,8 @@ app.get('/sexes', (req,res) => {
         }
     });
  });
+
+
  app.post('/AppointmentTimes', (req,res) => {
     const { DoctorID, FacilityID, AppDate}  =   req.body;
     connection.query(`CALL FindAvailableAppointmentTimes(
