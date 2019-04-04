@@ -8,8 +8,17 @@ import CompleteNewAppointment from './CompleteNewAppointment';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AddIcon from '@material-ui/icons/ThreeSixty';
+import Icon from '@material-ui/core/Icon';
+import { withStyles } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-
+const styles = theme => ({
+    icon: {
+      margin: theme.spacing.unit,
+      fontSize: 32,
+    },
+});
 
 class NewAppointmentForm extends React.Component{
     constructor(props){
@@ -144,11 +153,11 @@ class NewAppointmentForm extends React.Component{
         this.setState({step: this.state.step-1})
     };
     render(){
-        // const {classes}=this.props;
+        const {classes}=this.props;
         return(
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Add New Appointment
+                <Button variant="Filled" color="primary" onClick={this.handleClickOpen}>
+                    New Appointment
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>
                     <DialogTitle id="form-dialog-title">Book an Appointment</DialogTitle>
@@ -170,5 +179,7 @@ class NewAppointmentForm extends React.Component{
     
 }
 
-  
-  export default (NewAppointmentForm);
+NewAppointmentForm.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+  export default withStyles(styles)(NewAppointmentForm);
