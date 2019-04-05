@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Diagnosis from './Diagnosis';
 
 const styles = theme =>({
     root: {
@@ -31,6 +32,9 @@ const styles = theme =>({
         padding: theme.spacing.unit*3,
   
     },
+    Button: {
+        marginTop: '.5%'
+    },
     heading: {
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '20%',
@@ -39,6 +43,8 @@ const styles = theme =>({
       secondaryHeading: {
         fontSize: theme.typography.pxToRem(15),
         color: theme.palette.text.secondary,
+        flexBasis: '100%',
+        margin: 'auto'
       },
 });
 
@@ -49,6 +55,7 @@ class AppointmentHistory extends React.Component{
         this.state = {
             expanded: null,
             Appointments: [],
+            Diagnosis: [],
             cancelApptShow: false,
         };
     }
@@ -77,7 +84,23 @@ class AppointmentHistory extends React.Component{
             expanded: expanded ? panel : false,
         });
     }
-    
+    grabDiagnoses=(AppID)=>{
+        fetch(`http://157.230.214.92:4000/PrescriptionAndDiagnosis/${AppID}`)
+        .then(result => result.json())
+        .then(Response => this.setState({ Diagnosis: Response.data }))
+        .then(this.placeDiagnosis)
+        .catch(err => console.log(err))
+    }
+    placeDiagnosis(){
+        {this.state.Diagnosis.map(option => (
+            <FormControl>
+                <Typography>Diagnosis: {option.Diagnosis}</Typography>
+                <Typography>Number of Refills:  {option.RefillLeft}</Typography>
+                <Typography>Due Date: {option.DueDate.substr(0,10)}</Typography>
+                <Typography>Medicine: {option.Medicine}</Typography>
+            </FormControl>
+        ))}
+    }
     handleAppointmentCancel = (AppID) => {
         fetch(`http://157.230.214.92:4000/CancelAppointment/`, {
             method:"POST",
@@ -113,10 +136,16 @@ class AppointmentHistory extends React.Component{
                                             Reason: {option.Reason}<br/>
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
-                                            Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/><br/>
-                                            <Button variant="raised" fullWidth  color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
-                                                Cancel Appointment
-                                            </Button>
+                                            Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
+                                            {/* /*{this.grabDiagnoses(option.idAppointment)} */}
+                                            {window.localStorage.userType !== "1" ? (
+                                                <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
+                                                    Cancel Appointment
+                                                </Button>
+                                            ):(
+                                                <Diagnosis/>
+                                            )}
+                                            
                                         </Typography>
                                         
                                     </ExpansionPanelDetails>
@@ -124,9 +153,14 @@ class AppointmentHistory extends React.Component{
                             </FormControl>
                             
                     ))}
-                    <div className={classes.AdditionButton}>
-                        <NewAppointmentForm/>
-                    </div>
+                    {window.localStorage.userType === "2" ? (
+                        <div className={classes.AdditionButton}>
+                            <NewAppointmentForm/>
+                        </div>
+                    ):(
+                        <div></div>
+                    )}
+                    
                     
                 </div>
             </div>
