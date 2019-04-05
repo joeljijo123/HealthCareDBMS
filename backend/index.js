@@ -263,7 +263,7 @@ app.get('/sexes', (req,res) => {
     const { AppointmentID, Diagnosis}  =   req.body;
     connection.query(`select Clinic_Main.AddDiagnosis(
         '${AppointmentID}', 
-        '${Diagnosis}');`,(err, results) => {
+        '${Diagnosis}') as ID;`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
