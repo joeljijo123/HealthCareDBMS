@@ -245,7 +245,7 @@ app.post('/RegisterUser', (req,res) => {
         }
     }); 
  });
- app.post('/UpdatingUser', (req,res) => {
+ app.post('/UpdateUser', (req,res) => {
     const { UserID, InsuranceID, FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip,
             userType, LoginTableID}  =   req.body;
