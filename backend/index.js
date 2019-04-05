@@ -27,6 +27,21 @@ app.get('/', (req,res) => {
     res.send('hello from the products server')
 });
 
+//LookUpTableReturns
+app.get('/AllPrescriptions/', (req,res) => {
+
+    connection.query(`SELECT * FROM Clinic_Main.Prescription_LookUp;`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
 app.get('/states', (req,res) => {
    connection.query('SELECT * FROM Clinic_Main.States_LookUp;',(err, results) => {
        if(err) {
@@ -79,6 +94,21 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+ app.get('/Facilities', (req,res) => {
+    connection.query(`SELECT * FROM Clinic_Main.MedicalOffice`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
+
+ //Parameter Based Queries
  app.get('/login/:username', (req,res) => {
     const username = req.params.username;
     connection.query(`SELECT * FROM Clinic_Main.LoginTable WHERE username='${username}'`,(err, results) => {
@@ -122,19 +152,7 @@ app.get('/sexes', (req,res) => {
     });
  
  });
- app.get('/Facilities', (req,res) => {
-    connection.query(`SELECT * FROM Clinic_Main.MedicalOffice`,(err, results) => {
-        if(err) {
-            return res.send(err)
-        }
-        else {
-            return res.json({
-                data: results
-            })
-        }
-    });
- 
- });
+
  app.get('/Doctors/:FacilityID', (req,res) => {
     const FacilityID = req.params.FacilityID;
     connection.query(`CALL RetrieveDoctorsWorkingAtFacility(${FacilityID})`,(err, results) => {
@@ -243,6 +261,7 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+
  app.post('/AddPrescriptions', (req,res) => {
     const { AppointmentID, PrescriptionID, DueDate, Refills}  =   req.body;
     connection.query(`CALL AddAPrescription(

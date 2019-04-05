@@ -53,7 +53,7 @@ class AddDiagnosis extends React.Component{
         DueDate = this.FormatDate(DueDate);
         this.setState({DBDueDate:DueDate});
         this.setState({
-            DueDate: d
+            DueDate: d,
         })
     }
 
@@ -91,6 +91,7 @@ class AddDiagnosis extends React.Component{
                         </DialogContentText>
                     </DialogContent>
                     {/* inputProps={{ maxLength: 100 }} -> Add this as a Props for TextField */}
+
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel

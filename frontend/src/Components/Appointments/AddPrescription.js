@@ -10,8 +10,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/ThreeSixty';
 import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core';
+import { withStyles, TextField, FormControl } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const styles = theme => ({
     icon: {
@@ -25,11 +27,9 @@ class AddPrescription extends React.Component{
         super(props)
         this.state = {
             AppointmentID: this.props.AppID,
-            Diagnosis: "",
             PrescriptionID: "",
-            DiagnosisID: "",
             Refills:"",
-            Prescriptions: [],
+            MedicineTypes: [],
             Reason: null,
             DueDate: null,
             DBDueDate: null,
@@ -37,8 +37,12 @@ class AddPrescription extends React.Component{
     }
 
     componentDidMount = () => {
-
+        this.uploadMedicineTypes()
     };
+
+    uploadMedicineTypes(){
+        
+    }
 
     handleClickOpen = () => {
         this.setState({ openForm: true });
@@ -51,6 +55,7 @@ class AddPrescription extends React.Component{
     DueDateChange = (d) =>{
         let DueDate=new Date(d)
         DueDate = this.FormatDate(DueDate);
+        
         this.setState({DBDueDate:DueDate});
         this.setState({
             DueDate: d
@@ -89,6 +94,41 @@ class AddPrescription extends React.Component{
                         <DialogContentText>
                             Please fill out the information to add a new Diagnosis
                         </DialogContentText>
+                        <FormControl margin="normal" fullWidth>
+                            {/* <TextField
+                                id="DoctorID"
+                                select
+                                label="Please Choose A Doctor"
+                                name="DoctorID"
+                                variant="standard"
+                                onChange={e=>props.handleChange(e)}
+                                value={props.val.DoctorID}   
+                                required                   
+                            >
+                            {props.val.Doctors.map(option => (
+                                <MenuItem key={option.EmployeeID} value={option.EmployeeID}>
+                                    Dr. {option.FirstName}
+                                </MenuItem>
+                            ))}
+                            </TextField> */}
+                            <TextField 
+                                name="Refills"
+                                label="Number of Total Refills" 
+                                type="number"
+                                variant="standard"
+                                onChange={this.handleChange}
+                                value={this.state.Refills}
+                            />
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <DatePicker
+                                    minDate={new Date()}
+                                    label="Due Date"
+                                    name="DueDate"
+                                    value={this.state.DueDate}
+                                    onChange={this.DueDateChange}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </FormControl>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
