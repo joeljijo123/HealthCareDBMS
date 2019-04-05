@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/ThreeSixty';
 import Icon from '@material-ui/core/Icon';
-import { withStyles, TextField, FormControl } from '@material-ui/core';
+import { withStyles, TextField, FormControl, MenuItem } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -30,9 +30,9 @@ class AddPrescription extends React.Component{
             PrescriptionID: "",
             Refills:"",
             MedicineTypes: [],
-            Reason: null,
             DueDate: null,
             DBDueDate: null,
+            openForm: false,
         };
     }
 
@@ -41,11 +41,38 @@ class AddPrescription extends React.Component{
     };
 
     uploadMedicineTypes(){
-        
+        fetch(`http://157.230.214.92:4000/AllPrescriptions/`)
+        .then(result => result.json())
+        .then(Response => this.setState({ MedicineTypes:Response.data}))
+        .catch(err => console.log(err));
     }
 
+    handleSubmit= () =>{
+        this.setState({openForm:false});
+        console.log(this.state)
+        fetch(`http://157.230.214.92:4000/AddPrescription`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                AppointmentID: this.state.AppointmentID,
+                PrescriptionID:   this.state.PrescriptionID,
+                DueDate:  this.state.DBDueDate,
+                Refills:     this.state.Refills,
+            })
+        })
+        .catch(err => console.log(err));
+    };
     handleClickOpen = () => {
-        this.setState({ openForm: true });
+        this.setState({ 
+            openForm: true,
+            AppointmentID: this.props.AppID,
+            PrescriptionID: "",
+            Refills:"",
+            DueDate: null,
+            DBDueDate: null, 
+        });
     };
 
     handleClose = () => {
@@ -95,22 +122,22 @@ class AddPrescription extends React.Component{
                             Please fill out the information to add a new Diagnosis
                         </DialogContentText>
                         <FormControl margin="normal" fullWidth>
-                            {/* <TextField
-                                id="DoctorID"
+                            <TextField
+                                id="PrescriptionID"
                                 select
-                                label="Please Choose A Doctor"
-                                name="DoctorID"
+                                label="Please Choose A Prescription"
+                                name="PrescriptionID"
                                 variant="standard"
-                                onChange={e=>props.handleChange(e)}
-                                value={props.val.DoctorID}   
+                                onChange={e=>this.handleChange(e)}
+                                value={this.state.PrescriptionID}   
                                 required                   
                             >
-                            {props.val.Doctors.map(option => (
-                                <MenuItem key={option.EmployeeID} value={option.EmployeeID}>
-                                    Dr. {option.FirstName}
+                            {this.state.MedicineTypes.map(option => (
+                                <MenuItem key={option.PrescriptionID} value={option.PrescriptionID}>
+                                    {option.Medicine}
                                 </MenuItem>
                             ))}
-                            </TextField> */}
+                            </TextField>
                             <TextField 
                                 name="Refills"
                                 label="Number of Total Refills" 
@@ -128,6 +155,9 @@ class AddPrescription extends React.Component{
                                     onChange={this.DueDateChange}
                                 />
                             </MuiPickersUtilsProvider>
+                            <Button onClick={this.handleSubmit} disabled={this.state.Refills=== "" || this.state.PrescriptionID=== "" || this.state.DBDueDate=== null} color="primary">
+                                Submit
+                            </Button>
                         </FormControl>
                     </DialogContent>
                     <DialogActions>

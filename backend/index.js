@@ -185,6 +185,7 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
+
  app.post('/Appointments', (req,res) => {
     const { UserType, UserID}  =   req.body;
     connection.query(`CALL AppointmentHistory(
@@ -262,7 +263,7 @@ app.get('/sexes', (req,res) => {
  
  });
 
- app.post('/AddPrescriptions', (req,res) => {
+ app.post('/AddPrescription', (req,res) => {
     const { AppointmentID, PrescriptionID, DueDate, Refills}  =   req.body;
     connection.query(`CALL AddAPrescription(
         '${AppointmentID}', 

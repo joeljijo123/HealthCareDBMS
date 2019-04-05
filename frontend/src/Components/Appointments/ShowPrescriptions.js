@@ -55,6 +55,7 @@ class ShowPrescriptions extends React.Component{
     }
     handleClickOpen = () => {
         this.setState({ openForm: true });
+        this.uploadPrescriptions();
     };
 
     handleClose = () => {
