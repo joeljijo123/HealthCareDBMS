@@ -183,6 +183,38 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
+
+ app.post('/CancelAppointment', (req,res) => {
+    const { AppointmentID }  =   req.body;
+    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID = '2' WHERE (idAppointment = '${AppointmentID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Cancelled Appointment")
+        }
+    }); 
+ });
+
+ app.post('/AddAppointment', (req,res) => {
+    const { FacilityID, DoctorID, PatientID, Reason, TimeID, AppDate  }  =   req.body;
+    connection.query(`call AddNewAppointment(
+        '${FacilityID}',
+        '${DoctorID}',
+        '${PatientID}',
+        '${Reason}',
+        '${TimeID}',
+        '${AppDate}', );`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Added Appointment")
+        }
+    }); 
+ });
  
 app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
