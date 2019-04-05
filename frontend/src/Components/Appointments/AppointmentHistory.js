@@ -11,6 +11,8 @@ import { FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddDiagnosis from './AddDiagnosis';
+import ShowDiagnosis from './ShowDiagnosis';
+import ShowPrescriptions from './ShowPrescriptions';
 
 const styles = theme =>({
     root: {
@@ -84,13 +86,7 @@ class AppointmentHistory extends React.Component{
             expanded: expanded ? panel : false,
         });
     }
-    grabDiagnoses=(AppID)=>{
-        fetch(`http://157.230.214.92:4000/PrescriptionAndDiagnosis/${AppID}`)
-        .then(result => result.json())
-        .then(Response => this.setState({ Diagnosis: Response.data }))
-        .then(this.placeDiagnosis)
-        .catch(err => console.log(err))
-    }
+
     placeDiagnosis(){
         {this.state.Diagnosis.map(option => (
             <FormControl>
@@ -137,13 +133,14 @@ class AppointmentHistory extends React.Component{
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
-                                            {/* /*{this.grabDiagnoses(option.idAppointment)} */}
+                                            <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                            <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
                                             {window.localStorage.userType !== "1" ? (
                                                 <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                     Cancel Appointment
                                                 </Button>
                                             ):(
-                                                <AddDiagnosis/>
+                                                <AddDiagnosis Button={classes.Button} AppID={option.idAppointment}/>
                                             )}
                                             
                                         </Typography>

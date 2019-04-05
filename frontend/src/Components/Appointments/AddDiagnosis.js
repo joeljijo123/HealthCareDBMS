@@ -24,22 +24,20 @@ class AddDiagnosis extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            openForm: false,
-            step: 0,
-            FacilityID: "",
-            DoctorID: "",
-            AppointmentTimeID:"",
-            Facilities: [],
-            Doctors: [],
-            AppointmentTimes: [1,2,3],
+            AppointmentID: this.props.AppID,
+            Diagnosis: "",
+            PrescriptionID: "",
+            DiagnosisID: "",
+            Refills:"",
+            Prescriptions: [],
             Reason: null,
-            AppointmentDate: null,
-            DBFormattedDate: null,
+            DueDate: null,
+            DBDueDate: null,
         };
     }
 
     componentDidMount = () => {
-        this.uploadFacilities();
+
     };
 
     handleClickOpen = () => {
@@ -50,12 +48,12 @@ class AddDiagnosis extends React.Component{
         this.setState({ openForm: false });
     };
 
-    AppointmentDateChange = (d) =>{
-        let ApptDate=new Date(d)
-        ApptDate = this.FormatDate(ApptDate);
-        this.setState({DBFormattedDate:ApptDate});
+    DueDateChange = (d) =>{
+        let DueDate=new Date(d)
+        DueDate = this.FormatDate(DueDate);
+        this.setState({DBDueDate:DueDate});
         this.setState({
-            AppointmentDate: d
+            DueDate: d
         })
     }
 
@@ -78,102 +76,11 @@ class AddDiagnosis extends React.Component{
             [e.target.name] : e.target.value
         })
     }
-
-    getStepInfo(step){
-        switch(step){
-            case 0:
-                return (<div>
-                            <WhichFacility val={this.state} handleChange={this.handleChange}/>
-                            <Button onClick={this.handleNextStep} disabled={this.state.FacilityID===""} color="primary">
-                                Next
-                            </Button>
-                        </div>)
-            case 1:
-                this.uploadDoctors();
-                return (<div>
-                            <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
-                            <Button onClick={this.handleBackStep} color="primary">
-                                Back
-                            </Button>
-                            <Button onClick={this.handleNextStep} disabled={this.state.DoctorID==="" || this.state.AppointmentDate===""} color="primary">
-                                Next
-                            </Button>
-                        </div>)
-            case 2:
-                this.uploadTimes();
-                return (<div>
-                            <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
-                            <Button onClick={this.handleBackStep} color="primary">
-                                Back
-                            </Button>
-                            <Button onClick={this.handleSubmit} disabled={this.state.AppointmentTimeID=== ""} color="primary">
-                                Submit
-                            </Button>
-
-                        </div>) 
-            default:
-                return "Cannot Find Appointment Step"
-        }
-    };
-    uploadFacilities=()=> {
-        fetch(`http://157.230.214.92:4000/Facilities`)
-        .then(result => result.json())
-        .then(Response => this.setState({ Facilities:Response.data }))
-        .catch(err => console.log(err))
-    };
-    uploadDoctors=()=> {
-        fetch(`http://157.230.214.92:4000/Doctors/${this.state.FacilityID}`)
-        .then(result => result.json())
-        .then(Response => this.setState({ Doctors:Response.data }))
-        .catch(err => console.log(err))
-    };
-    uploadTimes=()=> {
-        fetch(`http://157.230.214.92:4000/AppointmentTimes/`, {
-            method:"POST",
-            headers: {
-                "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                DoctorID: this.state.DoctorID,
-                FacilityID: this.state.FacilityID,
-                AppDate: this.state.DBFormattedDate,
-            })
-        })
-        .then(result => result.json())
-        .then(Response => this.setState({ AppointmentTimes:Response.data}))
-        .catch(err => console.log(err));
-    };
-    handleNextStep= () =>{
-        this.setState({step: this.state.step+1})
-    };
-    handleSubmit= () =>{
-        this.setState({openForm:false})
-        this.handleDateFormat()
-        fetch(`http://157.230.214.92:4000/AddAppointment`, {
-            method:"POST",
-            headers: {
-                "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                FacilityID: this.state.FacilityID,
-                DoctorID:   this.state.DoctorID,
-                PatientID:  this.state.PatientID,
-                Reason:     this.state.Reason,
-                TimeID:     this.state.TimeID,
-                AppDate:    this.state.AppointmentDate
-            })
-        })
-        .catch(err => console.log(err))
-        .then(window.location.replace('/Appointments'));
-    };
-    handleBackStep= () =>{
-        this.setState({step: this.state.step-1})
-    };
     render(){
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="raised" color="primary" fullWidth onClick={this.handleClickOpen}>
+                <Button variant="raised" color="primary" fullWidth className={this.props.Button} onClick={this.handleClickOpen}>
                     Add a Diagnosis
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>
@@ -182,7 +89,6 @@ class AddDiagnosis extends React.Component{
                         <DialogContentText>
                             Please fill out the information to add a new Appointment
                         </DialogContentText>
-                        {this.getStepInfo(this.state.step)}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">

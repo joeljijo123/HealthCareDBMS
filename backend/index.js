@@ -215,9 +215,23 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
- app.get('/PrescriptionAndDiagnosis/:AppointmentID', (req,res) => {
+ app.get('/Diagnosis/:AppointmentID', (req,res) => {
     const AppointmentID = req.params.AppointmentID;
     connection.query(`call Clinic_Main.GetDiagnosis(${AppointmentID})`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results[0]
+            })
+        }
+    });
+ 
+ });
+ app.get('/Prescriptions/:AppointmentID', (req,res) => {
+    const AppointmentID = req.params.AppointmentID;
+    connection.query(`call Clinic_Main.GetPrescription(${AppointmentID})`,(err, results) => {
         if(err) {
             return res.send(err)
         }
