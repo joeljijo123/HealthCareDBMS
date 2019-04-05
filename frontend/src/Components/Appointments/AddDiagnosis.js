@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/ThreeSixty';
 import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core';
+import { withStyles, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
@@ -26,50 +26,34 @@ class AddDiagnosis extends React.Component{
         this.state = {
             AppointmentID: this.props.AppID,
             Diagnosis: "",
-            PrescriptionID: "",
-            DiagnosisID: "",
-            Refills:"",
-            Prescriptions: [],
-            Reason: null,
-            DueDate: null,
-            DBDueDate: null,
+            openForm: false,
         };
     }
 
-    componentDidMount = () => {
-
+    handleDiagnosisAdd= () =>{
+        this.setState({openForm:false});
+        fetch(`http://157.230.214.92:4000/AddDiagnosis`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                AppointmentID: this.state.AppointmentID,
+                Diagnosis:   this.state.Diagnosis,
+            })
+        })
+        .catch(err => console.log(err));
     };
-
     handleClickOpen = () => {
-        this.setState({ openForm: true });
+        this.setState({ 
+            Diagnosis: "",
+            openForm: true 
+        });
     };
 
     handleClose = () => {
         this.setState({ openForm: false });
     };
-
-    DueDateChange = (d) =>{
-        let DueDate=new Date(d)
-        DueDate = this.FormatDate(DueDate);
-        this.setState({DBDueDate:DueDate});
-        this.setState({
-            DueDate: d,
-        })
-    }
-
-    FormatDate=(date)=>{
-        date = date.getFullYear() + '-' + (this.fixMonth(date)) + '-' + date.getDate();
-        return date;
-    }
-
-    fixMonth=(date)=>{
-        if(date.getMonth() + 1 < 10){
-            return "0" +(date.getMonth() +1);
-        }
-        else{
-            return date.getMonth()+1;
-        }
-    }
 
     handleChange = e =>{
         this.setState({
@@ -80,7 +64,7 @@ class AddDiagnosis extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="raised" color="primary" fullWidth className={this.props.Button} onClick={this.handleClickOpen}>
+                <Button variant="contained" color="primary" fullWidth className={this.props.Button} onClick={this.handleClickOpen}>
                     Add a Diagnosis
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>
@@ -89,8 +73,19 @@ class AddDiagnosis extends React.Component{
                         <DialogContentText>
                             Please fill out the information to add a new Diagnosis
                         </DialogContentText>
+                        <TextField 
+                            name="Diagnosis"
+                            label="What is the Diagnosis" 
+                            variant="standard"
+                            onChange={this.handleChange}
+                            value={this.state.Diagnosis}
+                            inputProps={{ maxLength: 45 }}
+                            fullWidth
+                        />
+                        <Button onClick={this.handleDiagnosisAdd} disabled={this.state.Diagnosis=== ""}>
+                            Add Diagnosis
+                        </Button>
                     </DialogContent>
-                    {/* inputProps={{ maxLength: 100 }} -> Add this as a Props for TextField */}
 
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">

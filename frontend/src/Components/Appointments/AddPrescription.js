@@ -49,7 +49,6 @@ class AddPrescription extends React.Component{
 
     handleSubmit= () =>{
         this.setState({openForm:false});
-        console.log(this.state)
         fetch(`http://157.230.214.92:4000/AddPrescription`, {
             method:"POST",
             headers: {
@@ -112,7 +111,7 @@ class AddPrescription extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="raised" color="primary" fullWidth className={this.props.Button} onClick={this.handleClickOpen}>
+                <Button variant="contained" color="primary" fullWidth className={this.props.Button} onClick={this.handleClickOpen}>
                     Add a Prescription
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>

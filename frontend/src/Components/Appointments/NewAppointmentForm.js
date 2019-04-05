@@ -148,7 +148,6 @@ class NewAppointmentForm extends React.Component{
     };
     handleSubmit= () =>{
         this.setState({openForm:false})
-        this.handleDateFormat()
         fetch(`http://157.230.214.92:4000/AddAppointment`, {
             method:"POST",
             headers: {
@@ -157,10 +156,10 @@ class NewAppointmentForm extends React.Component{
             body: JSON.stringify({
                 FacilityID: this.state.FacilityID,
                 DoctorID:   this.state.DoctorID,
-                PatientID:  this.state.PatientID,
+                PatientID:  window.localStorage.userID,
                 Reason:     this.state.Reason,
-                TimeID:     this.state.TimeID,
-                AppDate:    this.state.AppointmentDate
+                TimeID:     this.state.AppointmentTimeID,
+                AppDate:    this.state.DBFormattedDate
             })
         })
         .catch(err => console.log(err))

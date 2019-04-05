@@ -66,7 +66,7 @@ class ShowPrescriptions extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="raised" color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
+                <Button variant="contained" color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
                     Show Prescriptions
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>

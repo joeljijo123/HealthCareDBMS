@@ -224,7 +224,7 @@ app.get('/sexes', (req,res) => {
         '${PatientID}',
         '${Reason}',
         '${TimeID}',
-        '${AppDate}', );`,(err, results) => {
+        '${AppDate}');`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)

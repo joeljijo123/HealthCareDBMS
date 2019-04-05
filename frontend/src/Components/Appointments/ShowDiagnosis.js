@@ -54,6 +54,7 @@ class ShowDiagnosis extends React.Component{
         .catch(err => console.log(err))
     }
     handleClickOpen = () => {
+        this.uploadDiagnosis();
         this.setState({ openForm: true });
     };
 
@@ -65,8 +66,8 @@ class ShowDiagnosis extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="raised" color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
-                    Show Diagnosiis
+                <Button variant="contained" color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
+                    Show Diagnosis
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
                     <DialogTitle id="form-dialog-title">Here are the Doctor's Diagnoses</DialogTitle>
