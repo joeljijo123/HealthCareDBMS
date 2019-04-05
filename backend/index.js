@@ -96,7 +96,7 @@ app.get('/sexes', (req,res) => {
  
  app.get('/Employee/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
-    connection.query(`SELECT * FROM Clinic_Main.Employee WHERE EmployeeLoginID='${LoginID}'`,(err, results) => {
+    connection.query(`SELECT * FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}'`,(err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -110,7 +110,7 @@ app.get('/sexes', (req,res) => {
  });
  app.get('/Patient/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
-    connection.query(`SELECT * FROM Clinic_Main.Patient WHERE PatientLoginID='${LoginID}'`,(err, results) => {
+    connection.query(`SELECT * FROM Clinic_Main.PatientInfoWithLogin WHERE PatientLoginID='${LoginID}'`,(err, results) => {
         if(err) {
             return res.send(err)
         }
