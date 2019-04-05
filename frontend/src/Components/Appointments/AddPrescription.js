@@ -20,7 +20,7 @@ const styles = theme => ({
     },
 });
 
-class AddDiagnosis extends React.Component{
+class AddPrescription extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -81,7 +81,7 @@ class AddDiagnosis extends React.Component{
         return(
             <div>
                 <Button variant="raised" color="primary" fullWidth className={this.props.Button} onClick={this.handleClickOpen}>
-                    Add a Diagnosis
+                    Add a Prescription
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>
                     <DialogTitle id="form-dialog-title">Add A Appointment</DialogTitle>
@@ -90,7 +90,6 @@ class AddDiagnosis extends React.Component{
                             Please fill out the information to add a new Diagnosis
                         </DialogContentText>
                     </DialogContent>
-                    {/* inputProps={{ maxLength: 100 }} -> Add this as a Props for TextField */}
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
@@ -103,11 +102,7 @@ class AddDiagnosis extends React.Component{
     
 }
 
-AddDiagnosis.propTypes = {
+AddPrescription.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-  export default withStyles(styles)(AddDiagnosis);
-
-
-
-  //Split show and add for Prescription and Diagnosis
+  export default withStyles(styles)(AddPrescription);

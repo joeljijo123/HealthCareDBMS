@@ -7,12 +7,13 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { FormControl } from '@material-ui/core';
+import { FormControl, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddDiagnosis from './AddDiagnosis';
 import ShowDiagnosis from './ShowDiagnosis';
 import ShowPrescriptions from './ShowPrescriptions';
+import AddPrescription from './AddPrescription';
 
 const styles = theme =>({
     root: {
@@ -35,7 +36,7 @@ const styles = theme =>({
   
     },
     Button: {
-        marginTop: '.5%'
+        marginTop: '.5%',
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -133,14 +134,30 @@ class AppointmentHistory extends React.Component{
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
-                                            <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
-                                            <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                            <Grid container spacing={8}>
+				                                <Grid item xs={12} sm={6}>
+                                                    <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                                </Grid>
+                                                <Grid item xs={12} sm={6}>
+                                                    <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                                </Grid>
+                                            </Grid>
+                                            
+                                            
                                             {window.localStorage.userType !== "1" ? (
                                                 <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                     Cancel Appointment
                                                 </Button>
                                             ):(
-                                                <AddDiagnosis Button={classes.Button} AppID={option.idAppointment}/>
+                                                <Grid container spacing={8}>
+                                                    <Grid item xs={12} sm={6}>  
+                                                        <AddDiagnosis Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6}>  
+                                                        <AddPrescription Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                </Grid>
+
                                             )}
                                             
                                         </Typography>

@@ -243,6 +243,38 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+ app.post('/AddPrescriptions', (req,res) => {
+    const { AppointmentID, PrescriptionID, DueDate, Refills}  =   req.body;
+    connection.query(`CALL AddAPrescription(
+        '${AppointmentID}', 
+        '${PrescriptionID}',
+        '${DueDate}',
+        '${Refills}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Added Prescription")
+        }
+    }); 
+ });
+ app.post('/AddDiagnosis', (req,res) => {
+    const { AppointmentID, Diagnosis}  =   req.body;
+    connection.query(`CALL AddADiagnosis(
+        '${AppointmentID}', 
+        '${Diagnosis}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data: results[0]
+            })
+        }
+    }); 
+ });
 app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
