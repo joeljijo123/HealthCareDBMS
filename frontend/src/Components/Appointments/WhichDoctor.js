@@ -36,7 +36,7 @@ function WhichDoctor(props){
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <DatePicker
                             minDate={new Date()}
-                            label="Desired Delivery"
+                            label="Appointment Date"
                             name="AppointmentDate"
                             value={props.val.AppointmentDate}
                             onChange={props.AppointmentDateChange}
