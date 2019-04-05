@@ -241,11 +241,39 @@ app.post('/RegisterUser', (req,res) => {
             return res.send(err)
         }
         else{
-            return res.send('Added Employee')
+            return res.send('Added User')
         }
     }); 
  });
- 
+ app.post('/UpdatingUser', (req,res) => {
+    const { UserID, InsuranceID, FirstName, LastName, Sex, Email, username, password, CellNumber, 
+            AddressStreet, AddressCity, AddressState, AddressZip,
+            userType, LoginTableID}  =   req.body;
+    connection.query(`CALL UpdateUser(
+        '${UserID}',
+        '${InsuranceID}',
+        '${FirstName}', 
+        '${LastName}',
+        '${Sex}', 
+        '${Email}', 
+        '${username}', 
+        '${password}', 
+        '${CellNumber}', 
+        '${AddressStreet}',
+        '${AddressCity}', 
+        '${AddressState}', 
+        '${AddressZip}',
+        '${userType}',
+        '${LoginTableID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send('Updated User')
+        }
+    }); 
+ });
 app.listen(4000, () => {
     console.log(`Producs server listening on port 4000`)
 });
