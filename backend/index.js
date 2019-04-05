@@ -217,7 +217,7 @@ app.get('/sexes', (req,res) => {
  });
  app.get('/PrescriptionAndDiagnosis/:AppointmentID', (req,res) => {
     const AppointmentID = req.params.AppointmentID;
-    connection.query(`call GetDiagnosis${AppointmentID}'`,(err, results) => {
+    connection.query(`call GetDiagnosis(${AppointmentID})'`,(err, results) => {
         if(err) {
             return res.send(err)
         }
