@@ -215,7 +215,20 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
+ app.get('/PrescriptionAndDiagnosis/:AppointmentID', (req,res) => {
+    const AppointmentID = req.params.AppointmentID;
+    connection.query(`call GetDiagnosis${AppointmentID}'`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
  
+ });
 app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 
