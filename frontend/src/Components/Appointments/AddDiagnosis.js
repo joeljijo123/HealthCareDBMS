@@ -20,7 +20,7 @@ const styles = theme => ({
     },
 });
 
-class Diagnosis extends React.Component{
+class AddDiagnosis extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -196,7 +196,7 @@ class Diagnosis extends React.Component{
     
 }
 
-Diagnosis.propTypes = {
+AddDiagnosis.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-  export default withStyles(styles)(Diagnosis);
+  export default withStyles(styles)(AddDiagnosis);

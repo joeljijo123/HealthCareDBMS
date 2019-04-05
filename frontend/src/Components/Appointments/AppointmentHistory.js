@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import Diagnosis from './Diagnosis';
+import AddDiagnosis from './AddDiagnosis';
 
 const styles = theme =>({
     root: {
@@ -143,7 +143,7 @@ class AppointmentHistory extends React.Component{
                                                     Cancel Appointment
                                                 </Button>
                                             ):(
-                                                <Diagnosis/>
+                                                <AddDiagnosis/>
                                             )}
                                             
                                         </Typography>
