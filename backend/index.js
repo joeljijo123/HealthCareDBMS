@@ -261,9 +261,11 @@ app.get('/sexes', (req,res) => {
  });
  app.post('/AddDiagnosis', (req,res) => {
     const { AppointmentID, Diagnosis}  =   req.body;
-    connection.query(`CALL AddADiagnosis(
+    connection.query(`SET @ID = 0;
+        CALL AddADiagnosis(
         '${AppointmentID}', 
-        '${Diagnosis}',"");`,(err, results) => {
+        '${Diagnosis}',"");
+        SELECT @ID;`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
