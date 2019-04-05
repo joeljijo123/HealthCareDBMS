@@ -69,29 +69,38 @@ class ShowDiagnosis extends React.Component{
                     Show Diagnosiis
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
-                    <DialogTitle id="form-dialog-title">Book an Appointment</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Here are the Doctor's Diagnoses</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
-                            These are the Diagnosis and Prescriptions Assosciated with your Appointment
-                        </DialogContentText>
-                        <Table className={classes.table}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Diagnosis</TableCell>
-                                    <TableCell align="right">DiagnosisID</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {this.state.Diagnosis.map(Each => (
-                                    <TableRow key={Each.DiagnosisID}>
-                                    <TableCell component="th" scope="row">
-                                        {Each.Diagnosis}
-                                    </TableCell>
-                                    <TableCell align="right">{Each.DiagnosisID}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        {this.state.Diagnosis.length>=1 ? (
+                            <div>
+                                <DialogContentText>
+                                    These are the Diagnoses Assosciated with your Appointment
+                                </DialogContentText>
+                                <Table className={classes.table}>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Diagnosis</TableCell>
+                                            <TableCell align="right">DiagnosisID</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.state.Diagnosis.map(Each => (
+                                            <TableRow key={Each.DiagnosisID}>
+                                            <TableCell component="th" scope="row">
+                                                {Each.Diagnosis}
+                                            </TableCell>
+                                            <TableCell align="right">{Each.DiagnosisID}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        ):(
+                            <DialogContentText>
+                                There are no Diagnoses Assosciated with your Appointment
+                            </DialogContentText>
+                        )}
+                        
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">

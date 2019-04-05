@@ -45,7 +45,7 @@ class ShowPrescriptions extends React.Component{
         };
     }
     componentDidMount(){
-        this.uploadDiagnosis();
+        this.uploadPrescriptions();
     }
     uploadPrescriptions(){
         fetch(`http://157.230.214.92:4000/Prescriptions/${this.props.AppID}`)
@@ -66,36 +66,45 @@ class ShowPrescriptions extends React.Component{
         return(
             <div>
                 <Button variant="raised" color="primary" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
-                    Show Diagnosiis
+                    Show Prescriptions
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
-                    <DialogTitle id="form-dialog-title">Book an Appointment</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Here are your issued Prescriptions</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
-                            These are the Diagnosis and Prescriptions Assosciated with your Appointment
-                        </DialogContentText>
-                        <Table className={classes.table}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Prescription Issue ID</TableCell>
-                                    <TableCell align="right">Refills</TableCell>
-                                    <TableCell align="right">Due Date</TableCell>
-                                    <TableCell align="right">Medicine</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {this.state.Prescriptions.map(Each => (
-                                    <TableRow key={Each.PrescriptionIssueID}>
-                                    <TableCell component="th" scope="row">
-                                        {Each.PrescriptionIssueID}
-                                    </TableCell>
-                                    <TableCell align="right">{Each.RefillLeft}</TableCell>
-                                    <TableCell align="right">{Each.DueDate.substr(0,10)}</TableCell>
-                                    <TableCell align="right">{Each.Medicine}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        {this.state.Prescriptions.length>=1 ? (
+                            <div>
+                                 <DialogContentText>
+                                    These are the Prescriptions Assosciated with your Appointment
+                                </DialogContentText>
+                                <Table className={classes.table}>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Prescription Issue ID</TableCell>
+                                            <TableCell align="right">Refills</TableCell>
+                                            <TableCell align="right">Due Date</TableCell>
+                                            <TableCell align="right">Medicine</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.state.Prescriptions.map(Each => (
+                                            <TableRow key={Each.PrescriptionIssueID}>
+                                            <TableCell component="th" scope="row">
+                                                {Each.PrescriptionIssueID}
+                                            </TableCell>
+                                            <TableCell align="right">{Each.RefillLeft}</TableCell>
+                                            <TableCell align="right">{Each.DueDate.substr(0,10)}</TableCell>
+                                            <TableCell align="right">{Each.Medicine}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        ):(
+                            <DialogContentText>
+                                There are no Prescriptions Assosciated with your Appointment
+                            </DialogContentText>
+                        )}
+                       
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
