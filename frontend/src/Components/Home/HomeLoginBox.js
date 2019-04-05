@@ -70,6 +70,7 @@ class HomeLoginBox extends React.Component{
         })
         .catch(err => console.log(err))
     }
+    
     setUserType(){
         fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.LoginTableID}`)
         .then(result => result.json())

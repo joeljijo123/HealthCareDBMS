@@ -25,6 +25,14 @@ function WhichDoctor(props){
                         </MenuItem>
                     ))}
                     </TextField>
+                    <TextField 
+                        name="Reason"
+                        label="Reason for Appointment" 
+                        variant="standard"
+                        onChange={props.handleChange}
+                        value={props.val.Reason}
+                        inputProps={{ maxLength: 100 }}
+                    />
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <DatePicker
                             minDate={new Date()}

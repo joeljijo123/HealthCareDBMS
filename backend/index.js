@@ -96,7 +96,7 @@ app.get('/sexes', (req,res) => {
  
  app.get('/Employee/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
-    connection.query(`SELECT * FROM Clinic_Main.Employee WHERE EmployeeLoginID='${LoginID}'`,(err, results) => {
+    connection.query(`SELECT * FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}'`,(err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -110,7 +110,7 @@ app.get('/sexes', (req,res) => {
  });
  app.get('/Patient/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
-    connection.query(`SELECT * FROM Clinic_Main.Patient WHERE PatientLoginID='${LoginID}'`,(err, results) => {
+    connection.query(`SELECT * FROM Clinic_Main.PatientInfoWithLogin WHERE PatientLoginID='${LoginID}'`,(err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -148,6 +148,8 @@ app.get('/sexes', (req,res) => {
         }
     });
  });
+
+
  app.post('/AppointmentTimes', (req,res) => {
     const { DoctorID, FacilityID, AppDate}  =   req.body;
     connection.query(`CALL FindAvailableAppointmentTimes(
@@ -181,6 +183,38 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
+
+ app.post('/CancelAppointment', (req,res) => {
+    const { AppointmentID }  =   req.body;
+    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID = '2' WHERE (idAppointment = '${AppointmentID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Cancelled Appointment")
+        }
+    }); 
+ });
+
+ app.post('/AddAppointment', (req,res) => {
+    const { FacilityID, DoctorID, PatientID, Reason, TimeID, AppDate  }  =   req.body;
+    connection.query(`call AddNewAppointment(
+        '${FacilityID}',
+        '${DoctorID}',
+        '${PatientID}',
+        '${Reason}',
+        '${TimeID}',
+        '${AppDate}', );`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Added Appointment")
+        }
+    }); 
+ });
  
 app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
@@ -207,11 +241,39 @@ app.post('/RegisterUser', (req,res) => {
             return res.send(err)
         }
         else{
-            return res.send('Added Employee')
+            return res.send('Added User')
         }
     }); 
  });
- 
+ app.post('/UpdateUser', (req,res) => {
+    const { UserID, InsuranceID, FirstName, LastName, Sex, Email, username, password, CellNumber, 
+            AddressStreet, AddressCity, AddressState, AddressZip,
+            userType, LoginTableID}  =   req.body;
+    connection.query(`CALL UpdateUser(
+        '${UserID}',
+        '${InsuranceID}',
+        '${FirstName}', 
+        '${LastName}',
+        '${Sex}', 
+        '${Email}', 
+        '${username}', 
+        '${password}', 
+        '${CellNumber}', 
+        '${AddressStreet}',
+        '${AddressCity}', 
+        '${AddressState}', 
+        '${AddressZip}',
+        '${userType}',
+        '${LoginTableID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send('Updated User')
+        }
+    }); 
+ });
 app.listen(4000, () => {
     console.log(`Producs server listening on port 4000`)
 });
