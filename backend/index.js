@@ -264,7 +264,7 @@ app.get('/sexes', (req,res) => {
     connection.query(`SET @ID = 0;
         CALL AddADiagnosis(
         '${AppointmentID}', 
-        '${Diagnosis}',"");
+        '${Diagnosis}',@ID);
         SELECT @ID;`,(err, results) => {
         if(err) {
             console.log(err)
