@@ -263,7 +263,7 @@ app.get('/sexes', (req,res) => {
     const { AppointmentID, Diagnosis}  =   req.body;
     connection.query(`CALL AddADiagnosis(
         '${AppointmentID}', 
-        '${Diagnosis}');`,(err, results) => {
+        '${Diagnosis}',"");`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
