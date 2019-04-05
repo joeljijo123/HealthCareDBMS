@@ -261,18 +261,16 @@ app.get('/sexes', (req,res) => {
  });
  app.post('/AddDiagnosis', (req,res) => {
     const { AppointmentID, Diagnosis}  =   req.body;
-    connection.query(`SET @ID = 0;
-        CALL AddADiagnosis(
+    connection.query(`select Clinic_Main.AddDiagnosis(
         '${AppointmentID}', 
-        '${Diagnosis}',@ID);
-        SELECT @ID;`,(err, results) => {
+        '${Diagnosis}');`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
         }
         else{
             return res.json({
-                data: results[0]
+                data: results[
             })
         }
     }); 
