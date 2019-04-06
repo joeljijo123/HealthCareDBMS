@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import {Paper, Typography, TextField, MenuItem, FormControl, Button} from '@material-ui/core';
+import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid} from '@material-ui/core';
 
 //Define the looks
 const styles = theme => ({
@@ -55,14 +55,8 @@ getMedicalHistoryData(){
   fetch('https://localhost:3000/MedicalHistory')
   .then(response => response.json())
   .then(response => this.setState({
-    patientID: response.data, 
-    createAt: response.data,
-    lastUpdatedAt: response.data,
-    createdByEmployeeID: response.data,
-    lastUpdatedBy: response.data,
-    allergies: response.data,
-    majorIllness: response.data,
-    bloodType: response.data,
+    immunizationRecord: response.data,
+    medicationRecord: response.data,
   }))
   .catch(err => console.error(err))
 }
@@ -74,86 +68,53 @@ getMedicalHistoryData(){
       <div>
         <Paper className={classes.root} elevation={2}>
           <Typography variant="h3" gutterBottom>Patient Medical Record</Typography>
+          <Typography variant="h4" gutterBottom>Summary</Typography>
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
-              id="standard-patientID"
-              label="Patient ID"
-              className={classes.textField}
-              value={this.state.patientID}
-              margin="normal"
-              InputProps={{
-                readOnly: true,
-              }}
+                id="standard-patientID"
+                label="Patient ID"
+                className={classes.textField}
+                value={this.state.patientID}
+                margin="normal"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+          
+          <Grid item xs={6}>
+            <TextField 
+            id="outlined-immunizationRecord"
+            label="Immunization Record"
+            className={classes.textField}
+            value={this.state.immunizationRecord}
+            margine="normal"
+            InputProps={{
+              readOnly: true,
+            }}
+            multiline
+            variant="outlined"
             />
-            
-            <TextField
-              id="standard-allergies"
-              label="Allergies"
-              className={classes.textField}
-              value={this.state.allergies}
-              margin="normal"
-              variant="outlined"
-              multiline
-              rows="4"
+          </Grid>
+          
+          <Grid item xs={6}>
+            <TextField 
+            id="outlined-medicationRecord"
+            label="Medication Record"
+            className={classes.textField}
+            value={this.state.medicationRecord}
+            margine="normal"
+            InputProps={{
+              readOnly: true,
+            }}
+            multiline
+            variant="outlined"
             />
+          </Grid>
 
-            <TextField
-              id="standard-majorIllness"
-              label="Major Illnesses"
-              className={classes.textField}
-              value={this.state.majorIllness}
-              margin="normal"
-              variant="outlined"
-              multiline
-              rows="4"
-            />
 
-            <TextField
-              id="standard-bloodType"
-              label="Blood Type"
-              className={classes.textField}
-              value={this.state.bloodType}
-              margin="normal"
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-
-            <TextField
-              id="standard-createdAt"
-              label="Created At"
-              className={classes.textField}
-              value={this.state.createdAt}
-              margin="normal"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-
-            <TextField
-              id="standard-lastUpdated"
-              label="Last Updated"
-              className={classes.textField}
-              value={this.state.lastUpdatedAt}
-              margin="normal"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-
-            <TextField
-              id="standard-createdBy"
-              label="Created By"
-              className={classes.textField}
-              value={this.state.createdByEmployeeID}
-              margin="normal"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-
+          <Grid item xs={6}>
             <Button variant="containted" color="primary" className={classes.button}> Edit </Button>
+          </Grid>
           </form>
         </Paper>
       </div>
