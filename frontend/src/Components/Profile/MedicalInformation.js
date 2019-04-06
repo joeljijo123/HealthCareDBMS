@@ -7,9 +7,13 @@ import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid} from 
 //Define the looks
 const styles = theme => ({
   root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    width: '75%',
+    display: "flex",
+    backgroundColor: "#e0e0e0",
+    padding: theme.spacing.unit*3,
+    height: '98%',
+    margin:"auto",
+    marginTop: '2%',
   },
   container: {
     display: 'flex',
