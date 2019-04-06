@@ -34,7 +34,6 @@ const styles = theme =>({
   
     },
     AdditionButton: {
-        marginLeft:"70%",
         display: "flex",
         flexDirection: 'column',
         backgroundColor: "#a09d9d",

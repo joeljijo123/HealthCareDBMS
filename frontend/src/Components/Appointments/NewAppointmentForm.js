@@ -8,15 +8,18 @@ import CompleteNewAppointment from './CompleteNewAppointment';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AddIcon from '@material-ui/icons/ThreeSixty';
-import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core';
+import AddButton from '@material-ui/icons/ControlPointOutlined';
+import { withStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
     icon: {
       margin: theme.spacing.unit,
-      fontSize: 32,
+      fontSize: 45,
+      color: "#f5f5f5",
+      '&:hover': {
+        color: '#e0e0e0',
+      },
     },
     Button: {
         marginTop: ".5%"
@@ -176,7 +179,7 @@ class NewAppointmentForm extends React.Component{
         return(
             <div>
                 <Button variant="Filled" color="primary" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
-                    New Appointment
+                    <AddButton className={classes.icon}/><Typography variant="subtitle1">New Appointment</Typography>
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>
                     <DialogTitle id="form-dialog-title">Book an Appointment</DialogTitle>
