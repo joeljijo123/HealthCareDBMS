@@ -14,6 +14,7 @@ import AddDiagnosis from './AddDiagnosis';
 import ShowDiagnosis from './ShowDiagnosis';
 import ShowPrescriptions from './ShowPrescriptions';
 import AddPrescription from './AddPrescription';
+import AddSpecialistReccomendation from './AddSpecilaistReccomendation';
 
 const styles = theme =>({
     root: {
@@ -157,9 +158,9 @@ class AppointmentHistory extends React.Component{
                                                     <Grid item xs={12} sm={6}>  
                                                         <AddPrescription Button={classes.Button} AppID={option.idAppointment}/>
                                                     </Grid>
-                                                    {/* <Grid item xs={12} sm={12}>
-                                                        <AddSpecialistReccomentation  Button={classes.Button} AppID={option.idAppointment}/>
-                                                    </Grid> */}
+                                                    <Grid item xs={12} sm={12}>
+                                                        <AddSpecialistReccomendation  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
                                                 </Grid>
 
                                             )}

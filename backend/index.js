@@ -299,7 +299,7 @@ app.get('/sexes', (req,res) => {
     const { AppointmentID, Specialist}  =   req.body;
     connection.query(`call AddSpecialist(
         '${AppointmentID}', 
-        '${Specialist}') as ID;`,(err, results) => {
+        '${Specialist}');`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)

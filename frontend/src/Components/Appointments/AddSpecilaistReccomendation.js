@@ -82,7 +82,7 @@ class AddSpecialistReccomendation extends React.Component{
                             inputProps={{ maxLength: 45 }}
                             fullWidth
                         />
-                        <Button onClick={this.handleDiagnosisAdd} disabled={this.state.Diagnosis=== ""}>
+                        <Button onClick={this.handleSpecialistAdd} disabled={this.state.Specialist=== ""}>
                             Add Specialist
                         </Button>
                     </DialogContent>
