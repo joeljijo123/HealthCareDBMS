@@ -18,11 +18,16 @@ import AddSpecialistReccomendation from './AddSpecilaistReccomendation';
 
 const styles = theme =>({
     root: {
-        width: '100%',
+        width: '75%',
         alignItems: "center",
         display: "flex",
-        height: "100vh",
         flexDirection: 'column',
+        padding: theme.spacing.unit*3,
+        margin:"auto"
+  
+    },
+    page: {
+        height: "100vh",
         backgroundColor: "#a09d9d",
         padding: theme.spacing.unit*3,
         margin:"auto"
@@ -116,7 +121,7 @@ class AppointmentHistory extends React.Component{
         const{classes}=this.props;
         const { expanded } = this.state;
         return(
-            <div>
+            <div className={classes.page}>
                 <div className={classes.root}>
                     
                     {this.state.Appointments.map(option => (
