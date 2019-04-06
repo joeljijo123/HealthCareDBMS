@@ -18,6 +18,9 @@ const styles = theme => ({
       margin: theme.spacing.unit,
       fontSize: 32,
     },
+    Button: {
+        marginTop: ".5%"
+    }
 });
 
 class NewAppointmentForm extends React.Component{
@@ -156,7 +159,7 @@ class NewAppointmentForm extends React.Component{
             body: JSON.stringify({
                 FacilityID: this.state.FacilityID,
                 DoctorID:   this.state.DoctorID,
-                PatientID:  window.localStorage.userID,
+                PatientID:  this.props.PatientID,
                 Reason:     this.state.Reason,
                 TimeID:     this.state.AppointmentTimeID,
                 AppDate:    this.state.DBFormattedDate
@@ -172,7 +175,7 @@ class NewAppointmentForm extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="Filled" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="Filled" color="primary" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
                     New Appointment
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>

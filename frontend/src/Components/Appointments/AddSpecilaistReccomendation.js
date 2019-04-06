@@ -42,11 +42,12 @@ class AddSpecialistReccomendation extends React.Component{
                 Specialist:   this.state.Specialist,
             })
         })
+        .then(window.location.replace('/Appointments'))
         .catch(err => console.log(err));
     };
     handleClickOpen = () => {
         this.setState({ 
-            Specailist: "",
+            Specialist: "",
             openForm: true 
         });
     };
@@ -71,7 +72,7 @@ class AddSpecialistReccomendation extends React.Component{
                     <DialogTitle id="form-dialog-title">Add A Specialist Reccomendation</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Please Type in the name of the Specialist you would like to Reccomend
+                            Please Type in the name of the Specialist you would like to Reccomend, Leave blank if you would like to remove the Reccomendation
                         </DialogContentText>
                         <TextField 
                             name="Specialist"
@@ -82,7 +83,7 @@ class AddSpecialistReccomendation extends React.Component{
                             inputProps={{ maxLength: 45 }}
                             fullWidth
                         />
-                        <Button onClick={this.handleSpecialistAdd} disabled={this.state.Specialist=== ""}>
+                        <Button onClick={this.handleSpecialistAdd}>
                             Add Specialist
                         </Button>
                     </DialogContent>
