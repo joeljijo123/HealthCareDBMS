@@ -295,6 +295,22 @@ app.get('/sexes', (req,res) => {
         }
     }); 
  });
+ app.post('/AddSpecialist', (req,res) => {
+    const { AppointmentID, Specialist}  =   req.body;
+    connection.query(`call AddSpecialist(
+        '${AppointmentID}', 
+        '${Specialist}') as ID;`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data: results
+            })
+        }
+    }); 
+ });
 app.post('/RegisterUser', (req,res) => {
     const { FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip, DateOfBirth, 

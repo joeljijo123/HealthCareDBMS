@@ -125,7 +125,7 @@ class AppointmentHistory extends React.Component{
                                         <Typography className={classes.heading}>Patient: {option.Patient}</Typography>
                                         <Typography className={classes.heading}>Doctor: Dr. {option.Doctor}</Typography>
                                         <Typography className={classes.heading}>Date: {option.AppointmentDate.substr(0,10)}</Typography>
-                                        <Typography className={classes.heading}>Time: {option.AppointmentTime}</Typography>
+                                        <Typography className={classes.heading}>Time: {option.AppointmentTime.substr(0,5)}</Typography>
                                         <Typography className={classes.heading}>Status: {option.currentStatus}</Typography>
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
@@ -134,6 +134,7 @@ class AppointmentHistory extends React.Component{
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
+                                            Specialist Reccomentation: {option.Specialist === null ? (<text>No Specialist Needed</text>):(<text>Dr. {option.Specialist}</text>)}<br/>
                                             <Grid container spacing={8}>
 				                                <Grid item xs={12} sm={6}>
                                                     <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
@@ -156,6 +157,9 @@ class AppointmentHistory extends React.Component{
                                                     <Grid item xs={12} sm={6}>  
                                                         <AddPrescription Button={classes.Button} AppID={option.idAppointment}/>
                                                     </Grid>
+                                                    {/* <Grid item xs={12} sm={12}>
+                                                        <AddSpecialistReccomentation  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid> */}
                                                 </Grid>
 
                                             )}
