@@ -9,7 +9,7 @@ class Profile extends Component {
       <div>
         <NavigationBar title={"The Profile Page"} Tab={1}/>
         <GeneralInformation/>
-        
+        <MedicalInformation/>
       </div>
     );
   }
