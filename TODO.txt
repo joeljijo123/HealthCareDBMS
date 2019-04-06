@@ -5,7 +5,6 @@ Password: Password
 
 Complete By Friday April 5th
     Joel
-        ->Specialist Reccomendation Button
         ->How Many Appointments For Doctor X in Month X at Facility X?
     Tommy
         ->User Info for Doctor and Patient
