@@ -28,7 +28,9 @@ app.get('/', (req,res) => {
 });
 
 //LookUpTableReturns
-app.get('/AllPrescriptions/', (req,res) => {
+
+//This will return all the possible medicines you can prescribe
+app.get('/AllMedicines/', (req,res) => {
 
     connection.query(`SELECT * FROM Clinic_Main.Prescription_LookUp;`,(err, results) => {
         if(err) {
@@ -42,6 +44,8 @@ app.get('/AllPrescriptions/', (req,res) => {
     });
  
  });
+
+ //This will return all the states 
 app.get('/states', (req,res) => {
    connection.query('SELECT * FROM Clinic_Main.States_LookUp;',(err, results) => {
        if(err) {
@@ -55,6 +59,8 @@ app.get('/states', (req,res) => {
    });
 
 });
+
+//This will return the sexes
 app.get('/sexes', (req,res) => {
     connection.query('SELECT * FROM Clinic_Main.Sex_LookUp;',(err, results) => {
         if(err) {
@@ -68,6 +74,8 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+
+ //This will return the roles -> Doctor(1), Patient(2), Administrator(3)
  app.get('/roles', (req,res) => {
     connection.query('SELECT * FROM Clinic_Main.Role_LookUp;',(err, results) => {
         if(err) {
@@ -81,6 +89,8 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+
+ //This will return all the races
  app.get('/races', (req,res) => {
     connection.query('SELECT * FROM Clinic_Main.Race_LookUp;',(err, results) => {
         if(err) {
@@ -94,6 +104,8 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+
+ //This will return all the Facilities
  app.get('/Facilities', (req,res) => {
     connection.query(`SELECT * FROM Clinic_Main.MedicalOffice`,(err, results) => {
         if(err) {
@@ -108,7 +120,23 @@ app.get('/sexes', (req,res) => {
  
  });
 
+  // This will return All the weekdays (Monday - Friday)
+  app.get('/Weekday', (req,res) => {
+    connection.query(`SELECT * FROM Clinic_Main.Weekday_LookUp;`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ });
+
  //Parameter Based Queries
+
+ //This will return the username and password of a given username if it exists
  app.get('/login/:username', (req,res) => {
     const username = req.params.username;
     connection.query(`SELECT * FROM Clinic_Main.LoginTable WHERE username='${username}'`,(err, results) => {
@@ -123,7 +151,22 @@ app.get('/sexes', (req,res) => {
     });
  
  });
- 
+   // Gets specified Employee WorkSchedule
+app.get('/WorkSchdule/:userID', (req,res) => {
+    const userID = req.params.userID;
+    connection.query(`CALL GetEmployeeWorkSchedule(${userID});`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+});
+
+
  app.get('/Employee/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
     connection.query(`SELECT * FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}'`,(err, results) => {

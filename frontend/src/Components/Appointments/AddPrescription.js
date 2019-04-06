@@ -41,7 +41,7 @@ class AddPrescription extends React.Component{
     };
 
     uploadMedicineTypes(){
-        fetch(`http://157.230.214.92:4000/AllPrescriptions/`)
+        fetch(`http://157.230.214.92:4000/AllMedicines/`)
         .then(result => result.json())
         .then(Response => this.setState({ MedicineTypes:Response.data}))
         .catch(err => console.log(err));
