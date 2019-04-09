@@ -166,6 +166,55 @@ app.get('/WorkSchdule/:userID', (req,res) => {
     });
 });
 
+ // Remove specified day from employee WorkSchedule
+ app.post('/RemoveWorkScheduleDay', (req,res) => {
+    const { RemoveDayID, EmployeeID}  =   req.body;
+    connection.query(`CALL DeleteDayFromWorkSchedule(
+        '${EmployeeID}', 
+        '${RemoveDayID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Employee Day Removed")
+        }
+    }); 
+ });
+
+ // Update specified WorkSchedule day to new facility
+ app.post('/UpdateWorkScheduleDay', (req,res) => {
+    const { UpdateDayID, EmployeeID, NewFacilityID}  =   req.body;
+    connection.query(`CALL UpdateDayFromWorkSchedule(
+        '${EmployeeID}', 
+        '${UpdateDayID}',
+        '${NewFacilityID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Employee Day Updated")
+        }
+    }); 
+ });
+
+ // Add new WorkSchedule day to a specified employee
+ app.post('/AddNewWorkSchedule', (req,res) => {
+    const { DayID, EmployeeID, FacilityID}  =   req.body;
+    connection.query(`CALL UpdateDayFromWorkSchedule(
+        '${EmployeeID}', 
+        '${DayID}',
+        '${FacilityID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Employee Day Added")
+        }
+    }); 
+ });
 
  app.get('/Employee/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
