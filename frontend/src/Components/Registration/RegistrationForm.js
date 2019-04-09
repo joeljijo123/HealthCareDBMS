@@ -46,11 +46,6 @@ const styles = theme => ({
     },
 });
 
-
-  
-
-  
-
 class RegistrationForm extends React.Component{
     constructor(props){
         super(props)

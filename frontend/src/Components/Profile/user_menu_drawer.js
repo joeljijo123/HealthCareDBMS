@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import GeneralInformation from './ProfileInfo';
+import BasicInformation from '../Profile/MedicalInformation';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -22,7 +23,8 @@ import TextField from '@material-ui/core/TextField';
 import UserInformation from '../Components/Profile/UserInformation';
 import MedicalInformation from '../Components/Profile/MedicalInformation';
 import GeneralInformation from '../Components/Profile/GeneralInformation';
-
+import HospitalIcon from '../material-ui/icons/Hospital'
+import MoneyIcon from '../materialmaterial-ui/icons/Money'
 //This component will be used by the doctors and patients default portal - 
 // meaning this component should load for any employee or patient. For doctor, medical info 
 // will be patient chart lookup. The idea is to centralize the doctor's actions that he performs,
@@ -30,9 +32,9 @@ import GeneralInformation from '../Components/Profile/GeneralInformation';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '95%',
     marginLeft: '65%',
-    marginTop: '10%',
+    paddingTop: '2%',
     alignItems: "center",
     display: "flex",
     flexDirection: 'column',
@@ -40,13 +42,13 @@ const styles = theme => ({
     padding: theme.spacing.unit*3
   },
   drawer: {
-    width: '80%',
+    width: '20%',
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: '75%',
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: theme.mixins.toolbar, 
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -56,45 +58,58 @@ const styles = theme => ({
 });
 
 class user_menu_drawer extends React.Component {
+	constructor(props) {
+		super(props)
+        this.state = {
+          value: 0,
+        }
 
+  }
 
-paperSwap = (event, value) => {
-    this.setState({ value });
+paperSwap = (pagenum) => {
+    this.setState({ pagenum });
 }
 
   render() {
     const { classes } = this.props;
+    let page;
+    if(this.state.pagenum==0) {
+      page = GeneralInformation
+    }
+    else if(this.state.pagenum==1) {
+      page = MedicalInformation
+    }
+    else if(this.state.pagenum==2) {
+      //page= AccountInq;
+    }
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
+    <CssBaseline />
+    <Drawer
+      className={classes.drawer}
+      variant="permanent"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      anchor="left"
       >
-        <div className={classes.toolbar} />
-        <Divider />
+      <div className={classes.toolbar} />
+      <Divider />
         <List>
-          {['User Information', 'Medical History', 'Tests'].map((text, index) => (
-            <ListItem button key={text}>
-              //<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {['Profile Information', 'Medical History', 'Account Inquiry'].map((text) => (
+          <ListItem button key={text}>
+            <ListItemIcon><PersonPinIcon/>, <HospitalIcon/>, <MoneyIcon/></ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
           ))}
         </List>
-        <Divider />
-      </Drawer>
+      <Divider />
+    </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        //User information tab (patient)
-        <h1>I love html</h1>
-
-
+      <div className={classes.toolbar} />
+        {page}
       </main>
-    </div>
+      </div>
   );
   }
 }

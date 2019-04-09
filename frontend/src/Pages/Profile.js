@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
 import MedicalInformation from '../Components/Profile/MedicalInformation';
-import GeneralInformation from '../Components/Profile/GeneralInformation';
+import ProfileInfo from '../Components/Profile/ProfileInfo';
 import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
@@ -20,7 +20,7 @@ class Profile extends Component {
     return (
       <div className={classes.root}>
         <NavigationBar title={"The Profile Page"} Tab={1}/>
-        <GeneralInformation/>
+        <ProfileInfo/>
         <MedicalInformation/>
       </div>
     );
