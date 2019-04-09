@@ -200,9 +200,9 @@ app.get('/WorkSchdule/:userID', (req,res) => {
  });
 
  // Add new WorkSchedule day to a specified employee
- app.post('/AddNewWorkScheduleDay', (req,res) => {
+ app.post('/AddNewWorkSchedule', (req,res) => {
     const { DayID, EmployeeID, FacilityID}  =   req.body;
-    connection.query(`CALL UpdateDayFromWorkSchedule(
+    connection.query(`CALL AddNewWorkScheduleDay(
         '${EmployeeID}', 
         '${DayID}',
         '${FacilityID}');`,(err, results) => {
