@@ -137,7 +137,7 @@ app.get('/sexes', (req,res) => {
  //Parameter Based Queries
 
  //Facility and Doctor should be -1 if you want all 
- app.get('/AppointmentReport/:DooctorID/:FacilityID/:MinDate/:MaxDate', (req,res) => {
+ app.get('/AppointmentReport/:DoctorID/:FacilityID/:MinDate/:MaxDate', (req,res) => {
     const {DoctorID, FacilityID, MinDate,MaxDate} = req.params;
     connection.query(`call Clinic_Main.AppointmentsReport(${FacilityID}, ${DoctorID}, ${MinDate},${MaxDate});`,(err, results) => {
         if(err) {
