@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid} from '@material-ui/core';
+import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid, Divider} from '@material-ui/core';
+import AddImmunizationForm from '../MedicalInfoForm/AddImmunizationForm';
 
 //Define the looks
 const styles = theme => ({
   root: {
     width: '75%',
-    display: "flex",
     backgroundColor: "#e0e0e0",
     padding: theme.spacing.unit*3,
     height: '98%',
@@ -22,7 +22,6 @@ const styles = theme => ({
   textField:{
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
   },
   dense: {
     marginTop: 19,
@@ -40,6 +39,7 @@ class MedicalInformation extends Component {
   constructor(props){
     super(props);
     this.state = {
+      open: true,
       patientID: '',
       createdAt: '',
       lastUpdatedAt: '',
@@ -48,12 +48,14 @@ class MedicalInformation extends Component {
       allergies: '',
       majorIllness: '',
       bloodType: '',
+      procedureRecord: '',
+      medicalCondition: '',
     };
   }
 
 componentDidMount(){
   this.getMedicalHistoryData();
-}
+};
 
 getMedicalHistoryData(){
   fetch('https://localhost:3000/MedicalHistory')
@@ -63,18 +65,22 @@ getMedicalHistoryData(){
     medicationRecord: response.data,
   }))
   .catch(err => console.error(err))
+};
+
+openedImmuneForm = ({handleClickOpen}) => {
+  this.openImmForm = handleClickOpen;
 }
 
   render() {
-    const {classes} = this.props;
+    const {classes, addImmunizationForm} = this.props;
 
     return (
       <div>
-        <Paper className={classes.root} elevation={2}>
-          <Typography variant="h3" gutterBottom>Patient Medical Record</Typography>
-          <Typography variant="h4" gutterBottom>Summary</Typography>
-          <form className={classes.container} noValidate autoComplete="off">
-            <TextField
+          <Paper className={classes.root} elevation={2}>
+              <Typography variant="h3" >Patient Medical Record</Typography>
+              <br />
+              <Typography variant="h4" >Summary</Typography>
+              <TextField
                 id="standard-patientID"
                 label="Patient ID"
                 className={classes.textField}
@@ -84,43 +90,101 @@ getMedicalHistoryData(){
                   readOnly: true,
                 }}
               />
-          
-          <Grid item xs={6}>
-            <TextField 
-            id="outlined-immunizationRecord"
-            label="Immunization Record"
-            className={classes.textField}
-            value={this.state.immunizationRecord}
-            margine="normal"
-            InputProps={{
-              readOnly: true,
-            }}
-            multiline
-            variant="outlined"
-            />
-          </Grid>
-          
-          <Grid item xs={6}>
-            <TextField 
-            id="outlined-medicationRecord"
-            label="Medication Record"
-            className={classes.textField}
-            value={this.state.medicationRecord}
-            margine="normal"
-            InputProps={{
-              readOnly: true,
-            }}
-            multiline
-            variant="outlined"
-            />
-          </Grid>
+              <br/>
+              <Grid container spacing={24}>
+                <Grid item sm>
+                <TextField 
+                  id="outlined-immunizationRecord"
+                  label="Immunization Record"
+                  className={classes.textField}
+                  value={this.state.immunizationRecord}
+                  margine="normal"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  multiline
+                  variant="outlined"
+                  fullWidth
+                  rows="8"
+                />
+              </Grid>
+                <Grid item sm>
+                  <TextField 
+                  id="outlined-medicationRecord"
+                  label="Medication Record"
+                  className={classes.textField}
+                  value={this.state.medicationRecord}
+                  margine="normal"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  multiline
+                  variant="outlined"
+                  fullWidth
+                  rows="8"
+                  />
+                </Grid>
+              </Grid>
 
+              <Grid container spacing={24}>
+                <Grid item sm>
+                <TextField 
+                  id="outlined-allergies"
+                  label="Allergies"
+                  className={classes.textField}
+                  value={this.state.allergies}
+                  margine="normal"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  multiline
+                  variant="outlined"
+                  fullWidth
+                  rows="8"
+                />
+              </Grid>
+                <Grid item sm>
+                  <TextField 
+                  id="outlined-prodecuresRecord"
+                  label="Procedures Record"
+                  className={classes.textField}
+                  value={this.state.procedureRecord}
+                  margine="normal"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  multiline
+                  variant="outlined"
+                  fullWidth
+                  rows="8"
+                  />
+                </Grid>
+              </Grid>
 
-          <Grid item xs={6}>
-            <Button variant="containted" color="primary" className={classes.button}> Edit </Button>
-          </Grid>
-          </form>
-        </Paper>
+              <Grid container spacing={24}>
+                  <Grid item sm>
+                    <TextField 
+                    id="outlined-medicalCondition"
+                    label="Medical Condition"
+                    className={classes.textField}
+                    value={this.state.medicalCondition}
+                    margine="normal"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    multiline
+                    variant="outlined"
+                    fullWidth
+                    rows="8"
+                    />
+                  </Grid>
+              </Grid>
+              <Grid>
+                <Button variant="contained" color="primary" className={classes.button}> Edit </Button>
+                <AddImmunizationForm Button={classes.button}/>
+              </Grid>
+              <Divider variant="middle"/>
+          </Paper>
       </div>
     );
   }
