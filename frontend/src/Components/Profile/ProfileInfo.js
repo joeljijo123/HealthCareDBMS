@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { spacing } from '@material-ui/system';
 import {Paper, Divider, Button, TextField, Typography, FormControl, withStyles, Grid } from "@material-ui/core";
+import MaskedInput from 'react-text-mask';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
@@ -143,6 +144,31 @@ class ProfileInfo extends React.Component {
     	}
     	return false
 	}
+	SSNMaskCustom(props) {
+		const {...other } = props;
+		return (
+		  <MaskedInput
+			guide={false}
+			{...other}
+			mask={[/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+			placeholderChar={'\u2000'}
+			showMask
+		  />
+		);
+	}
+	PhoneMaskCustom(props) {
+		const {...other } = props;
+	  
+		return (
+		  <MaskedInput
+			{...other}
+			guide={false}
+			mask={[/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+			placeholderChar={'\u2000'}
+			showMask
+		  />
+		);
+	}
 	componentDidMount(){
         this.retrieveUserInfo();
     }
@@ -169,13 +195,14 @@ class ProfileInfo extends React.Component {
             editing: false
 		});
     }
-
+//for implementation of user menu, Paper className will be removed and
+// user menu will define css styles. 
   render() { 
 	  const {classes}=this.props;
     return (
       <div>
           <Paper className={classes.paperForm}>
-            <form className={classes.container} noValidate autoComplete="off">
+            <form  noValidate autoComplete="off">
 				<div>
 					{window.localStorage.userType=== "2" ? (
 						<Typography variant="h5">Welcome {this.state.first}}</Typography>
@@ -272,6 +299,7 @@ class ProfileInfo extends React.Component {
 									label="Contact Phone"
 									variant="outlined"
 									value={this.state.cellnumber}
+									inputComponent={this.PhoneMaskCustom(classes)}
 									onChange={this.handleChange}
 								/>
 							</FormControl>
@@ -282,7 +310,8 @@ class ProfileInfo extends React.Component {
 									name="ssn"
 									label="SSN"
 									variant="outlined"
-									value={ "***-"+"**-"+this.state.ssn.substring(0,3)}
+									value={ "***-"+"**-"+this.state.ssn.substring(7,11)}
+									inputComponent={this.SSNMaskCustom(classes)}
 									onChange={this.handleChange}
 								/>
 							</FormControl>
@@ -383,4 +412,7 @@ class ProfileInfo extends React.Component {
 ProfileInfo.propTypes={
 	classes: PropTypes.object.isRequired
 };
+//PhoneMaskCustom.propTypes = {
+//	inputRef: PropTypes.func.isRequired,
+//};
 export default withStyles (styles)(ProfileInfo);

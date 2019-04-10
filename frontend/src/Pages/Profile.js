@@ -4,6 +4,7 @@ import MedicalInformation from '../Components/Profile/MedicalInformation';
 import ProfileInfo from '../Components/Profile/ProfileInfo';
 import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import UserMenu from '../Components/Profile/UserMenu';
 
 
 const styles = theme =>({
@@ -22,6 +23,8 @@ class Profile extends Component {
         <NavigationBar title={"The Profile Page"} Tab={1}/>
         <ProfileInfo/>
         <MedicalInformation/>
+        
+       
       </div>
     );
   }
