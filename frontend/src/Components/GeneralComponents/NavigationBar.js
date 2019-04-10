@@ -46,6 +46,9 @@ const styles = {
     SchedulePageRedirect = () =>{
       window.location.replace('/Scheduling');
     }
+    ReportPageRedirect = () =>{
+      window.location.replace('/Reports');
+    }
     logout = () =>{
       this.setState({loggedIn:false,userid:null,userType:null})
       localStorage.setItem("userID", null);
@@ -84,6 +87,11 @@ const styles = {
                       <Tab label="My Profile" onClick={this.ProfilePageRedirect}></Tab>
                       {window.localStorage.userType !== "2" ? (
                         <Tab label="My Schedule" onClick={this.SchedulePageRedirect}></Tab>
+                      ):(
+                        <div></div>
+                      )}
+                      {window.localStorage.userType === "3" ? (
+                        <Tab label="Reports" onClick={this.ReportPageRedirect}></Tab>
                       ):(
                         <div></div>
                       )}
