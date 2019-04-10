@@ -136,6 +136,21 @@ app.get('/sexes', (req,res) => {
 
  //Parameter Based Queries
 
+ app.get('/AppointmentReport/:DooctorID/:FacilityID/:MinDate/:MaxDate', (req,res) => {
+    const {DoctorID, FacilityID, MinDate,MaxDate} = req.params;
+    connection.query(`call Clinic_Main.AppointmentsReport(${FacilityID}, ${DoctorID}, ${MinDate},${MaxDate});
+    (${userID});`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+});
+
  //This will return the username and password of a given username if it exists
  app.get('/login/:username', (req,res) => {
     const username = req.params.username;
