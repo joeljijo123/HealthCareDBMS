@@ -4,6 +4,10 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid, Divider} from '@material-ui/core';
 import AddImmunizationForm from '../MedicalInfoForm/AddImmunizationForm';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
+import EditIcon from '@material-ui/icons/Edit';
+
 
 //Define the looks
 const styles = theme => ({
@@ -37,43 +41,100 @@ const styles = theme => ({
 
 class MedicalInformation extends Component {
   constructor(props){
-    super(props);
+    super(props)
     this.state = {
-      open: true,
       patientID: '',
       createdAt: '',
       lastUpdatedAt: '',
       createdByEmployeeID: '',
       lastUpdatedBy: '',
+
+      immunizationRecord: '',
+      medicationRecord: '',
       allergies: '',
-      majorIllness: '',
-      bloodType: '',
       procedureRecord: '',
       medicalCondition: '',
+
+      editing: false
     };
+    this.handleChange=this.handleChange.bind(this);
   }
 
 componentDidMount(){
-  this.getMedicalHistoryData();
+  this.getMedicalRecord();
 };
 
-getMedicalHistoryData(){
+getMedicalRecord(){
   fetch('https://localhost:3000/MedicalHistory')
-  .then(response => response.json())
-  .then(response => this.setState({
-    immunizationRecord: response.data,
-    medicationRecord: response.data,
+  .then(result => result.json())
+  .then(res => this.setState({
+    patientID: res.data[0].patientID,
+    createdAt: res.data[0].createdAt,
+    lastUpdatedAt: res.data[0].lastUpdatedAt,
+    createdByEmployeeID: res.data[0].createdByEmployeeID,
+    lastUpdatedBy: res.data[0].lastUpdatedBy,
+
+    immunizationRecord: res.data[0].immunizationRecord,
+    medicationRecord: res.data[0].medicationRecord,
+    allergies: res.data[0].allergies,
+    procedureRecord: res.data[0].procedureRecord,
+    medicalCondition: res.data[0].medicalCondition,
   }))
   .catch(err => console.error(err))
 };
 
-openedImmuneForm = ({handleClickOpen}) => {
-  this.openImmForm = handleClickOpen;
+updateMedicalRecord=()=>{
+  fetch('https://localhost:3000/MedicalHistory', {
+    method:"POST",
+    headers: {
+      "Content-Type":"application/json",
+    },
+    body: JSON.stringify({
+    patientID: window.localStorage.patientID,
+    createdAt: this.state.createdAt,
+    lastUpdatedAt: this.state.lastUpdatedAt,
+    createdByEmployeeID: this.state.createdByEmployeeID,
+    lastUpdatedBy: this.state.lastUpdatedBy,
+
+    immunizationRecord: this.state.immunizationRecord,
+    medicationRecord: this.state.medicationRecord,
+    allergies: this.state.allergies,
+    procedureRecord: this.state.procedureRecord,
+    medicalCondition: this.state.medicalCondition,
+    })
+  })
+  .catch(err => console.log(err))
+}
+
+handleChange = e =>{
+  this.setState({
+    [e.target.name] : e.target.value
+  });
+}
+
+editMode = _ => {
+  this.setState({
+    editing: true
+  });
+}
+
+saveChange = _ => {
+  this.updateMedicalRecord();
+  this.getMedicalRecord();
+  this.setState({
+    editing: false
+  });
+}
+
+revertChanges = _ => {
+  this.getMedicalRecord();
+  this.setState({
+    editing: false
+  });
 }
 
   render() {
-    const {classes, addImmunizationForm} = this.props;
-
+    const {classes} = this.props;
     return (
       <div>
           <Paper className={classes.root} elevation={2}>
@@ -83,12 +144,11 @@ openedImmuneForm = ({handleClickOpen}) => {
               <TextField
                 id="standard-patientID"
                 label="Patient ID"
+                margin="normal"
                 className={classes.textField}
                 value={this.state.patientID}
-                margin="normal"
-                InputProps={{
-                  readOnly: true,
-                }}
+                disabled={!this.state.editing} 
+                onChange={this.handleChange}
               />
               <br/>
               <Grid container spacing={24}>
@@ -99,13 +159,12 @@ openedImmuneForm = ({handleClickOpen}) => {
                   className={classes.textField}
                   value={this.state.immunizationRecord}
                   margine="normal"
-                  InputProps={{
-                    readOnly: true,
-                  }}
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
+                  disabled={!this.state.editing}
+                  onChange={this.handleChange}
                 />
               </Grid>
                 <Grid item sm>
@@ -115,17 +174,16 @@ openedImmuneForm = ({handleClickOpen}) => {
                   className={classes.textField}
                   value={this.state.medicationRecord}
                   margine="normal"
-                  InputProps={{
-                    readOnly: true,
-                  }}
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
+                  disabled={!this.state.editing}
+                  onChange={this.handleChange}
                   />
                 </Grid>
               </Grid>
-
+              
               <Grid container spacing={24}>
                 <Grid item sm>
                 <TextField 
@@ -134,13 +192,12 @@ openedImmuneForm = ({handleClickOpen}) => {
                   className={classes.textField}
                   value={this.state.allergies}
                   margine="normal"
-                  InputProps={{
-                    readOnly: true,
-                  }}
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
+                  disabled={!this.state.editing}
+                  onChange={this.handleChange}
                 />
               </Grid>
                 <Grid item sm>
@@ -150,13 +207,12 @@ openedImmuneForm = ({handleClickOpen}) => {
                   className={classes.textField}
                   value={this.state.procedureRecord}
                   margine="normal"
-                  InputProps={{
-                    readOnly: true,
-                  }}
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
+                  disabled={!this.state.editing}
+                  onChange={this.handleChange}
                   />
                 </Grid>
               </Grid>
@@ -169,19 +225,33 @@ openedImmuneForm = ({handleClickOpen}) => {
                     className={classes.textField}
                     value={this.state.medicalCondition}
                     margine="normal"
-                    InputProps={{
-                      readOnly: true,
-                    }}
                     multiline
                     variant="outlined"
                     fullWidth
                     rows="8"
+                    disabled={!this.state.editing}
+                    onChange={this.handleChange}
                     />
                   </Grid>
               </Grid>
               <Grid>
-                <Button variant="contained" color="primary" className={classes.button}> Edit </Button>
-                <AddImmunizationForm Button={classes.button}/>
+                  {!this.state.editing ? (
+                <div>
+                  {this.getMedicalRecord()}
+                <FormControl margin="none">
+                  <Button variant="contained" color="primary" className={classes.button} onClick={this.editMode}> Edit </Button>
+                </FormControl>
+                </div>
+                  ):(
+                <div>
+                  <FormControl margin="right">
+                  <Button variant="contained" color="primary" className={classes.button} onClick={this.saveChange}> Save </Button>
+                  </FormControl>
+                  <FormControl margin="left">
+                  <Button variant="contained" color="primary" className={classes.button} onClick={this.revertChanges}> Revert </Button>
+                  </FormControl>
+                </div>      
+                  )}
               </Grid>
               <Divider variant="middle"/>
           </Paper>
