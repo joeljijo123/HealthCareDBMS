@@ -78,7 +78,9 @@ class AddNewDay extends React.Component{
 		console.log("EmployeeID : " + window.localStorage.userID)
 		console.log("FacilityID : " + this.state.FacilityID)
 		this.handleClose()
-		window.location.replace('/Scheduling')
+		setTimeout(function(){
+			window.location.replace('/Scheduling')
+		}, 200);
 	};
 	
 	render(){

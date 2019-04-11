@@ -107,7 +107,9 @@ class ModifyFacility extends React.Component{
         .catch(err => console.log(err));
 		}
 		this.handleClose()
-		window.location.replace('/Scheduling')
+		setTimeout(function(){
+			window.location.replace('/Scheduling')
+		}, 200);
 	}
 	
 	render(){
