@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 const styles = theme => ({
     icon: {
       margin: theme.spacing.unit,
-      fontSize: 45,
+      fontSize: 20,
       color: "#f5f5f5",
       '&:hover': {
         color: '#e0e0e0',
