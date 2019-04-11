@@ -48,13 +48,75 @@ class AppointmentReports extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            ChosenFacility: "",
+            ChosenDoctor: "",
+            MinimumDate: "",
+            MaximumDate: "",
+            Doctors: [],
+            Facilities: [],
+
         };
+    }
+    componentDidMount(){
+        this.uploadDoctors();
+        this.uploadFacilities();
+    }
+    uploadDoctors(){
+
+    }
+    uploadFacilities(){
+        fetch(`http://157.230.214.92:4000/Facilities`)
+        .then(result => result.json())
+        .then(Response => this.setState({ Facilities:Response.data }))
+        .catch(err => console.log(err))
     }
     render(){
         const classes = this.props;
         return(
-            <div className={classes.page}>
-               <h1>This is the Reports Page</h1>
+            <div className = {classes.page}>
+                <Button variant="contained" color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
+                    ShowReport Diagnosis
+                </Button>
+                <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
+                    <DialogTitle id="form-dialog-title">Here are the Doctor's Diagnoses</DialogTitle>
+                    <DialogContent>
+                        {this.state.Diagnosis.length>=1 ? (
+                            <div>
+                                <DialogContentText>
+                                    These are the Diagnoses Assosciated with your Appointment
+                                </DialogContentText>
+                                <Table className={classes.table}>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Diagnosis</TableCell>
+                                            <TableCell align="right">DiagnosisID</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.state.Diagnosis.map(Each => (
+                                            <TableRow key={Each.DiagnosisID}>
+                                            <TableCell component="th" scope="row">
+                                                {Each.Diagnosis}
+                                            </TableCell>
+                                            <TableCell align="right">{Each.DiagnosisID}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        ):(
+                            <DialogContentText>
+                                There are no Diagnoses Assosciated with your Appointment
+                            </DialogContentText>
+                        )}
+                        
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }
