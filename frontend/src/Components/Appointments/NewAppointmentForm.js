@@ -169,7 +169,10 @@ class NewAppointmentForm extends React.Component{
             })
         })
         .catch(err => console.log(err))
-        .then(window.location.replace('/Appointments'));
+        //.then(window.location.replace('/Appointments'));
+        setTimeout(function(){
+            window.location.replace('/Appointments')
+        }, 200);
     };
     handleBackStep= () =>{
         this.setState({step: this.state.step-1})
