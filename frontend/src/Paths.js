@@ -8,6 +8,7 @@ import Registration from './Pages/Registration';
 import Profile from './Pages/Profile';
 import Scheduling from './Pages/Scheduling';
 import Report from './Pages/Report';
+import DoctorRegistration from './Pages/DoctorRegistration';
 
 class Paths extends Component{
     state = {
@@ -23,6 +24,7 @@ class Paths extends Component{
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/Scheduling" exact component={Scheduling}/>
                     <Route path="/Reports" exact component={Report}/>
+                    <Route path="/DoctorRegistration" exact component={DoctorRegistration}/>
                 </div>
             </BrowserRouter>
         );

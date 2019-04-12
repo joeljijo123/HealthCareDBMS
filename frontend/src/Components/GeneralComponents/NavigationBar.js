@@ -49,6 +49,9 @@ const styles = {
     ReportPageRedirect = () =>{
       window.location.replace('/Reports');
     }
+    DocRegistrationRedirect = () =>{
+      window.location.replace('/DoctorRegistration');
+    }
     logout = () =>{
       this.setState({loggedIn:false,userid:null,userType:null})
       localStorage.setItem("userID", null);
@@ -91,7 +94,15 @@ const styles = {
                         <div></div>
                       )}
                       {window.localStorage.userType === "3" ? (
-                        <Tab label="Reports" onClick={this.ReportPageRedirect}></Tab>
+                          <Tab label="Reports" onClick={this.ReportPageRedirect}></Tab>
+                          //<Tab label="Register A Doctor" onClick={this.DocRegistrationRedirect}></Tab>
+
+                      ):(
+                        <div></div>
+                      )}
+                      {window.localStorage.userType === "3" ? (
+                          <Tab label="Register A Doctor" onClick={this.DocRegistrationRedirect}></Tab>
+
                       ):(
                         <div></div>
                       )}

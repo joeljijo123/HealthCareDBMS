@@ -14,7 +14,7 @@ const styles = theme => ({
     paperForm: {
         width: '25%',
         marginLeft: '7%',
-        marginTop: '-15%',
+        marginTop: '-23%',
         padding: theme.spacing.unit*2,
         flexDirection: 'column',
         backgroundColor: "#e0e0e0",
@@ -132,7 +132,13 @@ class RegistrationForm extends React.Component{
         
     }
     homeRedirect = () =>{
-        window.location.replace('/');
+        if(window.localStorage.loggedIn === "true"){
+            window.location.replace('/Appointments')
+        }
+        else{
+            window.location.replace('/')
+        }
+        
     }
     
     stepNext=()=>{
