@@ -150,7 +150,7 @@ class AppointmentHistory extends React.Component{
                                             </Grid>
                                             
                                             
-                                            {window.localStorage.userType !== "1" ? (
+                                            {(window.localStorage.userType !== "1" || window.localStorage.userType !== "4")? (
                                                 <div>
                                                     <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                         Cancel Appointment
