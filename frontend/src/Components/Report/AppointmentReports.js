@@ -1,7 +1,19 @@
 import React from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import AddIcon from '@material-ui/icons/ThreeSixty';
+import Icon from '@material-ui/core/Icon';
+import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const styles = theme =>({
     root: {
@@ -48,6 +60,7 @@ class AppointmentReports extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            openForm: false,
             ChosenFacility: "",
             ChosenDoctor: "",
             MinimumDate: "",
@@ -56,10 +69,6 @@ class AppointmentReports extends React.Component{
             Facilities: [],
 
         };
-    }
-    componentDidMount(){
-        this.uploadDoctors();
-        this.uploadFacilities();
     }
     uploadDoctors(){
 
@@ -70,17 +79,26 @@ class AppointmentReports extends React.Component{
         .then(Response => this.setState({ Facilities:Response.data }))
         .catch(err => console.log(err))
     }
+    handleClickOpen = () => {
+        this.uploadFacilities();
+        this.uploadDoctors();
+        this.setState({ openForm: true });
+    };
+
+    handleClose = () => {
+        this.setState({ openForm: false });
+    };
     render(){
         const classes = this.props;
         return(
             <div className = {classes.page}>
                 <Button variant="contained" color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
-                    ShowReport Diagnosis
+                    Show Appointments per Facilities
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
                     <DialogTitle id="form-dialog-title">Here are the Doctor's Diagnoses</DialogTitle>
                     <DialogContent>
-                        {this.state.Diagnosis.length>=1 ? (
+                        {this.state.Facilities.length>=1 ? (
                             <div>
                                 <DialogContentText>
                                     These are the Diagnoses Assosciated with your Appointment
@@ -93,12 +111,12 @@ class AppointmentReports extends React.Component{
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {this.state.Diagnosis.map(Each => (
-                                            <TableRow key={Each.DiagnosisID}>
+                                        {this.state.Facilities.map(Each => (
+                                            <TableRow key={Each.FacilitiyID}>
                                             <TableCell component="th" scope="row">
-                                                {Each.Diagnosis}
+                                                {Each.FacilityName}
                                             </TableCell>
-                                            <TableCell align="right">{Each.DiagnosisID}</TableCell>
+                                            <TableCell align="right">{Each.FacilityName}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
