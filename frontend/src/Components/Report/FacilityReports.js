@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/ThreeSixty';
 import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,47 +20,13 @@ import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 const styles = theme =>({
-    root: {
-        width: '75%',
-        alignItems: "center",
-        display: "flex",
-        flexDirection: 'column',
-        padding: theme.spacing.unit*3,
-        margin:"auto"
-  
-    },
-    page: {
-        height: "100vh",
-        backgroundColor: "#a09d9d",
-        padding: theme.spacing.unit*3,
-        margin:"auto"
-  
-    },
-    AdditionButton: {
-        display: "flex",
-        flexDirection: 'column',
-        backgroundColor: "#a09d9d",
-        padding: theme.spacing.unit*3,
-  
-    },
     Button: {
-        marginTop: '.5%',
+        marginTop: '2%',
     },
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '20%',
-        flexShrink: 0,
-      },
-      secondaryHeading: {
-        fontSize: theme.typography.pxToRem(15),
-        color: theme.palette.text.secondary,
-        flexBasis: '100%',
-        margin: 'auto'
-      },
 });
 
 
-class AppointmentReports extends React.Component{
+class FacilityReports extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -73,6 +39,8 @@ class AppointmentReports extends React.Component{
             MaximumDateDB: null,
             Doctors: [],
             Facilities: [],
+            FacilityCount: "",
+            DoctorsCount: "",
 
         };
     }
@@ -82,8 +50,17 @@ class AppointmentReports extends React.Component{
     uploadDoctors(){
 
     }
-    fetchReport(){
-        
+    fetchAppointmentReport(){
+        fetch(`http://157.230.214.92:4000/FacilityAppointmentReport/${this.state.ChosenFacility}/${this.state.MinimumDateDB}/${this.state.MaximumDateDB}`)
+        .then(result => result.json())
+        .then(Response => this.setState({ FacilityCount:Response.data[0].Count }))
+        .catch(err => console.log(err))
+    }
+    fetchDoctorReport(){
+        fetch(`http://157.230.214.92:4000/DoctorReport/${this.state.ChosenFacility}`)
+        .then(result => result.json())
+        .then(Response => this.setState({ DoctorsCount:Response.data[0].Count }))
+        .catch(err => console.log(err))
     }
     uploadFacilities(){
         fetch(`http://157.230.214.92:4000/Facilities`)
@@ -126,18 +103,29 @@ class AppointmentReports extends React.Component{
         })
     }
     handleClickOpen = () => {
-        
-        this.uploadDoctors();
+        this.fetchAppointmentReport();
+        this.fetchDoctorReport();
         this.setState({ openForm: true });
     };
 
     handleClose = () => {
-        this.setState({ openForm: false });
+        this.setState({ 
+            openForm: false,
+            ChosenFacility: "",
+            ChosenDoctor: "",
+            MinimumDate: null,
+            MaximumDate: null,
+            MinimumDateDB: null,
+            MaximumDateDB: null, 
+            FacilityCount: "",
+            DoctorsCount:"",
+        });
     };
     render(){
-        const classes = this.props;
+        const {classes} = this.props;
         return(
-            <div className = {classes.page}>
+            <div>
+            <Typography variant="h5">Facility Appointments Report</Typography>
                 <FormControl margin="normal" fullWidth>
                     <TextField
                         id="ChosenFacility"
@@ -165,6 +153,7 @@ class AppointmentReports extends React.Component{
                         name="MinimumDate"
                         value={this.state.MinimumDate}
                         onChange={this.MinDateChange}
+                        fullWidth
                     />
                 </MuiPickersUtilsProvider>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -173,33 +162,37 @@ class AppointmentReports extends React.Component{
                         name="MaximumDate"
                         value={this.state.MaximumDate}
                         onChange={this.MaxDateChange}
+                        fullWidth
                     />
                 </MuiPickersUtilsProvider>
-                <Button variant="contained" color="inherit" fullWidth onClick={this.handleClickOpen}>
-                    Show Appointments per Facilities
+                <Button variant="contained" color="inherit" fullWidth className={classes.Button} onClick={this.handleClickOpen} disabled={this.state.MinimumDate === null || this.state.MaximumDate === null || this.state.ChosenFacility === ""}>
+                    Show Appointments for the Chosen Facility
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
-                    <DialogTitle id="form-dialog-title">Here are the Doctor's Diagnoses</DialogTitle>
+                    <DialogTitle id="form-dialog-title">This is the Facility Report</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
-                            These are the Diagnoses Assosciated with your Appointment
-                        </DialogContentText>
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Diagnosis</TableCell>
-                                    <TableCell align="right">DiagnosisID</TableCell>
+                                    <TableCell>FacilityID</TableCell>
+                                    <TableCell align="right">Number of Appointments</TableCell>
+                                    <TableCell align="right">Number of Doctors</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.state.Facilities.map(Each => (
-                                    <TableRow key={Each.FacilitiyID}>
-                                    <TableCell component="th" scope="row">
-                                        {Each.FacilityName}
-                                    </TableCell>
-                                    <TableCell align="right">{Each.FacilityName}</TableCell>
-                                    </TableRow>
-                                ))}
+                                <TableRow>
+                                    {this.state.ChosenFacility === "-1" ? (
+                                        <TableCell component="th" scope="row">
+                                            All
+                                        </TableCell>
+                                    ):(
+                                        <TableCell component="th" scope="row">
+                                            {this.state.ChosenFacility}
+                                        </TableCell>
+                                    )}
+                                    <TableCell align="right">{this.state.FacilityCount}</TableCell>
+                                    <TableCell align="right">{this.state.DoctorsCount}</TableCell>
+                                </TableRow>
                             </TableBody>
                         </Table>                        
                     </DialogContent>
@@ -215,8 +208,8 @@ class AppointmentReports extends React.Component{
     
 }
 
-AppointmentReports.propTypes = {
+FacilityReports.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withStyles(styles)(AppointmentReports);
+export default withStyles(styles)(FacilityReports);

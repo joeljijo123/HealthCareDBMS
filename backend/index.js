@@ -137,9 +137,23 @@ app.get('/sexes', (req,res) => {
  //Parameter Based Queries
 
  //Facility and Doctor should be -1 if you want all 
- app.get('/FacilityReport/:FacilityID/:MinDate/:MaxDate', (req,res) => {
+ app.get('/FacilityAppointmentReport/:FacilityID/:MinDate/:MaxDate', (req,res) => {
     const {DoctorID, FacilityID, MinDate,MaxDate} = req.params;
     connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, '${MinDate}','${MaxDate}');`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results[0]
+            })
+        }
+    });
+});
+
+app.get('/DoctorReport/:FacilityID', (req,res) => {
+    const {DoctorID, FacilityID, MinDate,MaxDate} = req.params;
+    connection.query(`call Clinic_Main.DoctorsReport(${FacilityID});`,(err, results) => {
         if(err) {
             return res.send(err)
         }
