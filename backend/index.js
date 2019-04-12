@@ -138,17 +138,32 @@ app.get('/sexes', (req,res) => {
 
  //Facility and Doctor should be -1 if you want all 
  app.get('/FacilityAppointmentReport/:FacilityID/:MinDate/:MaxDate', (req,res) => {
-    const {DoctorID, FacilityID, MinDate,MaxDate} = req.params;
-    connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, '${MinDate}','${MaxDate}');`,(err, results) => {
-        if(err) {
-            return res.send(err)
-        }
-        else {
-            return res.json({
-                data: results[0]
-            })
-        }
-    });
+    const {FacilityID, MinDate,MaxDate} = req.params;
+    if(MinDate===null){
+        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, ${MinDate},${MaxDate});`,(err, results) => {
+            if(err) {
+                return res.send(err)
+            }
+            else {
+                return res.json({
+                    data: results[0]
+                })
+            }
+        });
+    }
+    else{
+        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, NULL,NULL);`,(err, results) => {
+            if(err) {
+                return res.send(err)
+            }
+            else {
+                return res.json({
+                    data: results[0]
+                })
+            }
+        });
+    }
+    
 });
 
 app.get('/DoctorReport/:FacilityID', (req,res) => {

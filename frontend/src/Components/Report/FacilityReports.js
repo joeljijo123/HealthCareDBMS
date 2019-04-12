@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/ThreeSixty';
 import Icon from '@material-ui/core/Icon';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles, Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,13 +31,13 @@ class FacilityReports extends React.Component{
         super(props)
         this.state = {
             openForm: false,
+            checkAllDates: false,
             ChosenFacility: "",
             ChosenDoctor: "",
             MinimumDate: null,
             MaximumDate: null,
             MinimumDateDB: null,
             MaximumDateDB: null,
-            Doctors: [],
             Facilities: [],
             FacilityCount: "",
             DoctorsCount: "",
@@ -102,6 +102,14 @@ class FacilityReports extends React.Component{
             [e.target.name] : e.target.value
         })
     }
+    handlechoseChange = name => event => {
+        this.setState({ 
+            [name]: event.target.checked,
+            MinimumDate: null,
+            MaximumDate: null,
+            MinimumDateDB: null,
+            MaximumDateDB: null});
+      };
     handleClickOpen = () => {
         this.fetchAppointmentReport();
         this.fetchDoctorReport();
@@ -125,7 +133,7 @@ class FacilityReports extends React.Component{
         const {classes} = this.props;
         return(
             <div>
-            <Typography variant="h5">Facility Appointments Report</Typography>
+            <Typography variant="h5">Facility Report</Typography>
                 <FormControl margin="normal" fullWidth>
                     <TextField
                         id="ChosenFacility"
@@ -147,6 +155,16 @@ class FacilityReports extends React.Component{
                         ))}
                     </TextField>
                 </FormControl>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                        checked={this.state.checkAllDates}
+                        onChange={this.handlechoseChange('checkAllDates')}
+                        value="checkAllDates"
+                        />
+                    }
+                    label="Generate Report for all Dates"
+                />
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker
                         label="From Date"
@@ -154,6 +172,7 @@ class FacilityReports extends React.Component{
                         value={this.state.MinimumDate}
                         onChange={this.MinDateChange}
                         fullWidth
+                        disabled={this.state.checkAllDates}
                     />
                 </MuiPickersUtilsProvider>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -163,13 +182,14 @@ class FacilityReports extends React.Component{
                         value={this.state.MaximumDate}
                         onChange={this.MaxDateChange}
                         fullWidth
+                        disabled={this.state.checkAllDates}
                     />
                 </MuiPickersUtilsProvider>
-                <Button variant="contained" color="inherit" fullWidth className={classes.Button} onClick={this.handleClickOpen} disabled={this.state.MinimumDate === null || this.state.MaximumDate === null || this.state.ChosenFacility === ""}>
-                    Show Appointments for the Chosen Facility
+                <Button variant="contained" color="inherit" fullWidth className={classes.Button} onClick={this.handleClickOpen} disabled={((this.state.MinimumDate === null || this.state.MaximumDate === null) && !this.state.checkAllDates) || this.state.ChosenFacility === ""}>
+                    Show reports for the Chosen Facility
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
-                    <DialogTitle id="form-dialog-title">This is the Facility Report</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Here is the Facility Report</DialogTitle>
                     <DialogContent>
                         <Table className={classes.table}>
                             <TableHead>
