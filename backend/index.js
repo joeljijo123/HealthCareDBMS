@@ -511,18 +511,18 @@ app.post('/RegisterUser', (req,res) => {
         '${FirstName}', 
         '${LastName}',
         '${Sex}', 
-        '${Email}', 
-        '${username}', 
-        '${password}', 
+        '${DateOfBirth}', 
         '${CellNumber}', 
         '${AddressStreet}',
         '${AddressCity}', 
         '${AddressState}', 
         '${AddressZip}',
-        '${DateOfBirth}', 
+        '${Email}',
         '${SSN}', 
         '${userType}',
-        '${raceID}');`,(err, results) => {
+        '${raceID}',
+        '${username}', 
+        '${password}');`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
