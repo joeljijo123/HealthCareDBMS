@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid, Divider} from '@material-ui/core';
-import AddImmunizationForm from '../MedicalInfoForm/AddImmunizationForm';
+import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid, Divider, table} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
@@ -44,16 +43,16 @@ class MedicalInformation extends Component {
     super(props)
     this.state = {
       patientID: '',
+      /*
       createdAt: '',
       lastUpdatedAt: '',
       createdByEmployeeID: '',
       lastUpdatedBy: '',
-
+      */
       immunizationRecord: '',
-      medicationRecord: '',
+      medicalCondition: '',
       allergies: '',
       procedureRecord: '',
-      medicalCondition: '',
 
       editing: false
     };
@@ -64,38 +63,39 @@ componentDidMount(){
   this.getMedicalRecord();
 };
 
-getMedicalRecord(){
-  fetch('https://localhost:3000/MedicalHistory')
+getMedicalRecord=()=>{
+  fetch(`http://157.230.214.92:4000/GetMedicalHistory/${window.localStorage.userID}`)
   .then(result => result.json())
   .then(res => this.setState({
-    patientID: res.data[0].patientID,
+    patientID: res.data[0].PatientID,
+    /*
     createdAt: res.data[0].createdAt,
     lastUpdatedAt: res.data[0].lastUpdatedAt,
     createdByEmployeeID: res.data[0].createdByEmployeeID,
     lastUpdatedBy: res.data[0].lastUpdatedBy,
-
-    immunizationRecord: res.data[0].immunizationRecord,
-    medicationRecord: res.data[0].medicationRecord,
-    allergies: res.data[0].allergies,
-    procedureRecord: res.data[0].procedureRecord,
-    medicalCondition: res.data[0].medicalCondition,
+    */
+    immunizationRecord: res.data[0].ImmunizationRecord,
+    medicalCondition: res.data[0].MedicalCondition,
+    allergies: res.data[0].Allergies,
+    procedureRecord: res.data[0].ProcedureRecord,
   }))
   .catch(err => console.error(err))
 };
 
 updateMedicalRecord=()=>{
-  fetch('https://localhost:3000/MedicalHistory', {
+  fetch(`http://157.230.214.92:4000/UpdateMedicalHistory`, {
     method:"POST",
     headers: {
       "Content-Type":"application/json",
     },
     body: JSON.stringify({
     patientID: window.localStorage.patientID,
+    /*
     createdAt: this.state.createdAt,
     lastUpdatedAt: this.state.lastUpdatedAt,
     createdByEmployeeID: this.state.createdByEmployeeID,
     lastUpdatedBy: this.state.lastUpdatedBy,
-
+    */
     immunizationRecord: this.state.immunizationRecord,
     medicationRecord: this.state.medicationRecord,
     allergies: this.state.allergies,
@@ -142,7 +142,6 @@ revertChanges = _ => {
               <br />
               <Typography variant="h4" >Summary</Typography>
               <TextField
-                id="standard-patientID"
                 label="Patient ID"
                 margin="normal"
                 className={classes.textField}
@@ -153,8 +152,7 @@ revertChanges = _ => {
               <br/>
               <Grid container spacing={24}>
                 <Grid item sm>
-                <TextField 
-                  id="outlined-immunizationRecord"
+                <TextField
                   label="Immunization Record"
                   className={classes.textField}
                   value={this.state.immunizationRecord}
@@ -168,11 +166,10 @@ revertChanges = _ => {
                 />
               </Grid>
                 <Grid item sm>
-                  <TextField 
-                  id="outlined-medicationRecord"
-                  label="Medication Record"
+                  <TextField
+                  label="Medical Condition"
                   className={classes.textField}
-                  value={this.state.medicationRecord}
+                  value={this.state.medicalCondition}
                   margine="normal"
                   multiline
                   variant="outlined"
@@ -186,8 +183,7 @@ revertChanges = _ => {
               
               <Grid container spacing={24}>
                 <Grid item sm>
-                <TextField 
-                  id="outlined-allergies"
+                <TextField
                   label="Allergies"
                   className={classes.textField}
                   value={this.state.allergies}
@@ -201,8 +197,7 @@ revertChanges = _ => {
                 />
               </Grid>
                 <Grid item sm>
-                  <TextField 
-                  id="outlined-prodecuresRecord"
+                  <TextField
                   label="Procedures Record"
                   className={classes.textField}
                   value={this.state.procedureRecord}
@@ -215,24 +210,6 @@ revertChanges = _ => {
                   onChange={this.handleChange}
                   />
                 </Grid>
-              </Grid>
-
-              <Grid container spacing={24}>
-                  <Grid item sm>
-                    <TextField 
-                    id="outlined-medicalCondition"
-                    label="Medical Condition"
-                    className={classes.textField}
-                    value={this.state.medicalCondition}
-                    margine="normal"
-                    multiline
-                    variant="outlined"
-                    fullWidth
-                    rows="8"
-                    disabled={!this.state.editing}
-                    onChange={this.handleChange}
-                    />
-                  </Grid>
               </Grid>
               <Grid>
                   {!this.state.editing ? (
