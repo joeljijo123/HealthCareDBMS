@@ -16,6 +16,7 @@ import ShowPrescriptions from './ShowPrescriptions';
 import AddPrescription from './AddPrescription';
 import AddSpecialistReccomendation from './AddSpecilaistReccomendation';
 import './AppointmentPage.css';
+import PatientMedicalHistory from './PatientMedicalHistory';
 
 const styles = theme =>({
     root: {
@@ -43,15 +44,20 @@ const styles = theme =>({
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
-        flexBasis: '20%',
+        flexBasis: '19%',
         flexShrink: 0,
-      },
-      secondaryHeading: {
+    },
+    iconHistory: {
         fontSize: theme.typography.pxToRem(15),
-        color: theme.palette.text.secondary,
-        flexBasis: '100%',
-        margin: 'auto'
-      },
+        flexBasis: '3%',
+        flexShrink: 10,
+    },
+    secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+    flexBasis: '100%',
+    margin: 'auto'
+    },
 });
 
 
@@ -139,13 +145,29 @@ class AppointmentHistory extends React.Component{
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
                                             Specialist Reccomentation: {option.Specialist === null || option.Specialist === "" ? (<text>No Specialist Needed</text>):(<text>{option.Specialist}</text>)}<br/>
-                                            {window.localStorage.userType ==="3" ? (
+                                            {(window.localStorage.userType === "1" ||  window.localStorage.userType === "4")? (
+                                                <Grid container spacing={8}>
+                                                    <Grid item xs={12} sm={4}>  
+                                                        <AddDiagnosis Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <AddSpecialistReccomendation  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>  
+                                                        <AddPrescription Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                </Grid>
+                                            ):(
+                                                <div>
+                                                </div>
+                                            )}
+                                            {window.localStorage.userType !=="2" ? (
                                                 <Grid container spacing={8}>
                                                     <Grid item xs={12} sm={4}>
                                                         <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
                                                     </Grid>
                                                     <Grid item xs={12} sm={4}>
-                                                        <NewAppointmentForm PatientID={option.PatientID}/>
+                                                        <PatientMedicalHistory Button={classes.Button} PatientID={option.PatientID}/>
                                                     </Grid>
                                                     <Grid item xs={12} sm={4}>
                                                         <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
@@ -162,30 +184,33 @@ class AppointmentHistory extends React.Component{
                                                 </Grid>
                                             )}
                                             
+                                            {window.localStorage.userType === "3" ? (
+                                                    <Grid container spacing={8}>
+                                                        <Grid item xs={12} sm={6}>  
+                                                            <NewAppointmentForm PatientID={option.PatientID}/>                                                        
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={6}>
+                                                            <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
+                                                                Cancel Appointment
+                                                            </Button>  
+                                                        </Grid>
+                                                    </Grid>
+                                            ):(
+                                                <div></div>
+                                            )}
                                             
-                                            {(window.localStorage.userType === "2" || window.localStorage.userType === "3")? (
+                                            {window.localStorage.userType === "2" ? (
                                                 <div>
-                                                    
                                                     <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                         Cancel Appointment
                                                     </Button>
                                                 </div>
                                                 
                                             ):(
-                                                
-                                                <Grid container spacing={8}>
-                                                    <Grid item xs={12} sm={6}>  
-                                                        <AddDiagnosis Button={classes.Button} AppID={option.idAppointment}/>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6}>  
-                                                        <AddPrescription Button={classes.Button} AppID={option.idAppointment}/>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={12}>
-                                                        <AddSpecialistReccomendation  Button={classes.Button} AppID={option.idAppointment}/>
-                                                    </Grid>
-                                                </Grid>
-
+                                                <div></div>
                                             )}
+
+                                            
                                             
                                         </Typography>
                                         

@@ -282,9 +282,6 @@ app.get('/WorkSchdule/:userID', (req,res) => {
         procedureRecord, medicalCondition}  =   req.body;
     connection.query(`CALL UpdateMedicalHistory(
         '${patientID}',
-        '${createdAt}',
-        '${lastUpdatedAt}',
-        '${createdByEmployeeID}',
         '${lastUpdatedBy}',
         '${immunizationRecord}',
         '${allergies}',

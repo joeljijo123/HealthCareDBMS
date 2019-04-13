@@ -42,3 +42,7 @@ Future
         Cancelling Appointment 
     -Uploading Files
   
+
+
+Colby  
+    -Add a Trigger to Patient that when a patient is added, a medical history log tuple is added with the patientID

@@ -184,9 +184,15 @@ class NewAppointmentForm extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="Filled" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
-                    <AddButton className={classes.icon}/><Typography variant="subtitle1">New Appointment</Typography>
-                </Button>
+                {window.localStorage.userType === "2" ? (
+                    <Button variant="filled" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
+                        <AddButton className={classes.icon}/>New Appointment
+                    </Button>
+                ) : (
+                    <Button variant="contained" color="primary" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
+                        <AddButton className={classes.icon}/>New Appointment
+                    </Button>
+                )}
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>
                     <DialogTitle id="form-dialog-title">Book an Appointment</DialogTitle>
                     <DialogContent>
