@@ -119,6 +119,7 @@ class FacilityReports extends React.Component{
     handleClose = () => {
         this.setState({ 
             openForm: false,
+            checkAllDates: false,
             ChosenFacility: "",
             ChosenDoctor: "",
             MinimumDate: null,

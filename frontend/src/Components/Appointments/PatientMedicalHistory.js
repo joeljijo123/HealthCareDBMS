@@ -89,7 +89,7 @@ class PatientMedicalHistory extends React.Component{
             "Content-Type":"application/json",
           },
           body: JSON.stringify({
-            patient: this.props.PatientID,
+            patientID: this.props.PatientID,
             lastUpdatedBy: window.localStorage.userID,
             immunizationRecord: this.state.immunizationRecord,
             allergies: this.state.allergies,

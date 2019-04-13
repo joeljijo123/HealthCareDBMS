@@ -2,6 +2,7 @@ import React from 'react';
 import RegistrationForm from '../Components/Registration/RegistrationForm';
 import LoginImage from '../Components/Home/BackgroundPicture.jpg';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
+import './Home.css';
 
 const divStyle = {
     style: {
@@ -15,9 +16,11 @@ const divStyle = {
 class DoctorRegistration extends React.Component{
     render() {
         return(
-            <div style={divStyle.style}>
-                <NavigationBar title={"Register A New Doctor"} Tab={4}/>
-                <RegistrationForm/>
+            <div className='Home-image'>
+                <div className='Home-overlay'>
+                    <NavigationBar title={"Register A New User"} Tab={4}/>
+                    <RegistrationForm/>
+                </div>
             </div>
         );
     }

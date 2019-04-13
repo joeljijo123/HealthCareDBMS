@@ -46,3 +46,4 @@ Future
 
 Colby  
     -Add a Trigger to Patient that when a patient is added, a medical history log tuple is added with the patientID
+    -Add a Trigger, when Medical History is changed, log is updated

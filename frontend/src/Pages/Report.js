@@ -6,7 +6,7 @@ class Report extends Component {
   render() { 
     return (
       <div>
-        <NavigationBar title={"The Reports Page"} Tab={3}/>
+        <NavigationBar title={"Analytical Reports"} Tab={3}/>
         <ReportsGenerator/>
       </div>
     );

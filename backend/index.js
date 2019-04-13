@@ -277,8 +277,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
 
  //Update medical history
  app.post('/UpdateMedicalHistory', (req,res) => {
-    const { patientID, createdAt, lastUpdatedAt, createdByEmployeeID,
-         lastUpdatedBy, immunizationRecord, allergies,
+    const { patientID,lastUpdatedBy, immunizationRecord, allergies,
         procedureRecord, medicalCondition}  =   req.body;
     connection.query(`CALL UpdateMedicalHistory(
         '${patientID}',

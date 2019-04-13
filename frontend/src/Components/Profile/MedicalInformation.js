@@ -43,33 +43,13 @@ class MedicalInformation extends Component {
     super(props)
     this.state = {
       patientID: '',
-      /*
-      createdAt: '',
-      lastUpdatedAt: '',
-      createdByEmployeeID: '',
-      lastUpdatedBy: '',
-      */
-      immunizationRecord: '',
-      medicalCondition: '',
-      allergies: '',
-      procedureRecord: '',
-
-      editing: false,
-
       editImmunizationRecord: '',
       editMedicalCondition: '',
       editAllergies: '',
       editProcedureRecord: '',
 
     };
-    this.handleChange=this.handleChange.bind(this);
   }
-
-assignEdit=()=>{
-  this.setState({
-    
-  })
-}
 
 componentDidMount(){
   this.getMedicalRecord();
@@ -80,17 +60,6 @@ getMedicalRecord=()=>{
   .then(result => result.json())
   .then(res => this.setState({
     patientID: res.data[0].PatientID,
-    /*
-    createdAt: res.data[0].createdAt,
-    lastUpdatedAt: res.data[0].lastUpdatedAt,
-    createdByEmployeeID: res.data[0].createdByEmployeeID,
-    lastUpdatedBy: res.data[0].lastUpdatedBy,
-    */
-    immunizationRecord: res.data[0].ImmunizationRecord,
-    medicalCondition: res.data[0].MedicalCondition,
-    allergies: res.data[0].Allergies,
-    procedureRecord: res.data[0].ProcedureRecord,
-
     editImmunizationRecord: res.data[0].ImmunizationRecord,
     editMedicalCondition: res.data[0].MedicalCondition,
     editAllergies: res.data[0].Allergies,
@@ -98,86 +67,6 @@ getMedicalRecord=()=>{
   }))
   .catch(err => console.error(err))
 };
-
-updateMedicalRecord=()=>{
-  fetch(`http://157.230.214.92:4000/UpdateMedicalHistory`, {
-    method:"POST",
-    headers: {
-      "Content-Type":"application/json",
-    },
-    body: JSON.stringify({
-    patientID: this.state.patientID,
-	createdAt: "2019-01-01",
-    lastUpdatedAt: "2019-01-01",
-    createdByEmployeeID: 0,
-    lastUpdatedBy: 0,
-    immunizationRecord: this.state.editImmunizationRecord,
-    allergies: this.state.editAllergies,
-    procedureRecord: this.state.editProcedureRecord,
-    medicalCondition: this.state.editMedicalCondition,
-    })
-  })
-  .catch(err => console.log(err))
-  console.log("dsdsad")
-}
-
-// NOT USED FOR FIELD ENTRY
-handleChange = e =>{
-  this.setState({
-    [e.target.name] : e.target.value
-  })
-}
-
-// Used to edit ImmunizationRecord field
-handleChangeImmunizationRecord = e =>{
-	this.setState({
-		editImmunizationRecord : e.target.value
-	})
-}
-
-// Used to edit MedicalCondition field
-handleChangeMedicalCondition = e =>{
-	this.setState({
-		editMedicalCondition : e.target.value
-	})
-}
-
-// Used to edit Allergies field
-handleChangeAllergies = e =>{
-	this.setState({
-		editAllergies : e.target.value
-	})
-}
-
-// Used to edit ProcedureRecord field
-handleChangeProcedureRecord = e =>{
-	this.setState({
-		editProcedureRecord : e.target.value
-	})
-}
-
-editMode = _ => {
-  this.setState({
-    editing: true
-  });
-}
-
-saveChange = _ => {
-	this.updateMedicalRecord();
-	setTimeout(function(){
-		window.location.replace('/Profile')
-	}, 200);
-}
-
-revertChanges = _ => {
-  this.setState({
-    editing: false,
-	editImmunizationRecord: this.state.immunizationRecord,
-    editMedicalCondition: this.state.medicalCondition,
-    editAllergies: this.state.allergies,
-    editProcedureRecord: this.state.procedureRecord
-  });
-}
 
   render() {
     const {classes} = this.props;
@@ -192,7 +81,7 @@ revertChanges = _ => {
                 margin="normal"
                 className={classes.textField}
                 value={this.state.patientID}
-                disabled={!this.state.editing} 
+                disabled
                 onChange={this.handleChange}
               />
               <br/>
@@ -207,7 +96,7 @@ revertChanges = _ => {
                   variant="outlined"
                   fullWidth
                   rows="8"
-                  disabled={!this.state.editing}
+                  disabled
                   onChange={this.handleChangeImmunizationRecord}
                 />
               </Grid>
@@ -221,7 +110,7 @@ revertChanges = _ => {
                   variant="outlined"
                   fullWidth
                   rows="8"
-                  disabled={!this.state.editing}
+                  disabled
                   onChange={this.handleChangeMedicalCondition}
                   />
                 </Grid>
@@ -238,7 +127,7 @@ revertChanges = _ => {
                   variant="outlined"
                   fullWidth
                   rows="8"
-                  disabled={!this.state.editing}
+                  disabled
                   onChange={this.handleChangeAllergies}
                 />
               </Grid>
@@ -252,29 +141,10 @@ revertChanges = _ => {
                   variant="outlined"
                   fullWidth
                   rows="8"
-                  disabled={!this.state.editing}
+                  disabled
                   onChange={this.handleChangeProcedureRecord}
                   />
                 </Grid>
-              </Grid>
-              <Grid>
-                  {!this.state.editing ? (
-                <div>
-                  {this.getMedicalRecord}
-                <FormControl margin="none">
-                  <Button variant="contained" color="primary" className={classes.button} onClick={this.editMode}> Edit </Button>
-                </FormControl>
-                </div>
-                  ):(
-                <div>
-                  <FormControl margin="right">
-                  <Button variant="contained" color="primary" className={classes.button} onClick={this.saveChange}> Save </Button>
-                  </FormControl>
-                  <FormControl margin="left">
-                  <Button variant="contained" color="primary" className={classes.button} onClick={this.revertChanges}> Revert </Button>
-                  </FormControl>
-                </div>      
-                  )}
               </Grid>
               <Divider variant="middle"/>
           </Paper>

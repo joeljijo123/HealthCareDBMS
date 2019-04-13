@@ -36,7 +36,7 @@ class NewAppointmentForm extends React.Component{
             AppointmentTimeID:"",
             Facilities: [],
             Doctors: [],
-            AppointmentTimes: [1,2,3],
+            AppointmentTimes: [],
             Reason: null,
             AppointmentDate: null,
             DBFormattedDate: null,
@@ -44,6 +44,12 @@ class NewAppointmentForm extends React.Component{
     }
 
     componentDidMount = () => {
+        this.setState({
+            AppointmentTimes: [{
+                TimeSlotID: -1,
+                AppointmentTime: "No Appointment Times for the chosen Date"
+            }]
+        })
         this.uploadFacilities();
     };
 
@@ -52,7 +58,20 @@ class NewAppointmentForm extends React.Component{
     };
 
     handleClose = () => {
-        this.setState({ openForm: false });
+        this.uploadFacilities();
+        this.setState({ 
+            openForm: false,
+            step: 0,
+            FacilityID: "",
+            DoctorID: "",
+            AppointmentTimeID:"",
+            Facilities: [],
+            Doctors: [],
+            AppointmentTimes: [],
+            Reason: null,
+            AppointmentDate: null,
+            DBFormattedDate: null,
+        });
     };
 
     AppointmentDateChange = (d) =>{
@@ -111,7 +130,7 @@ class NewAppointmentForm extends React.Component{
                             <Button onClick={this.handleBackStep} color="primary">
                                 Back
                             </Button>
-                            <Button onClick={this.handleSubmit} disabled={this.state.AppointmentTimeID=== ""} color="primary">
+                            <Button onClick={this.handleSubmit} disabled={this.state.AppointmentTimeID=== "" || this.state.AppointmentTimeID=== -1} color="primary">
                                 Submit
                             </Button>
 
@@ -149,7 +168,10 @@ class NewAppointmentForm extends React.Component{
             })
         })
         .then(result => result.json())
-        .then(Response => this.setState({ AppointmentTimes:Response.data}))
+        .then(Response => 
+            {if(Response.data.length !== 0) {
+                this.setState({ AppointmentTimes:Response.data})
+            }})
         .catch(err => console.log(err));
     };
     handleNextStep= () =>{
@@ -178,7 +200,10 @@ class NewAppointmentForm extends React.Component{
         }, 200);
     };
     handleBackStep= () =>{
-        this.setState({step: this.state.step-1})
+        this.setState({
+            step: this.state.step-1,
+            AppointmentTimeID: ""
+        })
     };
     render(){
         const {classes}=this.props;

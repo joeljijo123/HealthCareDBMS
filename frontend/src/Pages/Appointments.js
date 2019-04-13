@@ -31,7 +31,6 @@ class Appointments extends Component {
       .then(res => {this.setState(  { firstName: res.data[0].FirstName  } )})
       .catch(err => console.log(err))
     }
-    return this.state.firstName;
   }
 
   

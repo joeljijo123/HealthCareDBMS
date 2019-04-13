@@ -20,9 +20,14 @@ class Profile extends Component {
     const{classes}=this.props;
     return (
       <div className={classes.root}>
-        <NavigationBar title={"The Profile Page"} Tab={1}/>
+        <NavigationBar title={"My Profile"} Tab={1}/>
         <ProfileInfo/>
-        <MedicalInformation/>
+        {window.localStorage.userType === "2" ? (
+          <MedicalInformation/>
+        ):(
+          <div></div>
+        )}
+        
         
        
       </div>

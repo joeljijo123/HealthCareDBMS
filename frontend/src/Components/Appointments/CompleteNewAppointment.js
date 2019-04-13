@@ -35,7 +35,6 @@ function CompleteNewAppointment(props){
                     {props.val.AppointmentTimes.map(option => (
                         <MenuItem key={option.TimeSlotID} value={option.TimeSlotID}>
                             {option.AppointmentTime}
-                            {console.log(option.TimeSlotID)}
                         </MenuItem>
                     ))}
                     </TextField>
