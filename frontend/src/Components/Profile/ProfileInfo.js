@@ -50,7 +50,7 @@ class ProfileInfo extends React.Component {
 		};
 		this.handleChange=this.handleChange.bind(this);
 	}
-	retrieveUserInfo() {
+	retrieveUserInfo=()=> {
 		if(window.localStorage.userType === "2"){
 			fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
 			.then(result => result.json())
