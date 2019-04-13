@@ -10,6 +10,9 @@ class Appointments extends Component {
         Facilities: []
     };
   }
+  componentDidMount(){
+    this.FirstName();
+  }
 
   FirstName(){
     if(window.localStorage.userType === "2"){
@@ -34,7 +37,7 @@ class Appointments extends Component {
   render() {
     return (
       <div>
-        <NavigationBar title={'Welcome, '+this.FirstName()} Tab={0}/>
+        <NavigationBar title={'Welcome, '+this.state.firstName} Tab={0}/>
         <AppointmentHistory val={this.state}/>
       </div>
         
