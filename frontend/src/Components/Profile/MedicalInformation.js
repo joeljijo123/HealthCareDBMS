@@ -214,7 +214,7 @@ revertChanges = _ => {
               <Grid>
                   {!this.state.editing ? (
                 <div>
-                  {this.getMedicalRecord()}
+                  {this.getMedicalRecord}
                 <FormControl margin="none">
                   <Button variant="contained" color="primary" className={classes.button} onClick={this.editMode}> Edit </Button>
                 </FormControl>
