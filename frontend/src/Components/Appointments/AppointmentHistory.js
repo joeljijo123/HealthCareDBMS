@@ -15,6 +15,7 @@ import ShowDiagnosis from './ShowDiagnosis';
 import ShowPrescriptions from './ShowPrescriptions';
 import AddPrescription from './AddPrescription';
 import AddSpecialistReccomendation from './AddSpecilaistReccomendation';
+import './AppointmentPage.css';
 
 const styles = theme =>({
     root: {
@@ -27,8 +28,6 @@ const styles = theme =>({
   
     },
     page: {
-        height: "100vh",
-        backgroundColor: "#a09d9d",
         padding: theme.spacing.unit*3,
         margin:"auto"
   
@@ -36,8 +35,7 @@ const styles = theme =>({
     AdditionButton: {
         display: "flex",
         flexDirection: 'column',
-        backgroundColor: "#a09d9d",
-        padding: theme.spacing.unit*3,
+        padding: theme.spacing.unit,
   
     },
     Button: {
@@ -121,8 +119,9 @@ class AppointmentHistory extends React.Component{
         const { expanded } = this.state;
         return(
             <div className={classes.page}>
+                <div className='AppointmentPage-SmallBoxOverLay'>
                 <div className={classes.root}>
-                    
+                <h1 className='AppointmentHistory-h1'>Upcoming Appointments</h1>
                     {this.state.Appointments.map(option => (
                             <FormControl key={option.idAppointment} fullWidth>
                                 <ExpansionPanel square expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
@@ -140,28 +139,36 @@ class AppointmentHistory extends React.Component{
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
                                             Specialist Reccomentation: {option.Specialist === null || option.Specialist === "" ? (<text>No Specialist Needed</text>):(<text>{option.Specialist}</text>)}<br/>
-                                            <Grid container spacing={8}>
-				                                <Grid item xs={12} sm={6}>
-                                                    <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                            {window.localStorage.userType ==="3" ? (
+                                                <Grid container spacing={8}>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <NewAppointmentForm PatientID={option.PatientID}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={12} sm={6}>
-                                                    <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                            ):(
+                                                <Grid container spacing={8}>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
+                                            )}
                                             
                                             
-                                            {(window.localStorage.userType !== "1" || window.localStorage.userType !== "4")? (
+                                            {(window.localStorage.userType === "2" || window.localStorage.userType === "3")? (
                                                 <div>
+                                                    
                                                     <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                         Cancel Appointment
                                                     </Button>
-                                                    {window.localStorage.userType ==="3" ? (
-                                                        <div>
-                                                            <NewAppointmentForm PatientID={option.PatientID}/>
-                                                        </div>
-                                                    ):(
-                                                        <div></div>
-                                                    )}
                                                 </div>
                                                 
                                             ):(
@@ -196,6 +203,7 @@ class AppointmentHistory extends React.Component{
                     )}
                     
                     
+                </div>
                 </div>
             </div>
         );

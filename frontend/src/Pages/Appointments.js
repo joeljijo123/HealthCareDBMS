@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
-import AppointmentHistory from '../Components/Appointments/AppointmentHistory'
+import AppointmentHistory from '../Components/Appointments/AppointmentHistory';
+import '../Components/Appointments/AppointmentPage.css';
 
 class Appointments extends Component {
   constructor(props){
@@ -36,9 +37,11 @@ class Appointments extends Component {
   
   render() {
     return (
-      <div>
-        <NavigationBar title={'Welcome, '+this.state.firstName} Tab={0}/>
-        <AppointmentHistory val={this.state}/>
+      <div className='AppointmentPage-image'>
+        <div className='AppointmentPage-overlay'>
+          <NavigationBar title={'Welcome, '+this.state.firstName} Tab={0}/>
+          <AppointmentHistory val={this.state}/>
+        </div>
       </div>
         
     );

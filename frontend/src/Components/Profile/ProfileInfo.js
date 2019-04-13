@@ -331,7 +331,8 @@ class ProfileInfo extends React.Component {
 						}
 					</Grid>
 					<Divider variant="middle" />
-				</div>
+				</div> 
+				{/* //OPENHERE */}
 				<div>
 					<Typography variant="h6">Account Information</Typography>
 					<Grid container spacing={8}>
@@ -401,7 +402,8 @@ class ProfileInfo extends React.Component {
 			      			</Button>
 			      		</FormControl>
 		      		</div>
-		      	)}
+		      	)}  
+						{/* //CLOSE HERER */}
 			</form>
           </Paper>
       </div>

@@ -14,7 +14,7 @@ const styles = theme => ({
     paperForm: {
         width: '25%',
         marginLeft: '7%',
-        marginTop: '-23%',
+        marginTop: '-15%',
         padding: theme.spacing.unit*2,
         flexDirection: 'column',
         backgroundColor: "#e0e0e0",
@@ -91,21 +91,22 @@ class RegistrationForm extends React.Component{
                 this.state.registrationStep === 0
     }
     componentDidMount(){
+        if(window.localStorage.LoginTableID === "null"){
+            this.setState({userType: 2})
+        }
         this.uploadStates();
         this.uploadSexes();
         this.uploadRoles();
         this.uploadRaces();
     }
     handleChange = e =>{
+        console.log(this.state.userType);
         this.setState({
             [e.target.name] : e.target.value
         })
     }
     registerUser=()=>{
         //backend call to add the user to the backend
-        if(window.localStorage.loggedIn !== "true"){
-            this.setState({userType: 2})
-        }
         fetch(`http://157.230.214.92:4000/RegisterUser`, {
             method:"POST",
             headers: {

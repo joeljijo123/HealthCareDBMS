@@ -280,7 +280,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
     const { patientID, createdAt, lastUpdatedAt, createdByEmployeeID,
          lastUpdatedBy, immunizationRecord, allergies,
         procedureRecord, medicalCondition}  =   req.body;
-    connection.query(`CALL GetMedicalHistory'(
+    connection.query(`CALL UpdateMedicalHistory'(
         '${patientID}',
         '${createdAt}',
         '${lastUpdatedAt}',
@@ -309,7 +309,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
         }
         else {
             return res.json({
-                data: results
+                data: results[0]
             })
         }
     });
@@ -511,18 +511,18 @@ app.post('/RegisterUser', (req,res) => {
         '${FirstName}', 
         '${LastName}',
         '${Sex}', 
-        '${Email}', 
-        '${username}', 
-        '${password}', 
+        '${DateOfBirth}', 
         '${CellNumber}', 
         '${AddressStreet}',
         '${AddressCity}', 
         '${AddressState}', 
         '${AddressZip}',
-        '${DateOfBirth}', 
+        '${Email}',
         '${SSN}', 
         '${userType}',
-        '${raceID}');`,(err, results) => {
+        '${raceID}',
+        '${username}', 
+        '${password}');`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
