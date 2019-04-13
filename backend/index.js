@@ -327,7 +327,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
  });
 
  app.get('/AllDoctors', (req,res) => {
-    connection.query(`SELECT * FROM Clinic_Main.Employee WHERE RoleID=1`,(err, results) => {
+    connection.query(`SELECT * FROM Clinic_Main.Employee WHERE RoleID=1 OR RoleID>=4`,(err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -342,7 +342,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
  app.get('/Doctors/:FacilityID/:Specialist', (req,res) => {
     const FacilityID = req.params.FacilityID;
     var Specialist=true;
-    if(req.params.Specialist===0){Specialist=false;}
+    if(req.params.Specialist==="0"){Specialist=false;}
     connection.query(`CALL RetrieveDoctorsWorkingAtFacility(${FacilityID},${Specialist})`,(err, results) => {
         if(err) {
             return res.send(err)

@@ -145,7 +145,7 @@ class AppointmentHistory extends React.Component{
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
                                             Specialist Reccomentation: {option.Specialist === null || option.Specialist === "" ? (<text>No Specialist Needed</text>):(<text>{option.Specialist}</text>)}<br/>
-                                            {(window.localStorage.userType === "1" ||  window.localStorage.userType === "4")? (
+                                            {(window.localStorage.userType !== "2" ||  window.localStorage.userType !== "3")? (
                                                 <Grid container spacing={8}>
                                                     <Grid item xs={12} sm={4}>  
                                                         <AddDiagnosis Button={classes.Button} AppID={option.idAppointment}/>

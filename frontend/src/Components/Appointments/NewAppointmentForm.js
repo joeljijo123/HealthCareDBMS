@@ -146,9 +146,9 @@ class NewAppointmentForm extends React.Component{
         .catch(err => console.log(err))
     };
     uploadDoctors=()=> {
-        var Specialist=0;//0 is false and 1 is true
+        var Specialist=1;//0 is false and 1 is true
         if(window.localStorage.userType !== "3"){
-            Specialist=1;
+            Specialist=0;
         }
         fetch(`http://157.230.214.92:4000/Doctors/${this.state.FacilityID}/${Specialist}`)
         .then(result => result.json())
