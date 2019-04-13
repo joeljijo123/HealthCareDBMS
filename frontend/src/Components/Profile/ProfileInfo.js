@@ -331,7 +331,8 @@ class ProfileInfo extends React.Component {
 						}
 					</Grid>
 					<Divider variant="middle" />
-				</div>
+				</div> 
+				{/* //OPENHERE */}
 				<div>
 					<Typography variant="h6">Account Information</Typography>
 					<Grid container spacing={8}>
@@ -378,7 +379,7 @@ class ProfileInfo extends React.Component {
 				</div>
                 {!this.state.editing ? (
 	                <div>
-						{this.retrieveUserInfo()}
+						{this.retrieveUserInfo}
 						<FormControl margin="none">
 						 <Button variant="contained" size="small" className={classes.editerButtons} onClick={this.editMode}>
 			        		<EditIcon />
@@ -401,7 +402,8 @@ class ProfileInfo extends React.Component {
 			      			</Button>
 			      		</FormControl>
 		      		</div>
-		      	)}
+		      	)}  
+						{/* //CLOSE HERER */}
 			</form>
           </Paper>
       </div>
