@@ -15,6 +15,7 @@ import ShowDiagnosis from './ShowDiagnosis';
 import ShowPrescriptions from './ShowPrescriptions';
 import AddPrescription from './AddPrescription';
 import AddSpecialistReccomendation from './AddSpecilaistReccomendation';
+import './AppointmentPage.css';
 
 const styles = theme =>({
     root: {
@@ -27,8 +28,6 @@ const styles = theme =>({
   
     },
     page: {
-        height: "100vh",
-        backgroundColor: "#a09d9d",
         padding: theme.spacing.unit*3,
         margin:"auto"
   
@@ -36,8 +35,7 @@ const styles = theme =>({
     AdditionButton: {
         display: "flex",
         flexDirection: 'column',
-        backgroundColor: "#a09d9d",
-        padding: theme.spacing.unit*3,
+        padding: theme.spacing.unit,
   
     },
     Button: {
@@ -121,8 +119,9 @@ class AppointmentHistory extends React.Component{
         const { expanded } = this.state;
         return(
             <div className={classes.page}>
+                <div className='AppointmentPage-SmallBoxOverLay'>
                 <div className={classes.root}>
-                    
+                <h1 className='AppointmentHistory-h1'>Upcoming Appointments</h1>
                     {this.state.Appointments.map(option => (
                             <FormControl key={option.idAppointment} fullWidth>
                                 <ExpansionPanel square expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
@@ -150,13 +149,13 @@ class AppointmentHistory extends React.Component{
                                             </Grid>
                                             
                                             
-                                            {(window.localStorage.userType !== "1" || window.localStorage.userType !== "4")? (
+                                            {(window.localStorage.userType === "2" || window.localStorage.userType === "3")? (
                                                 <div>
                                                     <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                         Cancel Appointment
                                                     </Button>
                                                     {window.localStorage.userType ==="3" ? (
-                                                        <div>
+                                                        <div className='AppointmentPage-newInPanel'>
                                                             <NewAppointmentForm PatientID={option.PatientID}/>
                                                         </div>
                                                     ):(
@@ -196,6 +195,7 @@ class AppointmentHistory extends React.Component{
                     )}
                     
                     
+                </div>
                 </div>
             </div>
         );

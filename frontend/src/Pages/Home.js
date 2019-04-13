@@ -8,8 +8,10 @@ class Home extends Component {
   render() { 
     return (
       <div className='Home-image'>
-        <NavigationBar title={"Team 7 Medical Database Project"}/>
-        <HomeLoginBox/>
+        <div className='Home-overlay'>
+          <NavigationBar title={"Team 7 Medical Database Project"}/>
+            <HomeLoginBox/>
+        </div>
       </div>
     );
   } 

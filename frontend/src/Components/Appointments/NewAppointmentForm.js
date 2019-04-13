@@ -185,7 +185,7 @@ class NewAppointmentForm extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="Filled" color="primary" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
+                <Button variant="Filled" className={classes.Button} onClick={this.handleClickOpen}>
                     <AddButton className={classes.icon}/><Typography variant="subtitle1">New Appointment</Typography>
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>
