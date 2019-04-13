@@ -5,8 +5,9 @@ import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { withStyles, TextField } from '@material-ui/core';
+import { withStyles, TextField, MenuItem } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
     icon: {
@@ -21,10 +22,19 @@ class AddSpecialistReccomendation extends React.Component{
         this.state = {
             AppointmentID: this.props.AppID,
             Specialist: "",
+            Specialists: [],
             openForm: false,
         };
     }
-
+    componentDidMount(){
+        this.uploadSpecialists()
+    }
+    uploadSpecialists(){
+        fetch(`http://157.230.214.92:4000/AllDoctors`)
+        .then(result => result.json())
+        .then(res => this.setState({ Specialists: res.data }))
+        .catch(err => console.log(err))
+    }
     handleSpecialistAdd= () =>{
         this.setState({openForm:false});
         fetch(`http://157.230.214.92:4000/AddSpecialist`, {
@@ -67,17 +77,26 @@ class AddSpecialistReccomendation extends React.Component{
                     <DialogTitle id="form-dialog-title">Add A Specialist Reccomendation</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Please Type in the name of the Specialist you would like to Reccomend, Leave blank if you would like to remove the Reccomendation
+                            Please select a Doctor (Specialist or General) that you reccomend for the patiet
                         </DialogContentText>
-                        <TextField 
-                            name="Specialist"
-                            label="Reccomended Specialist" 
-                            variant="standard"
-                            onChange={this.handleChange}
-                            value={this.state.Specialist}
-                            inputProps={{ maxLength: 45 }}
-                            fullWidth
-                        />
+                        <FormControl margin="normal" fullWidth>
+                            <TextField
+                                id="Specialist"
+                                select
+                                label="Please Choose A Doctor to Reccomend"
+                                name="Specialist"
+                                variant="standard"
+                                onChange={this.handleChange}
+                                value={this.state.Specialist}   
+                                required                   
+                            >
+                                {this.state.Specialists.map(option => (
+                                    <MenuItem key={option.EmployeeID} value={option.FirstName}>
+                                        Dr.{option.FirstName} {option.LastName}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </FormControl>
                         <Button onClick={this.handleSpecialistAdd}>
                             Add Specialist
                         </Button>
