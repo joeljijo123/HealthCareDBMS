@@ -128,7 +128,11 @@ class NewAppointmentForm extends React.Component{
         .catch(err => console.log(err))
     };
     uploadDoctors=()=> {
-        fetch(`http://157.230.214.92:4000/Doctors/${this.state.FacilityID}`)
+        var Specialist=0;//0 is false and 1 is true
+        if(window.localStorage.userType !== "3"){
+            Specialist=1;
+        }
+        fetch(`http://157.230.214.92:4000/Doctors/${this.state.FacilityID}/${Specialist}`)
         .then(result => result.json())
         .then(Response => this.setState({ Doctors:Response.data }))
         .catch(err => console.log(err))
