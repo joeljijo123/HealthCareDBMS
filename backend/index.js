@@ -280,7 +280,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
     const { patientID, createdAt, lastUpdatedAt, createdByEmployeeID,
          lastUpdatedBy, immunizationRecord, allergies,
         procedureRecord, medicalCondition}  =   req.body;
-    connection.query(`CALL UpdateMedicalHistory'(
+    connection.query(`CALL UpdateMedicalHistory(
         '${patientID}',
         '${createdAt}',
         '${lastUpdatedAt}',
