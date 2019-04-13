@@ -54,10 +54,22 @@ class MedicalInformation extends Component {
       allergies: '',
       procedureRecord: '',
 
-      editing: false
+      editing: false,
+
+      editImmunizationRecord: '',
+      editMedicalCondition: '',
+      editAllergies: '',
+      editProcedureRecord: '',
+
     };
     this.handleChange=this.handleChange.bind(this);
   }
+
+assignEdit=()=>{
+  this.setState({
+    
+  })
+}
 
 componentDidMount(){
   this.getMedicalRecord();
@@ -78,6 +90,11 @@ getMedicalRecord=()=>{
     medicalCondition: res.data[0].MedicalCondition,
     allergies: res.data[0].Allergies,
     procedureRecord: res.data[0].ProcedureRecord,
+
+    editImmunizationRecord: res.data[0].ImmunizationRecord,
+    editMedicalCondition: res.data[0].MedicalCondition,
+    editAllergies: res.data[0].Allergies,
+    editProcedureRecord: res.data[0].ProcedureRecord
   }))
   .catch(err => console.error(err))
 };
@@ -109,7 +126,7 @@ updateMedicalRecord=()=>{
 handleChange = e =>{
   this.setState({
     [e.target.name] : e.target.value
-  });
+  })
 }
 
 editMode = _ => {
@@ -133,10 +150,17 @@ revertChanges = _ => {
   });
 }
 
+replaceValue = e =>{
+  setTimeout(function(){
+    return e
+  }, 200);
+}
+
   render() {
     const {classes} = this.props;
     return (
       <div>
+          {console.log(this.state.editImmunizationRecord)}
           <Paper className={classes.root} elevation={2}>
               <Typography variant="h3" >Patient Medical Record</Typography>
               <br />
@@ -155,14 +179,14 @@ revertChanges = _ => {
                 <TextField
                   label="Immunization Record"
                   className={classes.textField}
-                  value={this.state.immunizationRecord}
+                  value={this.state.editImmunizationRecord}
                   margine="normal"
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
                   disabled={!this.state.editing}
-                  onChange={this.handleChange}
+                  onChange={e=>this.handleChange(e)}
                 />
               </Grid>
                 <Grid item sm>
