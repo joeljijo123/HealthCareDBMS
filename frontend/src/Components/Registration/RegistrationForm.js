@@ -103,6 +103,9 @@ class RegistrationForm extends React.Component{
     }
     registerUser=()=>{
         //backend call to add the user to the backend
+        if(window.localStorage.loggedIn !== "true"){
+            this.setState({userType: 2})
+        }
         fetch(`http://157.230.214.92:4000/RegisterUser`, {
             method:"POST",
             headers: {

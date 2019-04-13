@@ -50,24 +50,29 @@ function BasicInformation(props){
                         required
                     />
                 </FormControl>
-                <FormControl margin="auto" fullWidth>
-                    <TextField
-                        id="userType"
-                        select
-                        label="Type of User"
-                        name="userType"
-                        variant="standard"
-                        onChange={props.handleChange}
-                        value={props.val.userType}   
-                        required                   
-                    >
-                        {props.val.roles.map(option => (
-                            <MenuItem key={option.RoleID} value={option.RoleID}>
-                                {option.RoleTitle}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </FormControl>
+                {(window.localStorage.userType === "3") ? (
+                    <FormControl margin="auto" fullWidth>
+                        <TextField
+                            id="userType"
+                            select
+                            label="Type of User"
+                            name="userType"
+                            variant="standard"
+                            onChange={props.handleChange}
+                            value={props.val.userType}   
+                            required                   
+                        >
+                            {props.val.roles.map(option => (
+                                <MenuItem key={option.RoleID} value={option.RoleID}>
+                                    {option.RoleTitle}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </FormControl>
+                ):(
+                    <div></div>
+                )}
+                    
                 <FormControl margin="auto" fullWidth required>
                     <TextField 
                         name="Email" 

@@ -16,7 +16,7 @@ class DoctorRegistration extends React.Component{
     render() {
         return(
             <div style={divStyle.style}>
-                <NavigationBar title={"Register A New Doctor"} Tab={5}/>
+                <NavigationBar title={"Register A New Doctor"} Tab={4}/>
                 <RegistrationForm/>
             </div>
         );
