@@ -1,50 +1,16 @@
 Pages and Components have been set up for the profile page
 
-UserName: Default
-Password: Password
-
-Complete By Friday April 5th
-    Joel
-        ->How Many Appointments For Doctor X in Month X at Facility X?
-    Tommy
-        ->User Info for Doctor and Patient
-
-    Kevin
-        ->Medical History Information for Patient
-
-    Zach
-        ->Basic Information for Doctor and Patient
-
-    Colby
-        ->Looking at backend
-        ->SchedulingPage
-
-Later stuff
-    ->Locator Page (Zach)
-    ->Specialist Reccomendation
-    ->Prescription Addition
-    ->Administrator Function
-    ->WorkSchedule
-    ->Diagnosis
-    ->Look Up Patients
-
-
-Friday
-    -Appointment Addition
-        Query only correct status Appointment
-        Specialist Reccomendation
-    -Appointment Cancellation
-        Cant Cancel Done Appointment
-    -Sheduling for Doctors
-    
-Future
-    -Administrator Functionalities 
-        Cancelling Appointment 
-    -Uploading Files
-  
-
 
 Colby  
     -Add a Trigger to Patient that when a patient is added, a medical history log tuple is added with the patientID
     -Add a Trigger, when Medical History is changed, log is updated
     -Time Interval trigger? Update the Status of the appointments every 30 minutes
+Joel
+    -Reports Page Completion
+    -User Interface Fixup
+Tommy
+    -Add Mock Data
+        3 Administrators, 6 General Doctors, 3 Specialists, 3 Offices, 9 Patients, 20 Appointments (mixture of patient with General Doctors or General Doctor, then Specialist), Prescriptions and Diagnoses accordingly to each appointment
+Zach
+    -Locator Page
+
