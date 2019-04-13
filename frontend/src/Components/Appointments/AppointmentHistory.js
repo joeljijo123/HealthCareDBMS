@@ -139,28 +139,36 @@ class AppointmentHistory extends React.Component{
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
                                             Specialist Reccomentation: {option.Specialist === null || option.Specialist === "" ? (<text>No Specialist Needed</text>):(<text>{option.Specialist}</text>)}<br/>
-                                            <Grid container spacing={8}>
-				                                <Grid item xs={12} sm={6}>
-                                                    <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                            {window.localStorage.userType ==="3" ? (
+                                                <Grid container spacing={8}>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <NewAppointmentForm PatientID={option.PatientID}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={12} sm={6}>
-                                                    <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                            ):(
+                                                <Grid container spacing={8}>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <ShowDiagnosis  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <ShowPrescriptions  Button={classes.Button} AppID={option.idAppointment}/>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
+                                            )}
                                             
                                             
                                             {(window.localStorage.userType === "2" || window.localStorage.userType === "3")? (
                                                 <div>
+                                                    
                                                     <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
                                                         Cancel Appointment
                                                     </Button>
-                                                    {window.localStorage.userType ==="3" ? (
-                                                        <div className='AppointmentPage-newInPanel'>
-                                                            <NewAppointmentForm PatientID={option.PatientID}/>
-                                                        </div>
-                                                    ):(
-                                                        <div></div>
-                                                    )}
                                                 </div>
                                                 
                                             ):(

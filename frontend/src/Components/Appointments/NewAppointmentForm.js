@@ -14,8 +14,7 @@ import PropTypes from 'prop-types';
 
 const styles = theme => ({
     icon: {
-      margin: theme.spacing.unit,
-      fontSize: 20,
+      fontSize: 25,
       color: "#f5f5f5",
       '&:hover': {
         color: '#e0e0e0',
@@ -185,7 +184,7 @@ class NewAppointmentForm extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <Button variant="Filled" className={classes.Button} onClick={this.handleClickOpen}>
+                <Button variant="Filled" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
                     <AddButton className={classes.icon}/><Typography variant="subtitle1">New Appointment</Typography>
                 </Button>
                 <Dialog open={this.state.openForm} onClose={this.handleClose}>

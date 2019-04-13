@@ -9,7 +9,7 @@ import UserMenu from '../Components/Profile/UserMenu';
 
 const styles = theme =>({
   root: {
-      height: "100vh",
+      height: "200vh",
       backgroundColor: "#a09d9d",
 
   },
