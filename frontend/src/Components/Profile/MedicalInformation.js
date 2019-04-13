@@ -106,27 +106,54 @@ updateMedicalRecord=()=>{
       "Content-Type":"application/json",
     },
     body: JSON.stringify({
-    patientID: window.localStorage.patientID,
-    /*
-    createdAt: this.state.createdAt,
-    lastUpdatedAt: this.state.lastUpdatedAt,
-    createdByEmployeeID: this.state.createdByEmployeeID,
-    lastUpdatedBy: this.state.lastUpdatedBy,
-    */
-    immunizationRecord: this.state.immunizationRecord,
-    medicationRecord: this.state.medicationRecord,
-    allergies: this.state.allergies,
-    procedureRecord: this.state.procedureRecord,
-    medicalCondition: this.state.medicalCondition,
+    patientID: this.state.patientID,
+	createdAt: "2019-01-01",
+    lastUpdatedAt: "2019-01-01",
+    createdByEmployeeID: 0,
+    lastUpdatedBy: 0,
+    immunizationRecord: this.state.editImmunizationRecord,
+    allergies: this.state.editAllergies,
+    procedureRecord: this.state.editProcedureRecord,
+    medicalCondition: this.state.editMedicalCondition,
     })
   })
   .catch(err => console.log(err))
+  console.log("dsdsad")
 }
 
+// NOT USED FOR FIELD ENTRY
 handleChange = e =>{
   this.setState({
     [e.target.name] : e.target.value
   })
+}
+
+// Used to edit ImmunizationRecord field
+handleChangeImmunizationRecord = e =>{
+	this.setState({
+		editImmunizationRecord : e.target.value
+	})
+}
+
+// Used to edit MedicalCondition field
+handleChangeMedicalCondition = e =>{
+	this.setState({
+		editMedicalCondition : e.target.value
+	})
+}
+
+// Used to edit Allergies field
+handleChangeAllergies = e =>{
+	this.setState({
+		editAllergies : e.target.value
+	})
+}
+
+// Used to edit ProcedureRecord field
+handleChangeProcedureRecord = e =>{
+	this.setState({
+		editProcedureRecord : e.target.value
+	})
 }
 
 editMode = _ => {
@@ -136,31 +163,26 @@ editMode = _ => {
 }
 
 saveChange = _ => {
-  this.updateMedicalRecord();
-  this.getMedicalRecord();
-  this.setState({
-    editing: false
-  });
+	this.updateMedicalRecord();
+	setTimeout(function(){
+		window.location.replace('/Profile')
+	}, 200);
 }
 
 revertChanges = _ => {
-  this.getMedicalRecord();
   this.setState({
-    editing: false
+    editing: false,
+	editImmunizationRecord: this.state.immunizationRecord,
+    editMedicalCondition: this.state.medicalCondition,
+    editAllergies: this.state.allergies,
+    editProcedureRecord: this.state.procedureRecord
   });
-}
-
-replaceValue = e =>{
-  setTimeout(function(){
-    return e
-  }, 200);
 }
 
   render() {
     const {classes} = this.props;
     return (
       <div>
-          {console.log(this.state.editImmunizationRecord)}
           <Paper className={classes.root} elevation={2}>
               <Typography variant="h3" >Patient Medical Record</Typography>
               <br />
@@ -186,21 +208,21 @@ replaceValue = e =>{
                   fullWidth
                   rows="8"
                   disabled={!this.state.editing}
-                  onChange={e=>this.handleChange(e)}
+                  onChange={this.handleChangeImmunizationRecord}
                 />
               </Grid>
                 <Grid item sm>
                   <TextField
                   label="Medical Condition"
                   className={classes.textField}
-                  value={this.state.medicalCondition}
+                  value={this.state.editMedicalCondition}
                   margine="normal"
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
                   disabled={!this.state.editing}
-                  onChange={this.handleChange}
+                  onChange={this.handleChangeMedicalCondition}
                   />
                 </Grid>
               </Grid>
@@ -210,28 +232,28 @@ replaceValue = e =>{
                 <TextField
                   label="Allergies"
                   className={classes.textField}
-                  value={this.state.allergies}
+                  value={this.state.editAllergies}
                   margine="normal"
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
                   disabled={!this.state.editing}
-                  onChange={this.handleChange}
+                  onChange={this.handleChangeAllergies}
                 />
               </Grid>
                 <Grid item sm>
                   <TextField
                   label="Procedures Record"
                   className={classes.textField}
-                  value={this.state.procedureRecord}
+                  value={this.state.editProcedureRecord}
                   margine="normal"
                   multiline
                   variant="outlined"
                   fullWidth
                   rows="8"
                   disabled={!this.state.editing}
-                  onChange={this.handleChange}
+                  onChange={this.handleChangeProcedureRecord}
                   />
                 </Grid>
               </Grid>
