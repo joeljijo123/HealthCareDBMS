@@ -378,7 +378,7 @@ class ProfileInfo extends React.Component {
 				</div>
                 {!this.state.editing ? (
 	                <div>
-						{this.retrieveUserInfo()}
+						{this.retrieveUserInfo}
 						<FormControl margin="none">
 						 <Button variant="contained" size="small" className={classes.editerButtons} onClick={this.editMode}>
 			        		<EditIcon />
