@@ -140,11 +140,11 @@ class AppointmentHistory extends React.Component{
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
                                         <Typography className={classes.secondaryHeading}>
-                                            Reason: {option.Reason}<br/>
+                                            Reason:{option.Reason === "null" ? (<text> No Reason Specified</text>):(<text>{option.Reason}</text>)} <br/>
                                             AppointmentID: {option.idAppointment} <br/>
                                             Facility: {option.FacilityName} <br/>
                                             Address: {option.Street}, {option.City}, {option.State} {option.ZipCode}<br/>
-                                            Specialist Reccomentation: {option.Specialist === null || option.Specialist === "" ? (<text>No Specialist Needed</text>):(<text>Dr. {option.Specialist}</text>)}<br/>
+                                            Doctor Reccomentation: {option.Specialist === null || option.Specialist === "" ? (<text>No Doctor Reccomendations</text>):(<text>Dr. {option.Specialist}</text>)}<br/>
                                             {(window.localStorage.userType !== "2" &&  window.localStorage.userType !== "3")? (
                                                 <Grid container spacing={8}>
                                                     <Grid item xs={12} sm={4}>  
