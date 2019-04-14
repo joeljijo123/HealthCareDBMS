@@ -33,14 +33,12 @@ class FacilityReports extends React.Component{
             openForm: false,
             checkAllDates: false,
             ChosenFacility: "",
-            ChosenDoctor: "",
             MinimumDate: null,
             MaximumDate: null,
             MinimumDateDB: null,
             MaximumDateDB: null,
             Facilities: [],
-            FacilityCount: "",
-            DoctorsCount: "",
+            Report:[],
 
         };
     }
@@ -50,10 +48,11 @@ class FacilityReports extends React.Component{
     uploadDoctors(){
 
     }
-    fetchAppointmentReport(){
+    fetchFacilityReport(){
+        
         fetch(`http://157.230.214.92:4000/FacilityAppointmentReport/${this.state.ChosenFacility}/${this.state.MinimumDateDB}/${this.state.MaximumDateDB}`)
         .then(result => result.json())
-        .then(Response => this.setState({ FacilityCount:Response.data[0].Count }))
+        .then(Response => this.setState({ Report:Response.data }))
         .catch(err => console.log(err))
     }
     fetchDoctorReport(){
@@ -102,7 +101,7 @@ class FacilityReports extends React.Component{
             [e.target.name] : e.target.value
         })
     }
-    handlechoseChange = name => event => {
+    handlechoseChange = name => event =>{
         this.setState({ 
             [name]: event.target.checked,
             MinimumDate: null,
@@ -111,8 +110,7 @@ class FacilityReports extends React.Component{
             MaximumDateDB: null});
       };
     handleClickOpen = () => {
-        this.fetchAppointmentReport();
-        this.fetchDoctorReport();
+        this.fetchFacilityReport();
         this.setState({ openForm: true });
     };
 
@@ -121,13 +119,11 @@ class FacilityReports extends React.Component{
             openForm: false,
             checkAllDates: false,
             ChosenFacility: "",
-            ChosenDoctor: "",
             MinimumDate: null,
             MaximumDate: null,
             MinimumDateDB: null,
             MaximumDateDB: null, 
-            FacilityCount: "",
-            DoctorsCount:"",
+            Report:[],
         });
     };
     render(){
@@ -196,24 +192,24 @@ class FacilityReports extends React.Component{
                             <TableHead>
                                 <TableRow>
                                     <TableCell>FacilityID</TableCell>
-                                    <TableCell align="right">Number of Appointments</TableCell>
-                                    <TableCell align="right">Number of Doctors</TableCell>
+                                    <TableCell align="center">Number of Doctors</TableCell>
+                                    <TableCell align="center">Upcoming Appointments</TableCell>
+                                    <TableCell align="center">Cancelled Appointments</TableCell>
+                                    <TableCell align="center">Completed Appointments</TableCell>
+                                    <TableCell align="center">Total Appointments</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                <TableRow>
-                                    {this.state.ChosenFacility === "-1" ? (
-                                        <TableCell component="th" scope="row">
-                                            All
-                                        </TableCell>
-                                    ):(
-                                        <TableCell component="th" scope="row">
-                                            {this.state.ChosenFacility}
-                                        </TableCell>
-                                    )}
-                                    <TableCell align="right">{this.state.FacilityCount}</TableCell>
-                                    <TableCell align="right">{this.state.DoctorsCount}</TableCell>
-                                </TableRow>
+                                {this.state.Report.map(Each => (
+                                    <TableRow key={Each.FacilityID}>
+                                        <TableCell align="center">{Each.FacilityID}</TableCell>
+                                        <TableCell align="center">{Each.DoctorsWorking}</TableCell>
+                                        <TableCell align="center">{Each.UpcomingApps}</TableCell>
+                                        <TableCell align="center">{Each.CancelledApps}</TableCell>
+                                        <TableCell align="center">{Each.CompletedApps}</TableCell>
+                                        <TableCell align="center">{Each.totalApps}</TableCell>
+                                    </TableRow>
+                                ))}
                             </TableBody>
                         </Table>                        
                     </DialogContent>

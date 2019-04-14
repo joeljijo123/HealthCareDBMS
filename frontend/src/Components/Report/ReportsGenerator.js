@@ -15,7 +15,7 @@ const styles = theme =>({
   
     },
     page: {
-        height: "100vh",
+        height: "100%",
         backgroundColor: "#a09d9d",
         padding: theme.spacing.unit*2,
         margin:"auto"

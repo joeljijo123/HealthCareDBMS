@@ -140,7 +140,7 @@ app.get('/sexes', (req,res) => {
  app.get('/FacilityAppointmentReport/:FacilityID/:MinDate/:MaxDate', (req,res) => {
     const {FacilityID, MinDate,MaxDate} = req.params;
     if(MinDate===null){
-        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, ${MinDate},${MaxDate});`,(err, results) => {
+        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, NULL,NULL);`,(err, results) => {
             if(err) {
                 return res.send(err)
             }
@@ -152,7 +152,7 @@ app.get('/sexes', (req,res) => {
         });
     }
     else{
-        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, NULL,NULL);`,(err, results) => {
+        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID},${MinDate},${MaxDate});`,(err, results) => {
             if(err) {
                 return res.send(err)
             }
