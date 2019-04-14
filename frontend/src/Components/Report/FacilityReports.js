@@ -35,8 +35,8 @@ class FacilityReports extends React.Component{
             ChosenFacility: "",
             MinimumDate: null,
             MaximumDate: null,
-            MinimumDateDB: null,
-            MaximumDateDB: null,
+            MinimumDateDB: "null",
+            MaximumDateDB: "null",
             Facilities: [],
             Report:[],
 
@@ -106,8 +106,8 @@ class FacilityReports extends React.Component{
             [name]: event.target.checked,
             MinimumDate: null,
             MaximumDate: null,
-            MinimumDateDB: null,
-            MaximumDateDB: null});
+            MinimumDateDB: "null",
+            MaximumDateDB: "null"});
       };
     handleClickOpen = () => {
         this.fetchFacilityReport();
@@ -121,8 +121,8 @@ class FacilityReports extends React.Component{
             ChosenFacility: "",
             MinimumDate: null,
             MaximumDate: null,
-            MinimumDateDB: null,
-            MaximumDateDB: null, 
+            MinimumDateDB: "null",
+            MaximumDateDB: "null", 
             Report:[],
         });
     };

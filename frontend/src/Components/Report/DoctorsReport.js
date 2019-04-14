@@ -35,8 +35,8 @@ class DoctorsReport extends React.Component{
             ChosenDoctor: "",
             MinimumDate: null,
             MaximumDate: null,
-            MinimumDateDB: null,
-            MaximumDateDB: null,
+            MinimumDateDB: "null",
+            MaximumDateDB: "null",
             Doctors: [],
             Report:[],
 
@@ -96,8 +96,8 @@ class DoctorsReport extends React.Component{
             [name]: event.target.checked,
             MinimumDate: null,
             MaximumDate: null,
-            MinimumDateDB: null,
-            MaximumDateDB: null});
+            MinimumDateDB: "null",
+            MaximumDateDB: "null"});
       };
     handleClickOpen = () => {
         this.fetchDoctorReport();
@@ -111,8 +111,8 @@ class DoctorsReport extends React.Component{
             ChosenDoctor: "",
             MinimumDate: null,
             MaximumDate: null,
-            MinimumDateDB: null,
-            MaximumDateDB: null, 
+            MinimumDateDB: "null",
+            MaximumDateDB: "null", 
             Report:[],
         });
     };

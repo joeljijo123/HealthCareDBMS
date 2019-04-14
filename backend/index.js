@@ -139,7 +139,7 @@ app.get('/sexes', (req,res) => {
  //Facility and Doctor should be -1 if you want all 
  app.get('/FacilityAppointmentReport/:FacilityID/:MinDate/:MaxDate', (req,res) => {
     const {FacilityID, MinDate,MaxDate} = req.params;
-    if(MinDate===null){
+    if(MinDate==="null"){
         connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID}, NULL,NULL);`,(err, results) => {
             if(err) {
                 return res.send(err)
@@ -168,7 +168,7 @@ app.get('/sexes', (req,res) => {
 
 app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
     const {Doctor, MinDate,MaxDate} = req.params;
-    if(MinDate===null){
+    if(MinDate==="null"){
         connection.query(`call Clinic_Main.DoctorsReport(${Doctor}, NULL,NULL);`,(err, results) => {
             if(err) {
                 return res.send(err)
