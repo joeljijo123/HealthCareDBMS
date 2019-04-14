@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FacilityReports from '../Report/FacilityReports';
 import { Paper, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import DoctorsReport from './DoctorsReport';
 
 const styles = theme =>({
     root: {
@@ -23,6 +24,7 @@ class ReportsGenerator extends Component {
       <div>
           <Paper className={classes.root}>
             <FacilityReports/>
+            <DoctorsReport/>
           </Paper>
       </div>
     );

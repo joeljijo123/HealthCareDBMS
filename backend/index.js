@@ -169,7 +169,7 @@ app.get('/sexes', (req,res) => {
 app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
     const {Doctor, MinDate,MaxDate} = req.params;
     if(MinDate===null){
-        connection.query(`call Clinic_Main.FacilitiesReport(${Doctor}, NULL,NULL);`,(err, results) => {
+        connection.query(`call Clinic_Main.DoctorsReport(${Doctor}, NULL,NULL);`,(err, results) => {
             if(err) {
                 return res.send(err)
             }
@@ -181,7 +181,7 @@ app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
         });
     }
     else{
-        connection.query(`call Clinic_Main.FacilitiesReport(${Doctor},'${MinDate}','${MaxDate}');`,(err, results) => {
+        connection.query(`call Clinic_Main.DoctorsReport(${Doctor},'${MinDate}','${MaxDate}');`,(err, results) => {
             if(err) {
                 return res.send(err)
             }
