@@ -152,7 +152,7 @@ app.get('/sexes', (req,res) => {
         });
     }
     else{
-        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID},${MinDate},${MaxDate});`,(err, results) => {
+        connection.query(`call Clinic_Main.FacilitiesReport(${FacilityID},'${MinDate}','${MaxDate}');`,(err, results) => {
             if(err) {
                 return res.send(err)
             }
