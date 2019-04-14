@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Typography, FormControl, withStyles, Grid } from "@material-ui/core";
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';

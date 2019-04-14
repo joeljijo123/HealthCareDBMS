@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { spacing } from '@material-ui/system';
-import {Drawer, AppBar, List, Toolbar, Divider, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
+import {Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
 import MedicalInformation from './MedicalInformation';
 import ProfileInfo from './ProfileInfo';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital'
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 //This component will be used by the doctors and patients default portal - 
 // meaning this component should load for any employee or patient. For doctor, medical info 
 // will be patient chart lookup. The idea is to centralize the doctor's actions that he performs,

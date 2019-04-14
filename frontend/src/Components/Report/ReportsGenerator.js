@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FacilityReports from '../Report/FacilityReports';
-import { Paper, withStyles, Typography } from '@material-ui/core';
+import { Paper, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import DoctorsReport from './DoctorsReport';
 

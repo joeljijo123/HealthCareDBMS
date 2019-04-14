@@ -5,15 +5,8 @@ import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AddIcon from '@material-ui/icons/ThreeSixty';
-import Icon from '@material-ui/core/Icon';
 import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import WhichFacility from '../Appointments/WhichFacility';
 
 
@@ -115,7 +108,7 @@ class ModifyFacility extends React.Component{
 	render(){
 		return(
 			<div>
-				<Button variant="contained" fullWidth color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
+				<Button variant="contained" color="inherit" className={this.props.Button} fullWidth onClick={this.handleClickOpen}>
                     Change Facility
                 </Button>
 				<Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { spacing } from '@material-ui/system';
 import {Paper, Divider, Button, TextField, Typography, FormControl, withStyles, Grid } from "@material-ui/core";
 import MaskedInput from 'react-text-mask';
 import SaveIcon from '@material-ui/icons/Save';

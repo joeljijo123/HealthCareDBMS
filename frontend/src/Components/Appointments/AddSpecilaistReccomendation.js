@@ -67,7 +67,6 @@ class AddSpecialistReccomendation extends React.Component{
         })
     }
     render(){
-        const {classes}=this.props;
         return(
             <div>
                 <Button variant="contained" color="primary" fullWidth className={this.props.Button} onClick={this.handleClickOpen}>

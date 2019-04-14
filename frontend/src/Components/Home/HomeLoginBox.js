@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import {Input, InputLabel, Button} from '@material-ui/core';
-import AppointmentHistory from '../Appointments/AppointmentHistory';
 
 const styles = theme =>({
   root: {

@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FormControl, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
 import AddDiagnosis from './AddDiagnosis';
 import ShowDiagnosis from './ShowDiagnosis';
 import ShowPrescriptions from './ShowPrescriptions';
@@ -105,14 +104,14 @@ class AppointmentHistory extends React.Component{
     }
 
     placeDiagnosis(){
-        {this.state.Diagnosis.map(option => (
+        this.state.Diagnosis.map(option => (
             <FormControl>
                 <Typography>Diagnosis: {option.Diagnosis}</Typography>
                 <Typography>Number of Refills:  {option.RefillLeft}</Typography>
                 <Typography>Due Date: {option.DueDate.substr(0,10)}</Typography>
                 <Typography>Medicine: {option.Medicine}</Typography>
             </FormControl>
-        ))}
+        ))
     }
     handleAppointmentCancel = (AppID) => {
         fetch(`http://157.230.214.92:4000/CancelAppointment/`, {

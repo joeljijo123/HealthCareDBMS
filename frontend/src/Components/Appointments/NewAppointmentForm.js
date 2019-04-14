@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddButton from '@material-ui/icons/ControlPointOutlined';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({

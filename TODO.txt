@@ -1,14 +1,8 @@
 Pages and Components have been set up for the profile page
 
-
-Colby  
-    -Add a Trigger to Patient that when a patient is added, a medical history log tuple is added with the patientID
-    -Add a Trigger, when Medical History is changed, log is updated
-    -Time Interval trigger? Update the Status of the appointments every 30 minutes
 Joel
-    -Reports Page Completion
+    -Patient Report-> show list of patients that dont have appointments in the last 6 months
     -User Interface Fixup
-    -Complete Appointment Button
 Tommy
     -Add Mock Data
         3 Administrators, 6 General Doctors, 3 Specialists, 3 Offices, 9 Patients, 20 Appointments (mixture of patient with General Doctors or General Doctor, then Specialist), Prescriptions and Diagnoses accordingly to each appointment

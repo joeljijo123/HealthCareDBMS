@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import {Paper, Typography, TextField, MenuItem, FormControl, Button, Grid, Divider, table} from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-import EditIcon from '@material-ui/icons/Edit';
+import {Paper, Typography, TextField, Divider, Grid} from '@material-ui/core';
+
 
 
 //Define the looks
