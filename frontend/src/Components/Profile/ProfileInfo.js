@@ -205,7 +205,7 @@ class ProfileInfo extends React.Component {
             <form  noValidate autoComplete="off">
 				<div>
 					{window.localStorage.userType=== "2" ? (
-						<Typography variant="h5">Welcome {this.state.first}}</Typography>
+						<Typography variant="h5">Welcome {this.state.first}</Typography>
 					):(
 						<Typography variant="h5">Welcome Dr. {this.state.last}</Typography>		
 					)}

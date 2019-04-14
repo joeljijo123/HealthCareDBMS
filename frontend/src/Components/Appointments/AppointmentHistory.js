@@ -17,6 +17,11 @@ import AddPrescription from './AddPrescription';
 import AddSpecialistReccomendation from './AddSpecilaistReccomendation';
 import './AppointmentPage.css';
 import PatientMedicalHistory from './PatientMedicalHistory';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = theme =>({
     root: {
@@ -69,6 +74,8 @@ class AppointmentHistory extends React.Component{
             Appointments: [],
             Diagnosis: [],
             cancelApptShow: false,
+			selectedAppt: "",
+			openForm: false
         };
     }
     componentDidMount(){
@@ -119,7 +126,21 @@ class AppointmentHistory extends React.Component{
         })
         .then(this.grabAppointments)
         .catch(err => console.log(err));
+		setTimeout(function(){
+			window.location.replace('/Appointments')
+		}, 200);
     };
+	
+	handleClickOpenCancellation = (apptID) => {
+		this.setState({ selectedAppt: apptID });
+        this.setState({ openForm: true });
+		console.log(this.state.selectedAppt)
+    };
+
+    handleCloseCancellation = () => {
+        this.setState({ openForm: false });
+    };
+	
     render(){
         const{classes}=this.props;
         const { expanded } = this.state;
@@ -190,9 +211,27 @@ class AppointmentHistory extends React.Component{
                                                             <NewAppointmentForm PatientID={option.PatientID}/>                                                        
                                                         </Grid>
                                                         <Grid item xs={12} sm={6}>
-                                                            <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
+                                                            <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleClickOpenCancellation(option.idAppointment) } marginTop="10%">
                                                                 Cancel Appointment
                                                             </Button>  
+															
+															<Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleCloseCancellation}>
+																<DialogTitle id="form-dialog-title"></DialogTitle>
+																<DialogContent>
+																	<DialogContentText>
+																		Are you sure you want to cancel appointment {this.state.selectedAppt}?
+																	</DialogContentText>
+																</DialogContent>
+																<DialogActions>
+																	<Button className={classes.Button} onClick={this.handleCloseCancellation} color="primary" variant="contained">
+																		No
+																	</Button>
+																	<Button className={classes.Button} onClick={() => this.handleAppointmentCancel(this.state.selectedAppt)} color="secondary" variant="contained">
+																		Yes
+																	</Button>
+																</DialogActions>
+															</Dialog>
+															
                                                         </Grid>
                                                     </Grid>
                                             ):(
@@ -201,9 +240,27 @@ class AppointmentHistory extends React.Component{
                                             
                                             {window.localStorage.userType === "2" ? (
                                                 <div>
-                                                    <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleAppointmentCancel(option.idAppointment) } marginTop="10%">
+                                                    <Button variant="raised" fullWidth  className={classes.Button} color="secondary"  onClick={() =>  this.handleClickOpenCancellation(option.idAppointment) } marginTop="10%">
                                                         Cancel Appointment
                                                     </Button>
+													
+													<Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleCloseCancellation}>
+														<DialogTitle id="form-dialog-title"></DialogTitle>
+														<DialogContent>
+															<DialogContentText>
+																Are you sure you want to cancel appointment {this.state.selectedAppt}?
+															</DialogContentText>
+														</DialogContent>
+														<DialogActions>
+															<Button className={classes.Button} onClick={this.handleCloseCancellation} color="primary" variant="contained">
+																No
+															</Button>
+															<Button className={classes.Button} onClick={() => this.handleAppointmentCancel(this.state.selectedAppt)} color="secondary" variant="contained">
+																Yes
+															</Button>
+														</DialogActions>
+													</Dialog>
+													
                                                 </div>
                                                 
                                             ):(
