@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import FacilityReports from '../Report/FacilityReports';
-import { Paper, withStyles } from '@material-ui/core';
+import { Paper, withStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import DoctorsReport from './DoctorsReport';
 
 const styles = theme =>({
     root: {
-        width: '35%',
+        width: '55%',
         alignItems: "center",
         display: "flex",
         flexDirection: 'column',
         padding: theme.spacing.unit*3,
         marginTop:"5%",
+        marginBottom:"5%",
         margin:"auto"
   
     },
@@ -24,6 +25,8 @@ class ReportsGenerator extends Component {
       <div>
           <Paper className={classes.root}>
             <FacilityReports/>
+          </Paper>
+          <Paper className={classes.root}>
             <DoctorsReport/>
           </Paper>
       </div>

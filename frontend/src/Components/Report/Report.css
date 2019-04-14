@@ -3,7 +3,7 @@
     background-image: url(../Report/Reports.jpg);
   
     /* Full height */
-    height: 100vh;
+    min-height: 100vh;
     /* Center and scale the image nicely */
     background-position: fixed;
     background-repeat: repeat;
