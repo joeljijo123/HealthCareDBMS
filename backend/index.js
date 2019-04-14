@@ -276,7 +276,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
 
  app.get('/Employee/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
-    connection.query(`  SELECT * FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}'; UPDATE Clinic_Main.Appointment SET StatusID=1 WHERE AppointmentDate<CURDATE() AND DoctorID=(SELECT EmployeeID FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}');`,(err, results) => {
+    connection.query(`  SELECT * FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}';`,(err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -340,9 +340,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
 
  app.get('/Patient/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
-    connection.query(`SELECT * FROM Clinic_Main.PatientInfoWithLogin WHERE PatientLoginID='${LoginID}';
-                        UPDATE Clinic_Main.Appointment SET StatusID=1 WHERE AppointmentDate<CURDATE() AND 
-                        PatientID=(SELECT PatientID FROM Clinic_Main.PatientInfoWithLogin WHERE PatientLoginID='${LoginID}');  `,(err, results) => {
+    connection.query(`SELECT * FROM Clinic_Main.PatientInfoWithLogin WHERE PatientLoginID='${LoginID}';`,(err, results) => {
         if(err) {
             return res.send(err)
         }
