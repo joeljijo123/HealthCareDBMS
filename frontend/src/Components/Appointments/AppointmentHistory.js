@@ -134,7 +134,6 @@ class AppointmentHistory extends React.Component{
 	handleClickOpenCancellation = (apptID) => {
 		this.setState({ selectedAppt: apptID });
         this.setState({ openForm: true });
-		console.log(this.state.selectedAppt)
     };
 
     handleCloseCancellation = () => {
