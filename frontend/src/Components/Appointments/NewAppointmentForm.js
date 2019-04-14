@@ -41,6 +41,7 @@ class NewAppointmentForm extends React.Component{
             AppointmentDate: null,
             DBFormattedDate: null,
         };
+        this.uploadDoctors=this.uploadDoctors.bind(this);
     }
 
     componentDidMount = () => {
@@ -113,9 +114,9 @@ class NewAppointmentForm extends React.Component{
                             </Button>
                         </div>)
             case 1:
-                this.uploadDoctors();
+            
                 return (<div>
-                            <WhichDoctor val={this.state} handleChange={this.handleChange} AppointmentDateChange={this.AppointmentDateChange}/>
+                            <WhichDoctor val={this.state} handleChange={this.handleChange}  AppointmentDateChange={this.AppointmentDateChange}/>
                             <Button onClick={this.handleBackStep} color="primary">
                                 Back
                             </Button>
@@ -124,7 +125,7 @@ class NewAppointmentForm extends React.Component{
                             </Button>
                         </div>)
             case 2:
-                this.uploadTimes();
+                
                 return (<div>
                             <CompleteNewAppointment  val={this.state} AppointmentDateChange={this.AppointmentDateChange} handleChange={this.handleChange}/>
                             <Button onClick={this.handleBackStep} color="primary">
@@ -175,6 +176,8 @@ class NewAppointmentForm extends React.Component{
         .catch(err => console.log(err));
     };
     handleNextStep= () =>{
+        this.uploadDoctors();
+        this.uploadTimes();
         this.setState({step: this.state.step+1})
     };
     handleSubmit= () =>{
