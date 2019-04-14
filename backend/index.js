@@ -166,18 +166,32 @@ app.get('/sexes', (req,res) => {
     
 });
 
-app.get('/DoctorReport/:FacilityID', (req,res) => {
-    const {DoctorID, FacilityID, MinDate,MaxDate} = req.params;
-    connection.query(`call Clinic_Main.DoctorsReport(${FacilityID});`,(err, results) => {
-        if(err) {
-            return res.send(err)
-        }
-        else {
-            return res.json({
-                data: results[0]
-            })
-        }
-    });
+app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
+    const {Doctor, MinDate,MaxDate} = req.params;
+    if(MinDate===null){
+        connection.query(`call Clinic_Main.FacilitiesReport(${Doctor}, NULL,NULL);`,(err, results) => {
+            if(err) {
+                return res.send(err)
+            }
+            else {
+                return res.json({
+                    data: results[0]
+                })
+            }
+        });
+    }
+    else{
+        connection.query(`call Clinic_Main.FacilitiesReport(${Doctor},'${MinDate}','${MaxDate}');`,(err, results) => {
+            if(err) {
+                return res.send(err)
+            }
+            else {
+                return res.json({
+                    data: results[0]
+                })
+            }
+        });
+    }
 });
 
  //This will return the username and password of a given username if it exists

@@ -14,3 +14,12 @@ Tommy
 Zach
     -Locator Page
 
+
+
+Triggers:
+    Employee Table on Update and Before Insert to check CellNumber format, SSN, and Zip
+    LoginTable on update and insert to make sure password is long enough
+    MedicalHistory that when you create a Medical Record it creates a log for it as well
+    MedicalOffice checks the format of the Zip
+    Patient Table on Update and Before Insert to check CellNumber format, SSN, and Zip and creates a medical record tuple in the medical office table
+    
