@@ -120,7 +120,7 @@ class DoctorsReport extends React.Component{
         const {classes} = this.props;
         return(
             <div>
-            <Typography variant="h5">Facility Report</Typography>
+            <Typography variant="h5">Doctor Report</Typography>
                 <FormControl margin="normal" fullWidth>
                     <TextField
                         id="ChosenDoctor"
@@ -136,8 +136,8 @@ class DoctorsReport extends React.Component{
                             All Doctors
                         </MenuItem>
                         {this.state.Doctors.map(option => (
-                            <MenuItem key={option.FacilityID} value={option.FacilityID}>
-                                {option.FacilityName}
+                            <MenuItem key={option.EmployeeID} value={option.EmployeeID}>
+                                Dr. {option.FirstName} {option.LastName}
                             </MenuItem>
                         ))}
                     </TextField>
@@ -173,31 +173,29 @@ class DoctorsReport extends React.Component{
                     />
                 </MuiPickersUtilsProvider>
                 <Button variant="contained" color="inherit" fullWidth className={classes.Button} onClick={this.handleClickOpen} disabled={((this.state.MinimumDate === null || this.state.MaximumDate === null) && !this.state.checkAllDates) || this.state.ChosenDoctor === ""}>
-                    Show reports for the Chosen Facility
+                    Show reports for the Chosen Doctor
                 </Button>
                 <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
-                    <DialogTitle id="form-dialog-title">Here is the Facility Report</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Here is the Doctor Report</DialogTitle>
                     <DialogContent>
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>FacilityID</TableCell>
-                                    <TableCell align="center">Number of Doctors</TableCell>
-                                    <TableCell align="center">Upcoming Appointments</TableCell>
-                                    <TableCell align="center">Cancelled Appointments</TableCell>
-                                    <TableCell align="center">Completed Appointments</TableCell>
-                                    <TableCell align="center">Total Appointments</TableCell>
+                                    <TableCell align="center">EmployeeID</TableCell>
+                                    <TableCell align="center">Number of Appointments</TableCell>
+                                    <TableCell align="center">Number of Diagnoses</TableCell>
+                                    <TableCell align="center">Number of Cancelled Appointments</TableCell>
+                                    <TableCell align="center">Number of Days Working in a week</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.Report.map(Each => (
-                                    <TableRow key={Each.FacilityID}>
-                                        <TableCell align="center">{Each.FacilityID}</TableCell>
-                                        <TableCell align="center">{Each.DoctorsWorking}</TableCell>
-                                        <TableCell align="center">{Each.UpcomingApps}</TableCell>
+                                    <TableRow key={Each.EmployeeID}>
+                                        <TableCell align="center">{Each.EmployeeID}</TableCell>
+                                        <TableCell align="center">{Each.Apps}</TableCell>
+                                        <TableCell align="center">{Each.Diagnoses}</TableCell>
                                         <TableCell align="center">{Each.CancelledApps}</TableCell>
-                                        <TableCell align="center">{Each.CompletedApps}</TableCell>
-                                        <TableCell align="center">{Each.totalApps}</TableCell>
+                                        <TableCell align="center">{Each.DaysWorking}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
