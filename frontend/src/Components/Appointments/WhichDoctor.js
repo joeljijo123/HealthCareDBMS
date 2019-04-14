@@ -15,7 +15,7 @@ function WhichDoctor(props){
                         label="Please Choose A Doctor"
                         name="DoctorID"
                         variant="standard"
-                        onChange={e=>props.handleChange(e)}
+                        onChange={props.handleChange}
                         value={props.val.DoctorID}   
                         required                   
                     >
