@@ -14,20 +14,13 @@ const styles = theme =>({
         margin:"auto"
   
     },
-    page: {
-        height: "100%",
-        backgroundColor: "#a09d9d",
-        padding: theme.spacing.unit*2,
-        margin:"auto"
-  
-    },
 });
 
 class ReportsGenerator extends Component {
   render() { 
     const{classes}=this.props;
     return (
-      <div className={classes.page}>
+      <div>
           <Paper className={classes.root}>
             <FacilityReports/>
           </Paper>

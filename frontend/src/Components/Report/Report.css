@@ -1,0 +1,18 @@
+.ReportsPage-image {
+    /* The image used */
+    background-image: url(../Report/Reports.jpg);
+  
+    /* Full height */
+    height: 100vh;
+    /* Center and scale the image nicely */
+    background-position: fixed;
+    background-repeat: repeat;
+    background-size: cover;
+    background-color: rgba(0,0,0,0.5); 
+    z-index: 10;
+}
+.ReportsPage-overlay {
+    height: 100%;
+    width: 100%;
+    
+  }
