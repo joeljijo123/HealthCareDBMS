@@ -289,6 +289,19 @@ app.get('/WorkSchdule/:userID', (req,res) => {
  
  });
 
+ app.get('/EmployeeAppUpdate/:LoginTableID', (req,res) => {
+    const LoginID = req.params.LoginTableID;
+    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID=1 WHERE AppointmentDate<CURDATE() AND DoctorID=(SELECT EmployeeID FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}');`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.send("Updated Appointment Status")
+        }
+    });
+ 
+ });
+
  //Update medical history
  app.post('/UpdateMedicalHistory', (req,res) => {
     const { patientID,lastUpdatedBy, immunizationRecord, allergies,
@@ -337,6 +350,18 @@ app.get('/WorkSchdule/:userID', (req,res) => {
             return res.json({
                 data: results
             })
+        }
+    });
+ 
+ });
+ app.get('/PatientAppUpdate/:LoginTableID', (req,res) => {
+    const LoginID = req.params.LoginTableID;
+    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID=1 WHERE AppointmentDate<CURDATE() AND PatientID=(SELECT PatientID FROM Clinic_Main.PatientInfoWithLogin WHERE PatientLoginID='${LoginID}');  `,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json("Updated Appointment Times")
         }
     });
  

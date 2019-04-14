@@ -79,6 +79,7 @@ class HomeLoginBox extends React.Component{
                 window.localStorage.setItem("userType", res.data[0].RoleID); 
                 window.localStorage.setItem("userID", res.data[0].EmployeeID);  
                 this.setState({loggedIn:true});      
+                this.updateAppTimes();
             }
             else{  
                 fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
@@ -87,13 +88,26 @@ class HomeLoginBox extends React.Component{
                     if(res.data.length === 1){
                         window.localStorage.setItem("userType", 2); 
                         window.localStorage.setItem("userID", res.data[0].PatientID);   
-                        this.setState({loggedIn:true});             
+                        this.setState({loggedIn:true});   
+                        this.updateAppTimes();          
                     }
                 })
                 .catch(err => console.log(err))
             }
         })
         .catch(err => console.log(err))
+    }
+    updateAppTimes(){
+        if(window.localStorage.userType !== "3"){
+            if(window.localStorage.userType === "2"){
+                fetch(`http://157.230.214.92:4000/EmployeeAppUpdate/${window.localStorage.LoginTableID}`)
+                .then(result => result.json())
+            }
+            else{
+                fetch(`http://157.230.214.92:4000/PatientAppUpdate/${window.localStorage.LoginTableID}`)
+                .then(result => result.json())
+            }
+        }
     }
     componentDidMount() {
         window.localStorage.setItem("userID", null);
