@@ -286,7 +286,7 @@ class ProfileInfo extends React.Component {
 									name="dob"
 									label="Birthdate"
 									variant="outlined"
-									value={this.state.dob}
+									value={this.state.dob.substring(0,10)}
 									onChange={this.handleChange}
 								/>
 							</FormControl>

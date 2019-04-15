@@ -14,8 +14,8 @@ const styles = theme => ({
       backgroundSize: 'cover',
     },
     mapContainer: {
-      width: '85vw',
-      height: '85vh',
+      width: '100w',
+      height: '100vh',
       flexDirection: 'column',
       backgroundColor: "#a09d9d",
       margin:"center",
@@ -29,10 +29,8 @@ export class Locator extends React.Component {
   render() { 
     const{classes}=this.props;
     return (
-      <div className={classes.background}>
       <div className={classes.mapContainer}>
          <MapGen/>
-      </div>
       </div>
     );
   }
