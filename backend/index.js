@@ -24,7 +24,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', (req,res) => {
-    res.send('hello from the products server')
+    res.send('Welcome, you are now connected to the server')
 });
 
 //LookUpTableReturns
