@@ -52,6 +52,9 @@ const styles = {
     DocRegistrationRedirect = () =>{
       window.location.replace('/DoctorRegistration');
     }
+    LocatorPageRedirect = () =>{
+      window.location.replace('/Locator')
+    }
     logout = () =>{
       this.setState({loggedIn:false,userid:null,userType:null})
       localStorage.setItem("userID", null);
@@ -106,6 +109,7 @@ const styles = {
                       ):(
                         <div></div>
                       )}
+                      <Tab label="Facilities" onClick={this.LocatorPageRedirect}></Tab>
                       <Tab label="Logout" onClick={this.logout}></Tab>
                   </Tabs>
                   
