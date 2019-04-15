@@ -3,15 +3,18 @@
     background-image: url(../Appointments/AppointmentImage.png);
   
     /* Full height */
-    height: 100vh;
+    min-height: 100vh;
     /* Center and scale the image nicely */
-    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: fixed;
     background-repeat: repeat;
     background-size: cover;
     background-color: rgba(0,0,0,0.5); 
     z-index: 10;
   }
   .AppointmentPage-overlay {
+    min-height: 100vh;
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
