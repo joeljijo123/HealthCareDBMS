@@ -49,7 +49,9 @@ class HomeLoginBox extends React.Component{
     handleRegistration = () => {
         window.location.replace('/Registration');
     }
-
+    handleLocator = () => {
+        window.location.replace('/Locator');
+    }
     login = () => {
         fetch(`http://162.243.165.50:4000/login/${this.state.Username}`)
         .then(result => result.json())
@@ -145,6 +147,14 @@ class HomeLoginBox extends React.Component{
                       onClick={this.handleRegistration}
                       color="primary">
                           Dont have an Account? Click here to Register
+                      </Button>
+                  </FormControl>
+                  <FormControl  className={classes.submitButton}>
+                      <Button
+                      size="small"
+                      onClick={this.handleLocator}
+                      color="primary">
+                          Need to find one of our Clinics?
                       </Button>
                   </FormControl>
               </form>
