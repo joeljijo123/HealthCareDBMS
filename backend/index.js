@@ -209,6 +209,20 @@ app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
     });
  
  });
+ app.get('/insurance/:PatientID', (req,res) => {
+    const PatientID = req.params.PatientID;
+    connection.query(`SELECT * FROM Clinic_Main.Insurance WHERE PatientID='${PatientID}'`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
    // Gets specified Employee WorkSchedule
 app.get('/WorkSchdule/:userID', (req,res) => {
     const userID = req.params.userID;
