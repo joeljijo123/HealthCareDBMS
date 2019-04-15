@@ -51,7 +51,7 @@ class ProfileInfo extends React.Component {
 	}
 	retrieveUserInfo=()=> {
 		if(window.localStorage.userType === "2"){
-			fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
+			fetch(`http://162.243.165.50:4000/Patient/${window.localStorage.LoginTableID}`)
 			.then(result => result.json())
 			.then(res => this.setState( {	first: res.data[0].FirstName,
 											last: res.data[0].LastName,
@@ -70,7 +70,7 @@ class ProfileInfo extends React.Component {
 			.catch(err => console.log(err));
 	    }
 	    else{
-			fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.LoginTableID}`)
+			fetch(`http://162.243.165.50:4000/Employee/${window.localStorage.LoginTableID}`)
 			.then(result => result.json())
 			.then(res => this.setState( {	first: res.data[0].FirstName,
 											last: res.data[0].LastName,
@@ -90,7 +90,7 @@ class ProfileInfo extends React.Component {
 	}
 	updateUserInfo=()=>{
         //backend call to add the user to the backend
-        fetch(`http://157.230.214.92:4000/UpdateUser`, {
+        fetch(`http://162.243.165.50:4000/UpdateUser`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

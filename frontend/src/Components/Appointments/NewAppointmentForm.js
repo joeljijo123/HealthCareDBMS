@@ -141,7 +141,7 @@ class NewAppointmentForm extends React.Component{
         }
     };
     uploadFacilities=()=> {
-        fetch(`http://157.230.214.92:4000/Facilities`)
+        fetch(`http://162.243.165.50:4000/Facilities`)
         .then(result => result.json())
         .then(Response => this.setState({ Facilities:Response.data }))
         .catch(err => console.log(err))
@@ -151,13 +151,13 @@ class NewAppointmentForm extends React.Component{
         if(window.localStorage.userType !== "3"){
             Specialist="0";
         }
-        fetch(`http://157.230.214.92:4000/Doctors/${this.state.FacilityID}/${Specialist}`)
+        fetch(`http://162.243.165.50:4000/Doctors/${this.state.FacilityID}/${Specialist}`)
         .then(result => result.json())
         .then(Response => this.setState({ Doctors:Response.data }))
         .catch(err => console.log(err))
     };
     uploadTimes=()=> {
-        fetch(`http://157.230.214.92:4000/AppointmentTimes/`, {
+        fetch(`http://162.243.165.50:4000/AppointmentTimes/`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
@@ -182,7 +182,7 @@ class NewAppointmentForm extends React.Component{
     };
     handleSubmit= () =>{
         this.setState({openForm:false})
-        fetch(`http://157.230.214.92:4000/AddAppointment`, {
+        fetch(`http://162.243.165.50:4000/AddAppointment`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

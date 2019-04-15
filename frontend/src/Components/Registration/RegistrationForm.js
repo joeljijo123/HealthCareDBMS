@@ -107,7 +107,7 @@ class RegistrationForm extends React.Component{
     }
     registerUser=()=>{
         //backend call to add the user to the backend
-        fetch(`http://157.230.214.92:4000/RegisterUser`, {
+        fetch(`http://162.243.165.50:4000/RegisterUser`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
@@ -152,25 +152,25 @@ class RegistrationForm extends React.Component{
     }
 
     uploadStates=()=> {
-        fetch(`http://157.230.214.92:4000/states`)
+        fetch(`http://162.243.165.50:4000/states`)
         .then(result => result.json())
         .then(Response => this.setState({ states:Response.data }))
         .catch(err => console.log(err))
     }
     uploadSexes=()=> {
-        fetch(`http://157.230.214.92:4000/sexes`)
+        fetch(`http://162.243.165.50:4000/sexes`)
         .then(result => result.json())
         .then(Response => this.setState({ sexes:Response.data }))
         .catch(err => console.log(err))
     }
     uploadRoles=()=> {
-        fetch(`http://157.230.214.92:4000/roles`)
+        fetch(`http://162.243.165.50:4000/roles`)
         .then(result => result.json())
         .then(Response => this.setState({ roles:Response.data }))
         .catch(err => console.log(err))
     }
     uploadRaces=()=> {
-        fetch(`http://157.230.214.92:4000/races`)
+        fetch(`http://162.243.165.50:4000/races`)
         .then(result => result.json())
         .then(Response => this.setState({ races:Response.data }))
         .catch(err => console.log(err))

@@ -43,13 +43,13 @@ class DoctorsReport extends React.Component{
         this.uploadDoctors();
     }
     fetchDoctorReport(){
-        fetch(`http://157.230.214.92:4000/DoctorReport/${this.state.ChosenDoctor}/${this.state.MinimumDateDB}/${this.state.MaximumDateDB}`)
+        fetch(`http://162.243.165.50:4000/DoctorReport/${this.state.ChosenDoctor}/${this.state.MinimumDateDB}/${this.state.MaximumDateDB}`)
         .then(result => result.json())
         .then(Response => this.setState({ Report:Response.data }))
         .catch(err => console.log(err))
     }
     uploadDoctors(){
-        fetch(`http://157.230.214.92:4000/AllDoctors`)
+        fetch(`http://162.243.165.50:4000/AllDoctors`)
         .then(result => result.json())
         .then(Response => this.setState({ Doctors:Response.data }))
         .catch(err => console.log(err))

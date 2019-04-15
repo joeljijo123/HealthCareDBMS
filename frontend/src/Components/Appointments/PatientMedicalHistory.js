@@ -62,7 +62,7 @@ class PatientMedicalHistory extends React.Component{
         this.saveChange=this.saveChange.bind(this);
     }
     getMedicalRecord=()=>{
-        fetch(`http://157.230.214.92:4000/GetMedicalHistory/${this.props.PatientID}`)
+        fetch(`http://162.243.165.50:4000/GetMedicalHistory/${this.props.PatientID}`)
         .then(result => result.json())
         .then(result => 
             {if(result.data.length !== 0){
@@ -76,7 +76,7 @@ class PatientMedicalHistory extends React.Component{
         .catch(err => console.error(err))
     };
     updateMedicalRecord(){
-        fetch(`http://157.230.214.92:4000/UpdateMedicalHistory`, {
+        fetch(`http://162.243.165.50:4000/UpdateMedicalHistory`, {
           method:"POST",
           headers: {
             "Content-Type":"application/json",

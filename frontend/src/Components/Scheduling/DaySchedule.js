@@ -73,7 +73,7 @@ class DaySchedule extends React.Component {
 	
 	// Get the WorkSchedule list for specified employee
 	grabWorkSchedule=()=>{
-		fetch(`http://157.230.214.92:4000/WorkSchdule/${window.localStorage.userID}`)
+		fetch(`http://162.243.165.50:4000/WorkSchdule/${window.localStorage.userID}`)
         .then(result => result.json())
         .then(res => this.setState({ WorkSchedule:res.data[0]}))
         .catch(err => console.log(err));
@@ -81,7 +81,7 @@ class DaySchedule extends React.Component {
 	
 	// Get Facility information
 	getFacilities=()=> {
-        fetch(`http://157.230.214.92:4000/Facilities`)
+        fetch(`http://162.243.165.50:4000/Facilities`)
         .then(result => result.json())
         .then(res => this.setState({ Facilities:res.data }))
         .catch(err => console.log(err))
@@ -89,7 +89,7 @@ class DaySchedule extends React.Component {
 	
 	// Get Weekday information
 	getWeekday=()=> {
-        fetch(`http://157.230.214.92:4000/Weekday`)
+        fetch(`http://162.243.165.50:4000/Weekday`)
         .then(result => result.json())
         .then(res => this.setState({ Weekdays:res.data }))
         .catch(err => console.log(err))
@@ -113,7 +113,7 @@ class DaySchedule extends React.Component {
 	handleConfirmRemove = () => {
 		console.log(this.state.selectedDayID)
 		console.log(this.state.WorkSchedule)
-		fetch(`http://157.230.214.92:4000/RemoveWorkScheduleDay/`, {
+		fetch(`http://162.243.165.50:4000/RemoveWorkScheduleDay/`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

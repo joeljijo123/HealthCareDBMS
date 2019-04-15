@@ -43,7 +43,7 @@ class ShowPrescriptions extends React.Component{
         this.uploadPrescriptions();
     }
     uploadPrescriptions(){
-        fetch(`http://157.230.214.92:4000/Prescriptions/${this.props.AppID}`)
+        fetch(`http://162.243.165.50:4000/Prescriptions/${this.props.AppID}`)
         .then(result => result.json())
         .then(Response => this.setState({ Prescriptions: Response.data }))
         .catch(err => console.log(err))

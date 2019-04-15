@@ -53,7 +53,7 @@ componentDidMount(){
 };
 
 getMedicalRecord=()=>{
-  fetch(`http://157.230.214.92:4000/GetMedicalHistory/${window.localStorage.userID}`)
+  fetch(`http://162.243.165.50:4000/GetMedicalHistory/${window.localStorage.userID}`)
   .then(result => result.json())
   .then(res => this.setState({
     patientID: res.data[0].PatientID,

@@ -47,19 +47,19 @@ class FacilityReports extends React.Component{
     }
     fetchFacilityReport(){
         
-        fetch(`http://157.230.214.92:4000/FacilityAppointmentReport/${this.state.ChosenFacility}/${this.state.MinimumDateDB}/${this.state.MaximumDateDB}`)
+        fetch(`http://162.243.165.50:4000/FacilityAppointmentReport/${this.state.ChosenFacility}/${this.state.MinimumDateDB}/${this.state.MaximumDateDB}`)
         .then(result => result.json())
         .then(Response => this.setState({ Report:Response.data }))
         .catch(err => console.log(err))
     }
     fetchDoctorReport(){
-        fetch(`http://157.230.214.92:4000/DoctorReport/${this.state.ChosenFacility}`)
+        fetch(`http://162.243.165.50:4000/DoctorReport/${this.state.ChosenFacility}`)
         .then(result => result.json())
         .then(Response => this.setState({ DoctorsCount:Response.data[0].Count }))
         .catch(err => console.log(err))
     }
     uploadFacilities(){
-        fetch(`http://157.230.214.92:4000/Facilities`)
+        fetch(`http://162.243.165.50:4000/Facilities`)
         .then(result => result.json())
         .then(Response => this.setState({ Facilities:Response.data }))
         .catch(err => console.log(err))

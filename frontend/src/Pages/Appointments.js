@@ -17,7 +17,7 @@ class Appointments extends Component {
 
   FirstName(){
     if(window.localStorage.userType === "2"){
-      fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
+      fetch(`http://162.243.165.50:4000/Patient/${window.localStorage.LoginTableID}`)
       .then(result => result.json())
       .then(res => {
           this.setState(  { firstName: res.data[0].FirstName  } )
@@ -26,7 +26,7 @@ class Appointments extends Component {
     }
   
     else{
-      fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.LoginTableID}`)
+      fetch(`http://162.243.165.50:4000/Employee/${window.localStorage.LoginTableID}`)
       .then(result => result.json())
       .then(res => {this.setState(  { firstName: res.data[0].FirstName  } )})
       .catch(err => console.log(err))

@@ -42,7 +42,7 @@ class ModifyFacility extends React.Component{
 	
 	// Get Facility information
 	/*getFacilities=()=> {
-        fetch(`http://157.230.214.92:4000/Facilities`)
+        fetch(`http://162.243.165.50:4000/Facilities`)
         .then(result => result.json())
         .then(res => this.setState({ Facilities:res.data }))
         .catch(err => console.log(err))
@@ -85,7 +85,7 @@ class ModifyFacility extends React.Component{
 				}
 			}
 			console.log("UPDATING")
-			fetch(`http://157.230.214.92:4000/UpdateWorkScheduleDay/`, {
+			fetch(`http://162.243.165.50:4000/UpdateWorkScheduleDay/`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

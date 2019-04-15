@@ -36,7 +36,7 @@ class AddPrescription extends React.Component{
     };
 
     uploadMedicineTypes(){
-        fetch(`http://157.230.214.92:4000/AllMedicines/`)
+        fetch(`http://162.243.165.50:4000/AllMedicines/`)
         .then(result => result.json())
         .then(Response => this.setState({ MedicineTypes:Response.data}))
         .catch(err => console.log(err));
@@ -44,7 +44,7 @@ class AddPrescription extends React.Component{
 
     handleSubmit= () =>{
         this.setState({openForm:false});
-        fetch(`http://157.230.214.92:4000/AddPrescription`, {
+        fetch(`http://162.243.165.50:4000/AddPrescription`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

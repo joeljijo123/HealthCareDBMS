@@ -30,14 +30,14 @@ class AddSpecialistReccomendation extends React.Component{
         this.uploadSpecialists()
     }
     uploadSpecialists(){
-        fetch(`http://157.230.214.92:4000/AllDoctors`)
+        fetch(`http://162.243.165.50:4000/AllDoctors`)
         .then(result => result.json())
         .then(res => this.setState({ Specialists: res.data }))
         .catch(err => console.log(err))
     }
     handleSpecialistAdd= () =>{
         this.setState({openForm:false});
-        fetch(`http://157.230.214.92:4000/AddSpecialist`, {
+        fetch(`http://162.243.165.50:4000/AddSpecialist`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

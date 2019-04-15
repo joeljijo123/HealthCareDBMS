@@ -64,7 +64,7 @@ class AddNewDay extends React.Component{
     }
 	
 	handleConfirmChange = () => {
-		fetch(`http://157.230.214.92:4000/AddNewWorkSchedule/`, {
+		fetch(`http://162.243.165.50:4000/AddNewWorkSchedule/`, {
 		method:"POST",
         headers: {
             "Content-Type":"application/json",

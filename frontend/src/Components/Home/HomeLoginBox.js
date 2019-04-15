@@ -51,7 +51,7 @@ class HomeLoginBox extends React.Component{
     }
 
     login = () => {
-        fetch(`http://157.230.214.92:4000/login/${this.state.Username}`)
+        fetch(`http://162.243.165.50:4000/login/${this.state.Username}`)
         .then(result => result.json())
         .then(res => {
             if(res.data.length === 1){
@@ -71,7 +71,7 @@ class HomeLoginBox extends React.Component{
     }
     
     setUserType(){
-        fetch(`http://157.230.214.92:4000/Employee/${window.localStorage.LoginTableID}`)
+        fetch(`http://162.243.165.50:4000/Employee/${window.localStorage.LoginTableID}`)
         .then(result => result.json())
         .then(res => {
             if(res.data.length === 1){
@@ -81,7 +81,7 @@ class HomeLoginBox extends React.Component{
                 this.updateAppTimes();
             }
             else{  
-                fetch(`http://157.230.214.92:4000/Patient/${window.localStorage.LoginTableID}`)
+                fetch(`http://162.243.165.50:4000/Patient/${window.localStorage.LoginTableID}`)
                 .then(result => result.json())
                 .then(res => {
                     if(res.data.length === 1){
@@ -99,11 +99,11 @@ class HomeLoginBox extends React.Component{
     updateAppTimes(){
         if(window.localStorage.userType !== "3"){
             if(window.localStorage.userType === "2"){
-                fetch(`http://157.230.214.92:4000/EmployeeAppUpdate/${window.localStorage.LoginTableID}`)
+                fetch(`http://162.243.165.50:4000/EmployeeAppUpdate/${window.localStorage.LoginTableID}`)
                 .then(result => result.json())
             }
             else{
-                fetch(`http://157.230.214.92:4000/PatientAppUpdate/${window.localStorage.LoginTableID}`)
+                fetch(`http://162.243.165.50:4000/PatientAppUpdate/${window.localStorage.LoginTableID}`)
                 .then(result => result.json())
             }
         }

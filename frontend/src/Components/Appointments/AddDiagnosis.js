@@ -27,7 +27,7 @@ class AddDiagnosis extends React.Component{
 
     handleDiagnosisAdd= () =>{
         this.setState({openForm:false});
-        fetch(`http://157.230.214.92:4000/AddDiagnosis`, {
+        fetch(`http://162.243.165.50:4000/AddDiagnosis`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",

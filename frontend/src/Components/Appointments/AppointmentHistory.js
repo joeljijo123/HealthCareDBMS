@@ -82,7 +82,7 @@ class AppointmentHistory extends React.Component{
     }
     grabAppointments=()=>{
         //backend call to grab the appointments for the user
-        fetch(`http://157.230.214.92:4000/Appointments/`, {
+        fetch(`http://162.243.165.50:4000/Appointments/`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
@@ -114,7 +114,7 @@ class AppointmentHistory extends React.Component{
         ))
     }
     handleAppointmentCancel = (AppID) => {
-        fetch(`http://157.230.214.92:4000/CancelAppointment/`, {
+        fetch(`http://162.243.165.50:4000/CancelAppointment/`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
