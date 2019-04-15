@@ -25,30 +25,7 @@ const styles = theme => ({
 });
 
 export class Locator extends React.Component {
- 
-  /*
-    Geocode.setApiKey('AIzaSyDKOXGgce4aWbeOHVnhgD8S0NJJph3ShCc');
-    Geocode.enableDebug();
-    Geocode.fromAddress(address).then(
-        response => {
-         const {lat, lng} = response.results[0].geometry.location;
-          pinlat=lat;
-          pinlng=lng;
-          console.log(lat,lng);
-        },
-        error => {
-          console.error(error);
-        }
-    );
-    if(pinlat==null || pinlng==null) {
-      return null
-    }
-    else {
-      console.log(pinlat+" "+ pinlng+ "Coordinates")
-      return <Marker onClick={this.onMarkerClick} name={facility.FacilityName} position={{lat: pinlat, lng: pinlng}}/>
-    }
-  */
-  
+
   render() { 
     const{classes}=this.props;
     return (
