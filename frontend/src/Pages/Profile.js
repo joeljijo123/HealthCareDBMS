@@ -9,7 +9,13 @@ import Image from '../Components/Profile/ProfileBackground.jpg';
 
 const styles = theme =>({
   root: {
-      height: "200vh",
+      minHeight: "100vh",
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: 'fixed',
+      backgroundPosition: 'fixed',
+      backgroundRepeat: 'repeat',
+      backgroundSize: 'cover',
+      backgrounPosition:'fixed',
       backgroundImage: `url(${Image})`,
       backgroundColor: 'transparent'
   },
