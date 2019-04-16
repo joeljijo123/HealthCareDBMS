@@ -6,13 +6,10 @@ import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ProfileInfoTest from '../Components/Profile/ProfileInfoTest';
 
-
-
 const styles = theme =>({
   root: {
       height: "200vh",
-      backgroundColor: "#a09d9d",
-
+      backgroundColor: "#white",
   },
 });
 
@@ -24,13 +21,10 @@ class Profile extends Component {
         <NavigationBar title={"My Profile"} Tab={1}/>
         <ProfileInfoTest/>
         {window.localStorage.userType === "2" ? (
-          <MedicalInformation/>
+        <MedicalInformation/>
         ):(
           <div></div>
         )}
-        
-        
-       
       </div>
     );
   }

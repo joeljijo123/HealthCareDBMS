@@ -10,7 +10,7 @@ const styles = theme => ({
 	paperForm: {
 		width: '75%',
         display: "flex",
-        backgroundColor: "#e0e0e0",
+        backgroundColor: "white",
 		padding: theme.spacing.unit*3,
 		height: '98%',
 		margin:"auto",
