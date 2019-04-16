@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
 import MedicalInformation from '../Components/Profile/MedicalInformation';
-import ProfileInfo from '../Components/Profile/ProfileInfo';
+//import ProfileInfo from '../Components/Profile/ProfileInfo';
 import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ProfileInfoTest from '../Components/Profile/ProfileInfoTest';
+import Image from '../Components/Profile/ProfileBackground.jpg';
 
 const styles = theme =>({
   root: {
       height: "200vh",
-      backgroundColor: "white",
+      backgroundImage: `url(${Image})`,
+      backgroundColor: 'transparent'
   },
 });
 

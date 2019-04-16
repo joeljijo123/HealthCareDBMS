@@ -3,7 +3,7 @@ import './Home.css';
 import NavigationBar from '../Components/GeneralComponents/NavigationBar';
 import HomeLoginBox from '../Components/Home/HomeLoginBox';
 
-
+//</div>
 class Home extends Component {
   render() { 
     return (
