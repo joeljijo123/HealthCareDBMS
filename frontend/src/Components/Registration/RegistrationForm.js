@@ -97,16 +97,16 @@ class RegistrationForm extends React.Component{
         this.uploadRaces();
     }
     handleChange = e =>{
+        console.log(this.state.userType)
+        if(window.localStorage.loggedIn !== "true"){
+            this.setState({ userType:2})
+        }
         this.setState({
             [e.target.name] : e.target.value
         })
     }
     registerUser=()=>{
         //backend call to add the user to the backend
-        if(window.localStorage.LoginTableID === "null"){
-            this.setState({userType: "2"})
-        }
-        console.log(this.state)
         fetch(`http://162.243.165.50:4000/RegisterUser`, {
             method:"POST",
             headers: {
@@ -126,7 +126,7 @@ class RegistrationForm extends React.Component{
                 AddressZip: this.state.AddressZip,
                 DateOfBirth: this.state.DateOfBirth,
                 SSN: this.state.SSN,
-                userType:2,
+                userType:this.state.userType,
                 raceID: this.state.raceID
             })
         })
