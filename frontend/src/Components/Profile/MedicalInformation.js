@@ -14,6 +14,7 @@ const styles = theme => ({
     height: '98%',
     margin:"auto",
     marginTop: '2%',
+    marginBottom: '2%',
   },
   container: {
     display: 'flex',
