@@ -80,7 +80,7 @@ class AddNewDay extends React.Component{
 		this.handleClose()
 		setTimeout(function(){
 			window.location.replace('/Scheduling')
-		}, 200);
+		}, 1000);
 	};
 	
 	render(){
