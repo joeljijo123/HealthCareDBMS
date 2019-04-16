@@ -9,7 +9,7 @@ import {Paper, Typography, TextField, Divider, Grid} from '@material-ui/core';
 const styles = theme => ({
   root: {
     width: '75%',
-    backgroundColor: "white",
+    backgroundColor: "#e0e0e0",
     padding: theme.spacing.unit*3,
     height: '98%',
     margin:"auto",

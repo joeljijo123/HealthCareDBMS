@@ -9,7 +9,7 @@ import ProfileInfoTest from '../Components/Profile/ProfileInfoTest';
 const styles = theme =>({
   root: {
       height: "200vh",
-      backgroundColor: "#white",
+      backgroundColor: "white",
   },
 });
 
