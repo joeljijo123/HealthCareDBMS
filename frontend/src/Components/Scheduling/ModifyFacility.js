@@ -32,11 +32,12 @@ class ModifyFacility extends React.Component{
 			openForm: false,
 			selectedFacility: "",
 			Facilities: this.props.val.Facilities,
-			FacilityID: this.props.Sub_FacilityID
+			FacilityID: "",
 		}
 	}
 	
 	componentDidMount(){
+		this.setState({FacilityID: this.props.Sub_FacilityID})
         //this.getFacilities();
     }
 	
@@ -70,9 +71,14 @@ class ModifyFacility extends React.Component{
 	handleChange = e =>{
         this.setState({
 			[e.target.name] : e.target.value,
-            selectedFacility: this.state.Facilities[e.target.value].FacilityName
 
-        })
+		})
+		var i;
+		for(i=0; i<this.state.Facilities.length;i++){
+			if(this.state.Facilities[i].FacilityID === e.target.value){
+				this.setState({selectedFacility:this.state.Facilities[i].FacilityName})
+			}
+		}
     }
 	
 	handleDoneSelected = () =>{
