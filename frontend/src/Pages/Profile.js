@@ -4,6 +4,7 @@ import MedicalInformation from '../Components/Profile/MedicalInformation';
 //import ProfileInfo from '../Components/Profile/ProfileInfo';
 import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import './Profile.css'
 import ProfileInfoTest from '../Components/Profile/ProfileInfoTest';
 import Image from '../Components/Profile/ProfileBackground.jpg';
 
@@ -25,7 +26,7 @@ class Profile extends Component {
   render() { 
     const{classes}=this.props;
     return (
-      <div className={classes.root}>
+      <div className='Profile-image'>
         <NavigationBar title={"My Profile"} Tab={1}/>
         <ProfileInfoTest/>
         {window.localStorage.userType === "2" ? (
