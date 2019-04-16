@@ -92,7 +92,7 @@ class ProfileInfoTest extends React.Component {
     }
     getInsurance(){
             if(window.localStorage.userType === "2") {
-                fetch(`http://162.243.165.50:4000/Insurance/69558070`)
+                fetch(`http://162.243.165.50:4000/Insurance/${window.localStorage.userID}`)
                 .then(result => result.json())
                 .then(res => this.setState({
                     deduct:res.data[0].Deductible,
@@ -202,13 +202,15 @@ class ProfileInfoTest extends React.Component {
         });
     }
     saveChanges = _ => {
-        console.log(this.state)
         this.updateUserInfo();
         this.retrieveUserInfo();
         this.getInsurance();
         this.setState({
             editing: false
         });
+        setTimeout(function(){
+			window.location.replace('/Profile')
+		}, 1000);
     }
     revertChanges = _ => {
         this.retrieveUserInfo();
@@ -222,7 +224,6 @@ class ProfileInfoTest extends React.Component {
       const {classes}=this.props;
     return (
       <div>
-          {this.getInsurance}
           <Paper className={classes.paperForm}>
             <form  noValidate autoComplete="off">
                 <div>
