@@ -214,19 +214,16 @@ class PatientMedicalHistory extends React.Component{
                                 />
                             </Grid>
                         </Grid>
-                        <Grid>
                             {!this.state.editing ? (
                                 <div>
-                                        <Button variant="contained" color="primary" fullWidth className={classes.button} onClick={this.editMode}> Edit </Button>
+                                        <Button variant="contained" fullWidth color="primary" className={classes.button} onClick={this.editMode}> Edit </Button>
                                 </div>
                             ):(
                                 <div>
-                                    <Button variant="contained" color="secondary" fullWidth className={classes.button} onClick={this.saveChange}> Save </Button>
-                                </div>      
+                                    <Button variant="contained" fullWidth color="secondary" className={classes.button} onClick={this.saveChange}> Save </Button>
+                                </div>
                             )}
-                            <Button variant="contained" color="primary" fullWidth className={classes.button} onClick={this.handleClose}> Close </Button>
-
-                        </Grid>
+                            <Button variant="contained" fullWidth color="primary" className={classes.button} onClick={this.handleClose}> Close </Button>
                     </Paper>
                 </Dialog>
             </div>

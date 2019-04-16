@@ -22,7 +22,7 @@ const styles = {
   },
   MenuIcon: {
     marginLeft: -12,
-    marginRight: 20 
+    marginRight: 20
   },
 };
 
