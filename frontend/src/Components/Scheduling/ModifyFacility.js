@@ -69,8 +69,9 @@ class ModifyFacility extends React.Component{
 	
 	handleChange = e =>{
         this.setState({
-            selectedFacility: this.state.Facilities[e.target.value].FacilityName,
-			[e.target.name] : e.target.value
+			[e.target.name] : e.target.value,
+            selectedFacility: this.state.Facilities[e.target.value].FacilityName
+
         })
     }
 	
