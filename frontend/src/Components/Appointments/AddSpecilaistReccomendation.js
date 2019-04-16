@@ -47,8 +47,10 @@ class AddSpecialistReccomendation extends React.Component{
                 Specialist:   this.state.Specialist,
             })
         })
-        .then(window.location.replace('/Appointments'))
         .catch(err => console.log(err));
+        setTimeout(function(){
+			window.location.replace('/Appointments')
+		}, 1000);
     };
     handleClickOpen = () => {
         this.setState({ 

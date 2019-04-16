@@ -95,7 +95,6 @@ class PatientMedicalHistory extends React.Component{
     }
     saveChange(){
         this.updateMedicalRecord();
-        this.getMedicalRecord();
         this.setState({
             editing: false
         });

@@ -560,9 +560,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
             return res.send(err)
         }
         else{
-            return res.json({
-                data: results
-            })
+            return res.json("successfully Added Specialist")
         }
     }); 
  });
