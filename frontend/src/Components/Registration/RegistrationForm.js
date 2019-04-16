@@ -91,30 +91,30 @@ class RegistrationForm extends React.Component{
                 this.state.registrationStep === 0
     }
     componentDidMount(){
-        if(window.localStorage.LoginTableID === "null"){
-            this.setState({userType: 2})
-        }
         this.uploadStates();
         this.uploadSexes();
         this.uploadRoles();
         this.uploadRaces();
     }
     handleChange = e =>{
-        console.log(this.state.userType);
         this.setState({
             [e.target.name] : e.target.value
         })
     }
     registerUser=()=>{
         //backend call to add the user to the backend
+        if(window.localStorage.LoginTableID === "null"){
+            this.setState({userType: "2"})
+        }
+        console.log(this.state)
         fetch(`http://162.243.165.50:4000/RegisterUser`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                FirstName:this.state.FirstName,
-                LastName:this.state.LastName,
+                FirstName: this.state.FirstName,
+                LastName: this.state.LastName,
                 Sex: this.state.Sex,
                 Email: this.state.Email,
                 username: this.state.username,
@@ -126,13 +126,20 @@ class RegistrationForm extends React.Component{
                 AddressZip: this.state.AddressZip,
                 DateOfBirth: this.state.DateOfBirth,
                 SSN: this.state.SSN,
-                userType: this.state.userType,
-                raceID: this.state.raceID,
+                userType:2,
+                raceID: this.state.raceID
             })
         })
         .then(console.log('done'))
         .catch(err => console.log(err))
-        .then(this.homeRedirect());
+        setTimeout(function(){
+			if(window.localStorage.loggedIn === "true"){
+                window.location.replace('/Appointments')
+            }
+            else{
+                window.location.replace('/')
+            }
+		}, 200);
         
     }
     homeRedirect = () =>{
