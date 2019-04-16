@@ -205,6 +205,7 @@ class ProfileInfoTest extends React.Component {
         console.log(this.state)
         this.updateUserInfo();
         this.retrieveUserInfo();
+        this.getInsurance();
         this.setState({
             editing: false
         });
