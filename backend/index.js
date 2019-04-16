@@ -598,7 +598,7 @@ app.post('/RegisterUser', (req,res) => {
  app.post('/UpdateUser', (req,res) => {
     const { UserID, InsuranceID, FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip,
-            userType, LoginTableID}  =   req.body;
+            userType, LoginTableID, Deductible, Name, ContactNumber}  =   req.body;
     connection.query(`CALL UpdateUser(
         '${UserID}',
         '${InsuranceID}',
@@ -614,7 +614,10 @@ app.post('/RegisterUser', (req,res) => {
         '${AddressState}', 
         '${AddressZip}',
         '${userType}',
-        '${LoginTableID}');`,(err, results) => {
+        '${LoginTableID}',
+        '${Deductible}',
+        '${Name}',
+        '${ContactNumber}');`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
