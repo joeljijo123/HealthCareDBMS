@@ -107,33 +107,63 @@ class ProfileInfoTest extends React.Component {
     }
     updateUserInfo=()=>{
         //backend call to add the user to the backend
-        fetch(`http://162.243.165.50:4000/UpdateUser`, {
+        if(window.localStorage.userType!== "2"){
+            fetch(`http://162.243.165.50:4000/UpdateUser`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                UserID: window.localStorage.userID,
-                InsuranceID: this.state.insuranceID,
-                FirstName:this.state.first,
-                LastName:this.state.last,
-                Sex: this.state.sex,
-                Email: this.state.email,
-                username: this.state.user,
-                password: this.state.pass,
-                CellNumber: this.state.cellnumber,
-                AddressStreet: this.state.streetaddr,
-                AddressCity: this.state.cityaddr,
-                AddressState: this.state.stateaddr,
-                AddressZip: this.state.zipaddr,
-                userType: window.localStorage.userType,
-                LoginTableID: window.localStorage.LoginTableID,
-                Deductible: this.state.deduct,
-                Name: this.state.company,
-                ContactNumber: this.state.insuranceContact
+            },body: JSON.stringify({
+                    UserID: window.localStorage.userID,
+                    InsuranceID: 0,
+                    FirstName:this.state.first,
+                    LastName:this.state.last,
+                    Sex: this.state.sex,
+                    Email: this.state.email,
+                    username: this.state.user,
+                    password: this.state.pass,
+                    CellNumber: this.state.cellnumber,
+                    AddressStreet: this.state.streetaddr,
+                    AddressCity: this.state.cityaddr,
+                    AddressState: this.state.stateaddr,
+                    AddressZip: this.state.zipaddr,
+                    userType: window.localStorage.userType,
+                    LoginTableID: window.localStorage.LoginTableID,
+                    Deductible: 0,
+                    Name: "Name",
+                    ContactNumber: "000-000-0000"
+                })
             })
-        })
         .catch(err => console.log(err))
+        }
+        else{
+            fetch(`http://162.243.165.50:4000/UpdateUser`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },body: JSON.stringify({
+                    UserID: window.localStorage.userID,
+                    InsuranceID: this.state.insuranceID,
+                    FirstName:this.state.first,
+                    LastName:this.state.last,
+                    Sex: this.state.sex,
+                    Email: this.state.email,
+                    username: this.state.user,
+                    password: this.state.pass,
+                    CellNumber: this.state.cellnumber,
+                    AddressStreet: this.state.streetaddr,
+                    AddressCity: this.state.cityaddr,
+                    AddressState: this.state.stateaddr,
+                    AddressZip: this.state.zipaddr,
+                    userType: window.localStorage.userType,
+                    LoginTableID: window.localStorage.LoginTableID,
+                    Deductible: this.state.deduct,
+                    Name: this.state.company,
+                    ContactNumber: this.state.insuranceContact
+                })
+            })
+        .catch(err => console.log(err))
+        }
+        
         
     }
     EmptyEntries(){
@@ -210,7 +240,7 @@ class ProfileInfoTest extends React.Component {
         });
         setTimeout(function(){
 			window.location.replace('/Profile')
-		}, 1000);
+		}, 200);
     }
     revertChanges = _ => {
         this.retrieveUserInfo();

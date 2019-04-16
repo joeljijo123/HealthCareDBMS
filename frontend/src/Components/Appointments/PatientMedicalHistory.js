@@ -98,6 +98,9 @@ class PatientMedicalHistory extends React.Component{
         this.setState({
             editing: false
         });
+        setTimeout(function(){
+			window.location.replace('/Appointments')
+		}, 1000);
     }
     handleClickOpen = () => {
         this.getMedicalRecord();
@@ -128,6 +131,7 @@ class PatientMedicalHistory extends React.Component{
         const {classes}=this.props;
         return(
             <div>
+                {this.getMedicalRecord}
                 <Button variant="contained" color="inherit" className={this.props.Button} onClick={this.handleClickOpen} fullWidth >
                     <InfoIcon/> Patient's Medical History
                 </Button>
