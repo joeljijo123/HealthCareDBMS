@@ -4,6 +4,7 @@ import { GoogleApiWrapper, InfoWindow, Marker, Geocoder, Map, google } from 'goo
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Geocode from "react-geocode";
 import { withStyles } from '@material-ui/core';
+import phoneIcon from '@material-ui/icons/MyLocation';
 
 export class TryingToWorkMap extends React.Component {
   constructor(props) {
@@ -123,6 +124,7 @@ export class TryingToWorkMap extends React.Component {
                 lat: this.state.currentLocation.lat,
                 lng: this.state.currentLocation.lng
               }}
+              icon={phoneIcon}
             />
       )
     }
@@ -134,7 +136,7 @@ export class TryingToWorkMap extends React.Component {
         <Map google={this.props.google}
           style={{width: '100vw', height: '100vh', position: 'center', margin: 'auto'}}
           className={'map'}
-          zoom={14}
+          zoom={12}
           center={{
             lat: this.state.currentLocation.lat,
             lng: this.state.currentLocation.lng
@@ -147,6 +149,7 @@ export class TryingToWorkMap extends React.Component {
                   lat: this.state.currentLocation.lat,
                   lng: this.state.currentLocation.lng
                 }}
+                icon={phoneIcon}
           />
           <Marker
                 name={'Your location'}

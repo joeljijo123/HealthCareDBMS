@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Paper, Typography, IconButton } from "@material-ui/core";
+import { Paper, Typography, IconButton, Button, Icon } from "@material-ui/core";
 import MapGen from '../Components/Locator/MapGen'
 import TryingToWorkMap from '../Components/Locator/TryingToWorkMap';
-import HomeLogo  from '@material-ui/icons/Home';
+import HomeLogo  from '@material-ui/icons/KeyboardArrowLeftRounded';
 
 const styles = theme => ({
     background: {
@@ -26,19 +26,26 @@ const styles = theme => ({
 
     },
     icon: {
-      margin: 'auto',
       fontSize: "150%",
   },
 });
 
 export class Locator extends React.Component {
 
+  redirect(){
+    if(window.localStorage.loggedIn !== "true"){
+      window.location.replace('/')
+    }
+    else{
+      window.location.replace('/Appointments')
+    }
+  }
   render() { 
     const{classes}=this.props;
     return (
       <div className={classes.mapContainer}>
       <TryingToWorkMap/>
-        <IconButton>
+        <IconButton onClick={this.redirect}>
             <HomeLogo style={{color: "#212121"}} className={classes.icon} />
         </IconButton>
          
