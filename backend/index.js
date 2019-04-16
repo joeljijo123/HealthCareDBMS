@@ -209,6 +209,34 @@ app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
     });
  
  });
+ app.get('/insurance/:PatientID', (req,res) => {
+    const PatientID = req.params.PatientID;
+    connection.query(`SELECT * FROM Clinic_Main.Insurance WHERE PatientID='${PatientID}'`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
+ app.get('/AllInsurance', (req,res) => {
+    const PatientID = req.params.PatientID;
+    connection.query(`SELECT * FROM Clinic_Main.Insurance;`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
    // Gets specified Employee WorkSchedule
 app.get('/WorkSchdule/:userID', (req,res) => {
     const userID = req.params.userID;
@@ -570,7 +598,7 @@ app.post('/RegisterUser', (req,res) => {
  app.post('/UpdateUser', (req,res) => {
     const { UserID, InsuranceID, FirstName, LastName, Sex, Email, username, password, CellNumber, 
             AddressStreet, AddressCity, AddressState, AddressZip,
-            userType, LoginTableID}  =   req.body;
+            userType, LoginTableID, Deductible, Name, ContactNumber}  =   req.body;
     connection.query(`CALL UpdateUser(
         '${UserID}',
         '${InsuranceID}',
@@ -586,7 +614,10 @@ app.post('/RegisterUser', (req,res) => {
         '${AddressState}', 
         '${AddressZip}',
         '${userType}',
-        '${LoginTableID}');`,(err, results) => {
+        '${LoginTableID}',
+        '${Deductible}',
+        '${Name}',
+        '${ContactNumber}');`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)

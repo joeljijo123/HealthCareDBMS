@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { GoogleApiWrapper, InfoWindow, Marker, Geocoder, Map, google } from 'google-maps-react';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Geocode from "react-geocode";
+import { withStyles } from '@material-ui/core';
 
 export class TryingToWorkMap extends React.Component {
   constructor(props) {
@@ -85,34 +86,30 @@ export class TryingToWorkMap extends React.Component {
           });
         }
   };
-  async uploadFacilityCodes(){
+  uploadFacilityCodes(){
       Geocode.setApiKey("AIzaSyDKOXGgce4aWbeOHVnhgD8S0NJJph3ShCc");
       var coordinates = {lat: '', lng: ''};
       const codes=[];
       var i;
-      if(this.state.FacilitiesGeoCode.length !== this.state.Facilities.length){
+      console.log(this.state.Facilities)
+      if(this.state.FacilitiesGeoCode.length <= this.state.Facilities.length){
         for (i = 0; i < this.state.Facilities.length; i++) { 
           var address=this.state.Facilities[i].AddressStreet + ' '+ this.state.Facilities[i].AddressCity + ' '+ this.state.Facilities[i].AddressZip;
-          const r = await Geocode.fromAddress(address)
-          if (r == null) continue; // or display error message or whatever
-          codes.push(r)
           
-          // Geocode.fromAddress(address).then(
-          //   response => {
-          //     coordinates.lat = response.results[0].geometry.location.lat;
-          //     coordinates.lng = response.results[0].geometry.location.lng;
-          //     codes.push(coordinates);
-          //   },
-          //   error => {
-          //     console.error(error);
-          //   }
-          // );
+          Geocode.fromAddress(address).then(
+            response => {
+              coordinates.lat = response.results[0].geometry.location.lat;
+              coordinates.lng = response.results[0].geometry.location.lng;
+              this.state.FacilitiesGeoCode.push(coordinates);
+              console.log(address)
+            },
+            error => {
+              console.error(error);
+            }
+          );
         }
-        this.setState({codes});
-      console.log(this.state.codes)
+        //console.log(this.state.FacilitiesGeoCode)
       }
-      
-      
   }
   showAllMarkers(){
     var i;
@@ -134,9 +131,8 @@ export class TryingToWorkMap extends React.Component {
   render() {
     return (
       <div>
-        {this.uploadFacilityCodes()}
         <Map google={this.props.google}
-          style={{width: '75vw', height: '75vh', position: 'center'}}
+          style={{width: '100vw', height: '100vh', position: 'center', margin: 'auto'}}
           className={'map'}
           zoom={14}
           center={{
@@ -144,17 +140,38 @@ export class TryingToWorkMap extends React.Component {
             lng: this.state.currentLocation.lng
           }}
         >
-          {/* {this.state.FacilitiesGeoCode.map(Facility =>(
-              console.log(Facility)
-              // <Marker
-              //   name={'Your location'}
-              //   onClick={this.onMarkerClick}
-              //   position={{
-              //     lat: Facility.lat,
-              //     lng: Facility.lng
-              //   }}
-              // />
-          ))}  */}
+          <Marker
+                name={'Your location'}
+                onClick={this.onMarkerClick}
+                position={{
+                  lat: this.state.currentLocation.lat,
+                  lng: this.state.currentLocation.lng
+                }}
+          />
+          <Marker
+                name={'Your location'}
+                onClick={this.onMarkerClick}
+                position={{
+                  lat: '29.705566',
+                  lng: '-95.474180'
+                }}
+          />
+          <Marker
+                name={'Your location'}
+                onClick={this.onMarkerClick}
+                position={{
+                  lat: '29.761526',
+                  lng: '-95.365127'
+                }}
+          />
+          <Marker
+                name={'Your location'}
+                onClick={this.onMarkerClick}
+                position={{
+                  lat: '29.760987',
+                  lng: '-95.367759'
+                }}
+          />
         </Map>
       </div>
       )
