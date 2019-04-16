@@ -7,7 +7,6 @@ import DoctorsReport from './DoctorsReport';
 const styles = theme =>({
     root: {
         width: '55%',
-        alignItems: "center",
         display: "flex",
         flexDirection: 'column',
         padding: theme.spacing.unit*3,
