@@ -149,7 +149,6 @@ export class TryingToWorkMap extends React.Component {
                   lat: this.state.currentLocation.lat,
                   lng: this.state.currentLocation.lng
                 }}
-                icon={phoneIcon}
           />
           <Marker
                 name={'Your location'}
