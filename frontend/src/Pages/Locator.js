@@ -8,7 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {FormControl, Paper, TextField, Typography, Button} from '@material-ui/core';
+import {FormControl, Paper, TextField, Typography, Button, Grid} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import './Locator.css'
 
@@ -82,9 +82,11 @@ class Locator extends React.Component {
       <div className='Locator-image'>
       <NavigationBar title={"My Profile"} Tab={3}/>
         <Paper className={classes.paperForm}>
-              <form noValidate autoComplete="off">
-                              <Typography variant="h5">Locate Facility By City</Typography>
-                              <FormControl  margin='auto'>
+              <form noValidate autoComplete="off" >
+                      <Typography variant="h5">Locate Facility By City</Typography>
+                      <Grid container spacing={8} alignContent="center">
+                          <Grid item xs={12} sm={8}>
+                              <FormControl  margin="auto" fullWidth>
                                   <TextField
                                     name="searchCity"
                                     label="City Vicinity to Search"
@@ -93,11 +95,15 @@ class Locator extends React.Component {
                                     onChange={this.handleChange}
                                   />
                               </FormControl>
-                              <FormControl align='auto'>
+                          </Grid>
+                          <Grid item xs={12} sm={2}>
+                              <FormControl align="auto" fullWidth>
                                   <Button variant="contained" size="medium" onClick={this.displaySearchRes}>
                                       <SearchIcon />
                                   </Button>
                               </FormControl>
+                          </Grid>
+                      </Grid>
               </form>
               <Table className={classes.table}>
                               <TableHead>
