@@ -5,6 +5,17 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import {Input, InputLabel, Button} from '@material-ui/core';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { TextField, MenuItem } from "@material-ui/core";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import SearchIcon from '@material-ui/icons/Search';
 
 const styles = theme =>({
   root: {
@@ -36,6 +47,11 @@ class HomeLoginBox extends React.Component{
             Username: "",
             password: "",
             loggedIn: false,
+
+            openForm: false,
+            Facilities: [],
+            displayResults: false,
+            searchCity: "",
         };
         this.handleChange=this.handleChange.bind(this);
     }
@@ -48,9 +64,6 @@ class HomeLoginBox extends React.Component{
     }
     handleRegistration = () => {
         window.location.replace('/Registration');
-    }
-    handleLocator = () => {
-        window.location.replace('/Locator');
     }
     login = () => {
         fetch(`http://162.243.165.50:4000/login/${this.state.Username}`)
@@ -99,16 +112,9 @@ class HomeLoginBox extends React.Component{
         .catch(err => console.log(err))
     }
     updateAppTimes(){
-        if(window.localStorage.userType !== "3"){
-            if(window.localStorage.userType === "2"){
-                fetch(`http://162.243.165.50:4000/EmployeeAppUpdate/${window.localStorage.LoginTableID}`)
-                .then(result => result.json())
-            }
-            else{
-                fetch(`http://162.243.165.50:4000/PatientAppUpdate/${window.localStorage.LoginTableID}`)
-                .then(result => result.json())
-            }
-        }
+        fetch(`http://162.243.165.50:4000/AppUpdate/`)
+        .then(result => result.json())
+
     }
     componentDidMount() {
         window.localStorage.setItem("userID", null);
@@ -116,10 +122,35 @@ class HomeLoginBox extends React.Component{
         window.localStorage.setItem("LoginTableID", null);
         window.localStorage.setItem("loggedIn", false);
     }
+  getFacilities=()=> {
+      fetch(`http://162.243.165.50:4000/Facilities/${this.state.searchCity}`)
+      .then(result => result.json())
+      .then(res => this.setState({ Facilities:res.data}))
+      .catch(err => console.log(err))
+  };
+  displaySearchRes = _ => {
+    this.getFacilities();
+      this.setState({
+          displayResults: true
+      });
+  }
+  handleClickOpen = () => {
+  this.setState({ openForm: true });
+  };
+
+  handleClose = () => {
+     this.setState({ 
+        Facilities: [],
+        searchCity: "",
+        displayList: false,
+        openForm:false,
+     });
+  };
   render(){
     const {classes}=this.props;
     if(this.state.loggedIn === false){
         return(
+         
             <Paper elevation={15} className={classes.root}>
               <Typography component="h1" variant="h4">
                   Log In
@@ -152,13 +183,68 @@ class HomeLoginBox extends React.Component{
                   <FormControl  className={classes.submitButton}>
                       <Button
                       size="small"
-                      onClick={this.handleLocator}
+                      onClick={this.handleClickOpen}
                       color="primary">
                           Need to find one of our Clinics?
                       </Button>
                   </FormControl>
               </form>
-            </Paper>
+         
+      
+                <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
+                    <DialogTitle id="form-dialog-title">Locations</DialogTitle>
+                     <form noValidate autoComplete="off">
+                        <FormControl  margin="dense" fullWidth>
+                            <TextField
+                              name="searchCity"
+                              label="City Vicinity to Search"
+                              variant="outlined"
+                              value={this.state.searchCity}
+                              onChange={this.handleChange}
+                            />
+                        </FormControl>
+                        <FormControl margin="dense">
+                            <Button variant="contained" size="small" className={classes.editerButtons} onClick={this.displaySearchRes}>
+                                <SearchIcon />
+                            </Button>
+                        </FormControl>
+                      </form>
+                    <DialogContent>
+                        <Table className={classes.table}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="center">Facility Name</TableCell>
+                                    <TableCell align="center">Street Address</TableCell>
+                                    <TableCell align="center">City</TableCell>
+                                    <TableCell align="center">State</TableCell>
+                                    <TableCell align="center">Zip</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {this.state.displayResults &&
+                                        this.state.Facilities.map(Each => (
+                                            <TableRow key={Each.FacilityID}>
+                                                <TableCell align="center">{Each.FacilityName}</TableCell>
+                                                <TableCell align="center">{Each.AddressStreet}</TableCell>
+                                                <TableCell align="center">{Each.AddressCity}</TableCell>
+                                                <TableCell align="center">{Each.AddressState}</TableCell>
+                                                <TableCell align="center">{Each.AddressZip}</TableCell>
+                                            </TableRow>
+                                        )),
+                                        console.log(this.state.Facilities)
+                            }
+                                
+                            </TableBody>
+                        </Table>                        
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                 </Paper>
+ 
         );
     }
     else return(
@@ -170,6 +256,6 @@ class HomeLoginBox extends React.Component{
 
 HomeLoginBox.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+};
   
-  export default withStyles(styles)(HomeLoginBox);
+export default withStyles(styles)(HomeLoginBox);

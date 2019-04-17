@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@material-ui/core";
+import { Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from "@material-ui/core";
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -70,25 +70,27 @@ class RegistrationForm extends React.Component{
             sexes:[],
             roles:[],
             races:[],
+            completion: false,
 
         };
         this.handleChange=this.handleChange.bind(this);
     }
-    EmptyEntries(){
+    moveNextInvalid(){
         return  this.state.FirstName === ""||
                 this.state.LastName === "" ||
-                this.state.Sex === "" ||
-                this.state.Email === "" ||
                 this.state.username === "" ||
                 this.state.password === "" ||
-                this.state.CellNumber === "" ||
+                this.state.Email === ""
+    }
+    RegisterInvalid(){
+        return  this.state.Sex === "" ||
+                this.state.CellNumber.length !== 12 ||
                 this.state.AddressStreet === "" ||
                 this.state.AddressCity === "" ||
                 this.state.AddressState === "" ||
-                this.state.AddressZip === "" ||
-                this.state.DateOfBirth !== 10 ||
-                this.state.SSN.length !== 11 ||
-                this.state.registrationStep === 0
+                this.state.AddressZip.length !== 5 ||
+                this.state.DateOfBirth.length !== 10 ||
+                this.state.SSN.length !== 11 
     }
     componentDidMount(){
         this.uploadStates();
@@ -130,26 +132,16 @@ class RegistrationForm extends React.Component{
                 raceID: this.state.raceID
             })
         })
-        .then(console.log('done'))
+        .then(this.setState({completion:true}))
         .catch(err => console.log(err))
-        setTimeout(function(){
-			if(window.localStorage.loggedIn === "true"){
-                window.location.replace('/Appointments')
-            }
-            else{
-                window.location.replace('/')
-            }
-		}, 200);
         
     }
+    
+    LoginDirect(){
+        window.location.replace('/')
+    }
     homeRedirect = () =>{
-        if(window.localStorage.loggedIn === "true"){
-            window.location.replace('/Appointments')
-        }
-        else{
-            window.location.replace('/')
-        }
-        
+        window.location.replace('/DoctorRegistration')
     }
     
     stepNext=()=>{
@@ -195,7 +187,7 @@ class RegistrationForm extends React.Component{
                         <div>
                             <BasicInformation handleChange={this.handleChange} val={this.state}/>
                             <FormControl margin="normal" fullWidth >
-                                <Button onClick={this.stepNext}>
+                                <Button onClick={this.stepNext} disabled={this.moveNextInvalid()}>
                                     Next
                                 </Button>
                             </FormControl>
@@ -204,15 +196,43 @@ class RegistrationForm extends React.Component{
                         <div>
                             <BasicInformationPtTwo handleChange={this.handleChange} val={this.state}/>
                             <FormControl margin="normal" fullWidth >
-                                <Button disabled={!this.EmptyEntries()} onClick={this.registerUser}>
+                                <Button disabled={this.RegisterInvalid()} onClick={this.registerUser}>
                                     Register
                                 </Button>
                             </FormControl>
                         </div>
 
                     )}
-                    
                 </Paper>
+                    {window.localStorage.userType !== "3" ? (
+                        <Dialog maxWidth="md" open={this.state.completion}>
+                            <DialogTitle id="form-dialog-title"></DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Welcome to T7 Clinics {this.state.FirstName}, please proceed to the login page to book your first appointment
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.LoginDirect} color="primary" fullWidth variant="contained">
+                                    Login
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    ):(
+                        <Dialog maxWidth="md" open={this.state.completion}>
+                            <DialogTitle id="form-dialog-title"></DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Thank you for registering {this.state.FirstName}
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.homeRedirect} fullWidth color="primary" variant="contained">
+                                    Ok
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    )}
             </div>
         );
     }

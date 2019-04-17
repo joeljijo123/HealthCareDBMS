@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Paper, Typography, IconButton, Button, Icon } from "@material-ui/core";
-import MapGen from '../Components/Locator/MapGen'
-import TryingToWorkMap from '../Components/Locator/TryingToWorkMap';
+import { IconButton } from "@material-ui/core";
 import HomeLogo  from '@material-ui/icons/KeyboardArrowLeftRounded';
+import { Mapper } from '../Components/Locator/Mapper';
 
 const styles = theme => ({
     background: {
@@ -44,7 +43,7 @@ export class Locator extends React.Component {
     const{classes}=this.props;
     return (
       <div className={classes.mapContainer}>
-      <TryingToWorkMap/>
+      <Mapper/>
         <IconButton onClick={this.redirect}>
             <HomeLogo style={{color: "#212121"}} className={classes.icon} />
         </IconButton>

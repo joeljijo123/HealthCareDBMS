@@ -80,7 +80,7 @@ class ProfileInfoTest extends React.Component {
                                             pass: res.data[0].Password, 
                                             email: res.data[0].Email,
                                             dob: res.data[0].DOB,
-                                               ssn: res.data[0].SSN,
+                                            ssn: res.data[0].SSN, 
                                             sex: res.data[0].SexID, 
                                             cellnumber: res.data[0].CellNumber,
                                             streetaddr:res.data[0].AddressStreet,
@@ -92,7 +92,7 @@ class ProfileInfoTest extends React.Component {
     }
     getInsurance(){
             if(window.localStorage.userType === "2") {
-                fetch(`http://162.243.165.50:4000/Insurance/69558070`)
+                fetch(`http://162.243.165.50:4000/Insurance/${window.localStorage.userID}`)
                 .then(result => result.json())
                 .then(res => this.setState({
                     deduct:res.data[0].Deductible,
@@ -107,33 +107,63 @@ class ProfileInfoTest extends React.Component {
     }
     updateUserInfo=()=>{
         //backend call to add the user to the backend
-        fetch(`http://162.243.165.50:4000/UpdateUser`, {
+        if(window.localStorage.userType!== "2"){
+            fetch(`http://162.243.165.50:4000/UpdateUser`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                UserID: window.localStorage.userID,
-                InsuranceID: this.state.insuranceID,
-                FirstName:this.state.first,
-                LastName:this.state.last,
-                Sex: this.state.sex,
-                Email: this.state.email,
-                username: this.state.user,
-                password: this.state.pass,
-                CellNumber: this.state.cellnumber,
-                AddressStreet: this.state.streetaddr,
-                AddressCity: this.state.cityaddr,
-                AddressState: this.state.stateaddr,
-                AddressZip: this.state.zipaddr,
-                userType: window.localStorage.userType,
-                LoginTableID: window.localStorage.LoginTableID,
-                Deductible: this.state.deduct,
-                Name: this.state.company,
-                ContactNumber: this.state.insuranceContact
+            },body: JSON.stringify({
+                    UserID: window.localStorage.userID,
+                    InsuranceID: 0,
+                    FirstName:this.state.first,
+                    LastName:this.state.last,
+                    Sex: this.state.sex,
+                    Email: this.state.email,
+                    username: this.state.user,
+                    password: this.state.pass,
+                    CellNumber: this.state.cellnumber,
+                    AddressStreet: this.state.streetaddr,
+                    AddressCity: this.state.cityaddr,
+                    AddressState: this.state.stateaddr,
+                    AddressZip: this.state.zipaddr,
+                    userType: window.localStorage.userType,
+                    LoginTableID: window.localStorage.LoginTableID,
+                    Deductible: 0,
+                    Name: "Name",
+                    ContactNumber: "000-000-0000"
+                })
             })
-        })
         .catch(err => console.log(err))
+        }
+        else{
+            fetch(`http://162.243.165.50:4000/UpdateUser`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },body: JSON.stringify({
+                    UserID: window.localStorage.userID,
+                    InsuranceID: this.state.insuranceID,
+                    FirstName:this.state.first,
+                    LastName:this.state.last,
+                    Sex: this.state.sex,
+                    Email: this.state.email,
+                    username: this.state.user,
+                    password: this.state.pass,
+                    CellNumber: this.state.cellnumber,
+                    AddressStreet: this.state.streetaddr,
+                    AddressCity: this.state.cityaddr,
+                    AddressState: this.state.stateaddr,
+                    AddressZip: this.state.zipaddr,
+                    userType: window.localStorage.userType,
+                    LoginTableID: window.localStorage.LoginTableID,
+                    Deductible: this.state.deduct,
+                    Name: this.state.company,
+                    ContactNumber: this.state.insuranceContact
+                })
+            })
+        .catch(err => console.log(err))
+        }
+        
         
     }
     EmptyEntries(){
@@ -202,10 +232,7 @@ class ProfileInfoTest extends React.Component {
         });
     }
     saveChanges = _ => {
-        console.log(this.state)
         this.updateUserInfo();
-        this.retrieveUserInfo();
-        this.getInsurance();
         this.setState({
             editing: false
         });
@@ -222,7 +249,6 @@ class ProfileInfoTest extends React.Component {
       const {classes}=this.props;
     return (
       <div>
-          {this.getInsurance}
           <Paper className={classes.paperForm}>
             <form  noValidate autoComplete="off">
                 <div>
@@ -231,7 +257,9 @@ class ProfileInfoTest extends React.Component {
                     ):(
                         <Typography variant="h5">Welcome Dr. {this.state.last}</Typography>        
                     )}
-                    <Divider variant="middle" />
+                    <br/>
+                    <Divider variant="middle"/>
+                    <br/>
                 </div>
                 <div>
                     <Typography variant="h6" >User Information</Typography>
@@ -303,8 +331,8 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <FormControl  margin="dense">
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth margin="dense">
                                 <TextField disabled
                                     name="dob"
                                     label="Birthdate"
@@ -314,8 +342,8 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <FormControl  margin="dense" >
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth margin="dense" >
                                 <TextField disabled={!this.state.editing}
                                     name="cellnumber"
                                     label="Contact Phone"
@@ -326,27 +354,28 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <FormControl  margin="dense" >
-                                <TextField disabled={!this.state.editing}
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth margin="dense" >
+                                <TextField disabled
                                     name="ssn"
-                                    label="SSN"
+                                    label="Last Four of SSN"
                                     variant="outlined"
-                                    value={ "***-"+"**-"+this.state.ssn.substring(7,11)}
+                                    value={this.state.ssn}
                                     inputComponent={this.SSNMaskCustom(classes)}
-                                    onChange={this.handleChange}
                                 />
                             </FormControl>
                         </Grid>
                     </Grid>
+                    <br/>
                     <Divider variant="middle" />
+                    <br/>
                 </div> 
                 { window.localStorage.userType === "2" &&
                     <div>
                         <Typography variant="h6">Insurance Information</Typography>
                             <Grid container spacing= {8}>
                                 <Grid item xs={12} sm={6}>
-                                    <FormControl  margin="dense" >
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="company"
                                             label="Network"
@@ -357,7 +386,7 @@ class ProfileInfoTest extends React.Component {
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <FormControl  margin="dense" >
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="insuranceID"
                                             label="Insurance ID"
@@ -367,8 +396,8 @@ class ProfileInfoTest extends React.Component {
                                         />
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} sm={4}>
-                                    <FormControl  margin="dense" >
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="deduct"
                                             label="Deductible"
@@ -378,8 +407,8 @@ class ProfileInfoTest extends React.Component {
                                         />
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} sm={8}>
-                                    <FormControl  margin="dense" >
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="insuranceContact"
                                             label="Insurance Contact Number"
@@ -391,14 +420,16 @@ class ProfileInfoTest extends React.Component {
                                     </FormControl>
                                 </Grid>
                             </Grid>
+                        <br/>
                         <Divider variant="middle" />
+                        <br/>
                     </div>
                 }
 
                 <div>
                     <Typography variant="h6">Account Information</Typography>
                     <Grid container spacing={8}>
-                        <Grid item xs={12} sm={5}>
+                        <Grid item xs={12} sm={6}>
                             <FormControl  margin="dense" fullWidth>
                                 <TextField disabled={!this.state.editing}
                                     name="user" 
@@ -408,17 +439,6 @@ class ProfileInfoTest extends React.Component {
                                     value={this.state.user}
                                     error={!this.validateUsername()}
                                     helperText={this.validateUsername() ? "":"Username is not valid"}
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormControl margin="dense" fullWidth>
-                                <TextField disabled={!this.state.editing}
-                                    name="email" 
-                                    label="Email"
-                                    variant="outlined"
-                                    onChange={this.handleChange}
-                                    value={this.state.email}
                                 />
                             </FormControl>
                         </Grid>
@@ -436,11 +456,23 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl margin="dense" fullWidth>
+                                <TextField disabled={!this.state.editing}
+                                    name="email" 
+                                    label="Email"
+                                    variant="outlined"
+                                    onChange={this.handleChange}
+                                    value={this.state.email}
+                                />
+                            </FormControl>
+                        </Grid>
+                        
+                        <br/>
                         <Divider variant="middle"/>
-
+                        <br/>
 
                     </Grid>
-                    <Divider variant="middle"/>
                 </div>
                 {!this.state.editing ? (
                     <div>

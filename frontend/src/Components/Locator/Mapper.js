@@ -1,9 +1,8 @@
 import React from 'react';
-import { GoogleApiWrapper, Marker, Geocoder, Map } from 'google-maps-react';
-import Geocode from "react-geocode";
-import phoneIcon from '@material-ui/icons/MyLocation';
+import { GoogleApiWrapper, Marker, Map } from 'google-maps-react';
 
-export class TryingToWorkMap extends React.Component {
+
+export class Mapper extends React.Component {
   constructor(props) {
     super(props)
     const { lat, lng } = this.props.initialCenter;
@@ -39,36 +38,8 @@ export class TryingToWorkMap extends React.Component {
       } else {
         console.log("Failed to mount current location")
       }
-      this.getFacilities();
   }
-  getFacilities=()=> {
-      fetch(`http://162.243.165.50:4000/Facilities`)
-      .then(result => result.json())
-      .then(res => this.setState({ Facilities:res.data}))
-      .catch(err => console.log(err))
-  };
-  facilityPins() {
-      console.log("Made it this far ");
-      this.state.Facilities.map((facility) => {
-      var geocoder = new Geocoder();
-      var plat='';
-      var plng='';
-      var address = facility.AddressStreet +' '+ facility.AddressCity +' '+ facility.AddressZip;
-      geocoder.geocode( { 'address': address}, function(results, status) {
-        if (status === 'OK') {
-           plat = results[0].geometry.location.lat();
-           plng = results[0].geometry.location.lng();
-        } else {
-          console.log("Geocode was not successful for the following reason: " + status);
-        }
-      });
-      console.log('Latitude: ' + plat + ' Logitude: ' + plng);
-      return <Marker 
-                position={{ lat:plat, lng:plng }}
-                onClick={this.onMarkerClick}
-                name={facility.FacilityName}
-              />
-  })}
+ 
   onMarkerClick = (props, marker, e) =>
     this.setState({
       selectedPlace: props,
@@ -84,49 +55,7 @@ export class TryingToWorkMap extends React.Component {
           });
         }
   };
-  uploadFacilityCodes(){
-      Geocode.setApiKey("AIzaSyDKOXGgce4aWbeOHVnhgD8S0NJJph3ShCc");
-      var coordinates = {lat: '', lng: ''};
-      const codes=[];
-      var i;
-      console.log(this.state.Facilities)
-      if(this.state.FacilitiesGeoCode.length <= this.state.Facilities.length){
-        for (i = 0; i < this.state.Facilities.length; i++) { 
-          var address=this.state.Facilities[i].AddressStreet + ' '+ this.state.Facilities[i].AddressCity + ' '+ this.state.Facilities[i].AddressZip;
-          
-          Geocode.fromAddress(address).then(
-            response => {
-              coordinates.lat = response.results[0].geometry.location.lat;
-              coordinates.lng = response.results[0].geometry.location.lng;
-              this.state.FacilitiesGeoCode.push(coordinates);
-              console.log(address)
-            },
-            error => {
-              console.error(error);
-            }
-          );
-        }
-        //console.log(this.state.FacilitiesGeoCode)
-      }
-  }
-  showAllMarkers(){
-    var i;
-    for( i=0;i<2;i++){
-      return (
-        
-        <Marker
-              name={'Your location'}
-              onClick={this.onMarkerClick}
-              position={{
-                lat: this.state.currentLocation.lat,
-                lng: this.state.currentLocation.lng
-              }}
-              icon={phoneIcon}
-            />
-      )
-    }
-    
-  }
+
   render() {
     return (
       <div>
@@ -178,7 +107,7 @@ export class TryingToWorkMap extends React.Component {
 }
 
 //initial centering positioned at UH.
-TryingToWorkMap.defaultProps = {
+Mapper.defaultProps = {
   zoom: 14,
   initialCenter: {
     lat: -29.41,
@@ -190,4 +119,4 @@ TryingToWorkMap.defaultProps = {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyDKOXGgce4aWbeOHVnhgD8S0NJJph3ShCc'
-})(TryingToWorkMap)
+})(Mapper)

@@ -119,6 +119,19 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+app.get('/Facilities/:GetFacilitiesByCity', (req,res) => {
+    const CityFacilities = req.params.GetFacilitiesByCity;
+    connection.query(`  SELECT * FROM Clinic_Main.MedicalOffice WHERE AddressCity='${CityFacilities}';`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ });
 
   // This will return All the weekdays (Monday - Friday)
   app.get('/Weekday', (req,res) => {
@@ -224,8 +237,20 @@ app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
  
  });
  app.get('/AllInsurance', (req,res) => {
-    const PatientID = req.params.PatientID;
     connection.query(`SELECT * FROM Clinic_Main.Insurance;`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
+ app.get('/CheckUp', (req,res) => {
+    connection.query(`SELECT * FROM Clinic_Main.CheckUpPatients;`,(err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -317,9 +342,9 @@ app.get('/WorkSchdule/:userID', (req,res) => {
  
  });
 
- app.get('/EmployeeAppUpdate/:LoginTableID', (req,res) => {
+ app.get('/AppUpdate', (req,res) => {
     const LoginID = req.params.LoginTableID;
-    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID=1 WHERE AppointmentDate<CURDATE() AND DoctorID=(SELECT EmployeeID FROM Clinic_Main.EmployeeInfoWithLogin WHERE EmployeeLoginID='${LoginID}');`,(err, results) => {
+    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID=1 WHERE AppointmentDate<CURDATE();`,(err, results) => {
         if(err) {
             return res.send(err)
         }
@@ -365,6 +390,20 @@ app.get('/WorkSchdule/:userID', (req,res) => {
         }
     });
 });
+//Get Medical HistoryLog
+app.get('/GetMedicalHistoryLog/:PatientID', (req,res) => {
+    const PatientID = req.params.PatientID;
+    connection.query(`CALL GetMedicalHistoryLog(${PatientID});`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results[0]
+            })
+        }
+    });
+});
 
  app.get('/Patient/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
@@ -376,18 +415,6 @@ app.get('/WorkSchdule/:userID', (req,res) => {
             return res.json({
                 data: results
             })
-        }
-    });
- 
- });
- app.get('/PatientAppUpdate/:LoginTableID', (req,res) => {
-    const LoginID = req.params.LoginTableID;
-    connection.query(`UPDATE Clinic_Main.Appointment SET StatusID=1 WHERE AppointmentDate<CURDATE() AND PatientID=(SELECT PatientID FROM Clinic_Main.PatientInfoWithLogin WHERE PatientLoginID='${LoginID}');  `,(err, results) => {
-        if(err) {
-            return res.send(err)
-        }
-        else {
-            return res.json("Updated Appointment Times")
         }
     });
  
