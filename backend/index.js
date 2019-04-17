@@ -164,7 +164,7 @@ app.get('/Facilities/:GetFacilitiesByCity', (req,res) => {
  });
 
  //This will return all the Facilites and their administrators
- app.get('/FacilitesAdmin', (req,res) => {
+ app.get('/FacilitiesAdmin', (req,res) => {
     connection.query('SELECT * FROM Clinic_Main.FacilityAdministrators;',(err, results) => {
         if(err) {
             return res.send(err)
