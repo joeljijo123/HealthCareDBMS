@@ -365,6 +365,20 @@ app.get('/WorkSchdule/:userID', (req,res) => {
         }
     });
 });
+//Get Medical HistoryLog
+app.get('/GetMedicalHistoryLog/:PatientID', (req,res) => {
+    const PatientID = req.params.PatiendID;
+    connection.query(`CALL GetMedicalHistoryLog(${PatientID});`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results[0]
+            })
+        }
+    });
+});
 
  app.get('/Patient/:LoginTableID', (req,res) => {
     const LoginID = req.params.LoginTableID;
