@@ -7,6 +7,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ModifyFacility from './ModifyFacility';
 import AddNewDay from './AddNewDay';
+import AppointmentsAffected from './AppointmentsAffected';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -18,7 +19,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const styles = theme => ({
 	root: {
         width: '100%',
-        alignItems: "center",
+        alignItems: "left",
         display: "flex",
         height: "100vh",
         flexDirection: 'column',
@@ -60,12 +61,14 @@ class DaySchedule extends React.Component {
 			FacilityID: "", // Selected facility to be changed
 			WorkSchedule: [], // WorkSchedule for specified Employee
             Facilities: [], // All Facility information
-            Weekdays: [] // All WeekDay information 
+            Weekdays: [], // All WeekDay information 
+			Appointments: [] // All Appointment Info for Doctor
         };
 		this.handleChange=this.handleChange.bind(this);
 	}
 	
 	componentDidMount(){
+		this.grabAppointments();
         this.grabWorkSchedule();
 		this.getFacilities();
 		this.getWeekday();
@@ -94,6 +97,24 @@ class DaySchedule extends React.Component {
         .then(res => this.setState({ Weekdays:res.data }))
         .catch(err => console.log(err))
     };
+	
+	grabAppointments=()=>{
+        //backend call to grab the appointments for the user
+        fetch(`http://162.243.165.50:4000/Appointments/`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                UserType: window.localStorage.userType,
+                UserID: window.localStorage.userID,
+            })
+        })
+        .then(result => result.json())
+        .then(Response => this.setState({ Appointments:Response.data}))
+        .catch(err => console.log(err));
+        
+    }
 	
 	handleChange = panel => (event, expanded) => {
         this.setState({
@@ -145,6 +166,7 @@ class DaySchedule extends React.Component {
 		return (
 			<div>
 				<div className={classes.root}>
+					<h2>Current Work Schedule</h2>
 					{this.state.WorkSchedule.map(option => (
 						<FormControl key={option.WeekDayID} fullWidth>
 							<ExpansionPanel square expanded={expanded === option.WeekDayID}  onChange={this.handleChange(option.WeekDayID)}>
@@ -188,6 +210,7 @@ class DaySchedule extends React.Component {
 					<div className={classes.AdditionButton}>
                         <AddNewDay val={this.state} Button={classes.Button}/>
                     </div>
+					<AppointmentsAffected val={this.state}/>
 				</div>
 			</div>
 		)
