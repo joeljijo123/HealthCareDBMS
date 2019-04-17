@@ -367,7 +367,7 @@ app.get('/WorkSchdule/:userID', (req,res) => {
 });
 //Get Medical HistoryLog
 app.get('/GetMedicalHistoryLog/:PatientID', (req,res) => {
-    const PatientID = req.params.PatiendID;
+    const PatientID = req.params.PatientID;
     connection.query(`CALL GetMedicalHistoryLog(${PatientID});`,(err, results) => {
         if(err) {
             return res.send(err)
