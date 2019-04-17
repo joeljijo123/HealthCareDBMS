@@ -217,7 +217,7 @@ class NewAppointmentForm extends React.Component{
                         <AddButton className={classes.icon}/>New Appointment
                     </Button>
                 ) : (
-                    <Button variant="contained" color="primary" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
+                    <Button variant="contained" color="primary" fullWidth disabled={this.props.PatientID === -1} className={classes.Button} onClick={this.handleClickOpen}>
                         <AddButton className={classes.icon}/>New Appointment
                     </Button>
                 )}

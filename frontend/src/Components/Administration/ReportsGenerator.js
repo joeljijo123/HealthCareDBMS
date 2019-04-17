@@ -43,10 +43,9 @@ class ReportsGenerator extends Component {
           <Paper className={classes.checkUp}>
             <CheckUpReport/>
           </Paper>
-          {window.localStorage.userID === "222" && 
-            <Paper className={classes.checkUp}>
-              <Facilities/>
-            </Paper>}
+          <Paper className={classes.checkUp}>
+            <Facilities/>
+          </Paper>
       </div>
     );
   }

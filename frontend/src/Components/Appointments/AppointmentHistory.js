@@ -7,7 +7,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { FormControl, Grid } from '@material-ui/core';
+import { FormControl, Grid, Paper, MenuItem, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import AddDiagnosis from './AddDiagnosis';
 import ShowDiagnosis from './ShowDiagnosis';
@@ -62,6 +62,16 @@ const styles = theme =>({
     flexBasis: '100%',
     margin: 'auto'
     },
+    Paper: {
+        width: '55%',
+        display: "flex",
+        flexDirection: 'column',
+        padding: theme.spacing.unit*3,
+        marginTop:"5%",
+        marginBottom:"5%",
+        margin:"auto"
+  
+    },
 });
 
 
@@ -74,11 +84,20 @@ class AppointmentHistory extends React.Component{
             Diagnosis: [],
             cancelApptShow: false,
 			selectedAppt: "",
-			openForm: false
+            openForm: false, 
+            PatientIDs:[],
+            AdminPatient: -1,
         };
     }
     componentDidMount(){
         this.grabAppointments();
+        this.grabPatientIDs();
+    }
+    grabPatientIDs(){
+        fetch(`http://162.243.165.50:4000/Patients`)
+        .then(result => result.json())
+        .then(Response => this.setState({ PatientIDs:Response.data }))
+        .catch(err => console.log(err))
     }
     grabAppointments=()=>{
         //backend call to grab the appointments for the user
@@ -101,6 +120,11 @@ class AppointmentHistory extends React.Component{
         this.setState({
             expanded: expanded ? panel : false,
         });
+    }
+    handleProper = e =>  {
+        this.setState({
+            [e.target.name] : e.target.value
+        })
     }
 
     placeDiagnosis(){
@@ -276,7 +300,32 @@ class AppointmentHistory extends React.Component{
                     ))}
                     {this.state.Appointments.length === 0 && <Typography variant="subtitle1">You Have no Appointments</Typography>}
                     
-                    
+                    {window.localStorage.userType ==="3" &&
+                        <Paper className={classes.Paper}>
+                            <FormControl margin="normal" fullWidth>
+                                <TextField
+                                    id="AdminPatient"
+                                    select
+                                    label="Which Patient would you like to book an Appointment for?"
+                                    name="AdminPatient"
+                                    variant="standard"
+                                    onChange={this.handleProper}
+                                    value={this.state.AdminPatient}   
+                                    required                   
+                                >
+                                    <MenuItem key="-1" value="-1">
+                                        Please Choose A Patient
+                                    </MenuItem>
+                                    {this.state.PatientIDs.map(option => (
+                                        <MenuItem key={option.PatientID} value={option.PatientID}>
+                                            {option.PatientID}: {option.FirstName} {option.LastName}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </FormControl>
+                            <NewAppointmentForm PatientID={this.state.AdminPatient}/>
+                        </Paper>
+                    }
                     {window.localStorage.userType === "2" ? (
                         <div className={classes.AdditionButton}>
                             <NewAppointmentForm PatientID={window.localStorage.userID}/>

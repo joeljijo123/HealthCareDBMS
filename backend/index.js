@@ -150,7 +150,7 @@ app.get('/Facilities/:GetFacilitiesByCity', (req,res) => {
 
  //This will return all the Patients
  app.get('/Patients', (req,res) => {
-    connection.query('SELECT * FROM Clinic_Main.Patient;',(err, results) => {
+    connection.query('SELECT PatientID, FirstName, LastName FROM Clinic_Main.Patient;',(err, results) => {
         if(err) {
             return res.send(err)
         }

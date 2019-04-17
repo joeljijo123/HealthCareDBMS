@@ -11,6 +11,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import AddAFacility from './AddAFacility';
+import ChangeAFacility from './ChangeAFacility';
 
 const styles = theme =>({
     Button: {
@@ -24,6 +26,7 @@ class Administration extends React.Component{
         super(props)
         this.state = {
             Report: [],
+            openForm:false
         };
     }
     fetchFacilities(){
@@ -49,7 +52,13 @@ class Administration extends React.Component{
         return(
             <div>
             <Typography variant="h5">Facilities</Typography>
-               
+            {window.localStorage.userID === "222" &&
+                <AddAFacility/>
+            }
+            {window.localStorage.userID === "222" &&
+                <ChangeAFacility/>
+            }
+                
                 <Button variant="contained" color="inherit" fullWidth className={classes.Button} onClick={this.handleClickOpen}>
                     See All Facilty Information
                 </Button>
@@ -63,6 +72,7 @@ class Administration extends React.Component{
                                     <TableCell align="center">Facility Name</TableCell>
                                     <TableCell align="center">Facility Address</TableCell>
                                     <TableCell align="center">Facility Administrator</TableCell>
+                                    <TableCell align="center">Administrator Contact</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -72,6 +82,7 @@ class Administration extends React.Component{
                                                 <TableCell align="center">{Each.FacilityName}</TableCell>
                                                 <TableCell align="center">{Each.Street}, {Each.City}, {Each.State} {Each.Zip}</TableCell>
                                                 <TableCell align="center">{Each.FirstName} {Each.LastName}</TableCell>
+                                                <TableCell align="center">{Each.Contact}</TableCell>
                                             </TableRow>
                                         ))}
                                 
