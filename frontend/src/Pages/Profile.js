@@ -11,7 +11,6 @@ const styles = theme =>({
   root: {
       height: "200vh",
       backgroundImage: `url(${Image})`,
-      backgroundColor: 'transparent'
   },
 });
 
