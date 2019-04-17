@@ -120,7 +120,7 @@ app.get('/sexes', (req,res) => {
  
  });
 app.get('/Facilities/:GetFacilitiesByCity', (req,res) => {
-    const CityFacilities = req.params.searchCity;
+    const CityFacilities = req.params.GetFacilitiesByCity;
     connection.query(`  SELECT * FROM Clinic_Main.MedicalOffice WHERE AddressCity='${CityFacilities}';`,(err, results) => {
         if(err) {
             return res.send(err)
