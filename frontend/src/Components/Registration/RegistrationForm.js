@@ -209,7 +209,7 @@ class RegistrationForm extends React.Component{
                             <DialogTitle id="form-dialog-title"></DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    Welcome to T7 Clinics, please proceed to the login page to book your first appointment
+                                    Welcome to T7 Clinics {this.state.FirstName}, please proceed to the login page to book your first appointment
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
@@ -223,7 +223,7 @@ class RegistrationForm extends React.Component{
                             <DialogTitle id="form-dialog-title"></DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    Thank you for registering a new user
+                                    Thank you for registering {this.state.FirstName}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
