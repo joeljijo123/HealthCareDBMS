@@ -119,6 +119,19 @@ app.get('/sexes', (req,res) => {
     });
  
  });
+app.get('/Facilities/:GetFacilitiesByCity', (req,res) => {
+    const CityFacilities = req.params.searchCity;
+    connection.query(`  SELECT * FROM Clinic_Main.MedicalOffice WHERE AddressCity='${CityFacilities}';`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ });
 
   // This will return All the weekdays (Monday - Friday)
   app.get('/Weekday', (req,res) => {
