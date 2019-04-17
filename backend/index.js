@@ -224,8 +224,20 @@ app.get('/DoctorReport/:Doctor/:MinDate/:MaxDate', (req,res) => {
  
  });
  app.get('/AllInsurance', (req,res) => {
-    const PatientID = req.params.PatientID;
     connection.query(`SELECT * FROM Clinic_Main.Insurance;`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
+ app.get('/CheckUp', (req,res) => {
+    connection.query(`SELECT * FROM Clinic_Main.CheckUpPatients;`,(err, results) => {
         if(err) {
             return res.send(err)
         }
