@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import FacilityReports from '../Report/FacilityReports';
+import FacilityReports from './FacilityReports';
 import { Paper, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import DoctorsReport from './DoctorsReport';
 import CheckUpReport from './CheckUpReport';
+import Facilities from './Facilities';
 
 const styles = theme =>({
     root: {
@@ -42,6 +43,10 @@ class ReportsGenerator extends Component {
           <Paper className={classes.checkUp}>
             <CheckUpReport/>
           </Paper>
+          {window.localStorage.userID === "222" && 
+            <Paper className={classes.checkUp}>
+              <Facilities/>
+            </Paper>}
       </div>
     );
   }

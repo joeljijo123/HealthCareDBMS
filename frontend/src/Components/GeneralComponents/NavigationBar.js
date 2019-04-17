@@ -46,8 +46,8 @@ const styles = {
     SchedulePageRedirect = () =>{
       window.location.replace('/Scheduling');
     }
-    ReportPageRedirect = () =>{
-      window.location.replace('/Reports');
+    AdministrationPageRedirect = () =>{
+      window.location.replace('/Administration');
     }
     DocRegistrationRedirect = () =>{
       window.location.replace('/DoctorRegistration');
@@ -97,7 +97,7 @@ const styles = {
                         <div></div>
                       )}
                       {window.localStorage.userType === "3" ? (
-                          <Tab label="Reports" onClick={this.ReportPageRedirect}></Tab>
+                          <Tab label="Administration" onClick={this.AdministrationPageRedirect}></Tab>
                           //<Tab label="Register A Doctor" onClick={this.DocRegistrationRedirect}></Tab>
 
                       ):(
