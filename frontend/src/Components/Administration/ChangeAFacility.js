@@ -28,6 +28,8 @@ class ChangeAFacility extends React.Component{
         };
         this.handleChange=this.handleChange.bind(this);
         this.ChangeFacility=this.ChangeFacility.bind(this);
+        this.handleClose=this.handleClose.bind(this);
+
     }
     componentDidMount(){
         this.fetchFacilities();
@@ -46,7 +48,6 @@ class ChangeAFacility extends React.Component{
         .catch(err => console.log(err))
     }
     ChangeFacility(){
-        this.setState({openForm:false})
         fetch(`http://162.243.165.50:4000/ChangeAdmin`, {
             method:"POST",
             headers: {
@@ -57,6 +58,7 @@ class ChangeAFacility extends React.Component{
                 FacilityID:   this.state.ChosenFacility,
             })
         })
+        .then(this.handleClose())
         .catch(err => console.log(err))
     };
     handleChange = e =>{
@@ -65,6 +67,7 @@ class ChangeAFacility extends React.Component{
         })
     }
     handleClickOpen = () => {
+        this.componentDidMount();
         this.setState({ openForm: true });
     };
 

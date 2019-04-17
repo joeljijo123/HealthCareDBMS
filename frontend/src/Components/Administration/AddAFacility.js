@@ -50,21 +50,21 @@ class AddAFacility extends React.Component{
         .catch(err => console.log(err))
     }
     AddFacility(){
-        this.setState({openForm: false})
         fetch(`http://162.243.165.50:4000/AddFacility`, {
             method:"POST",
             headers: {
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                Admin: this.state.AdminID,
-                FName:   this.state.FacilityName,
-                Street:  this.props.Street,
-                City:     this.state.City,
-                StateID:     this.state.StateID,
+                Admin:      this.state.AdminID,
+                Fname:      this.state.FacilityName,
+                Street:     this.state.Street,
+                City:       this.state.City,
+                StateID:    this.state.StateID,
                 ZipCode:    this.state.ZipCode
             })
         })
+        .then(this.handleClose())
         .catch(err => console.log(err))
     };
     handleChange = e =>{
@@ -73,6 +73,7 @@ class AddAFacility extends React.Component{
         })
     }
     handleClickOpen = () => {
+        this.componentDidMount();
         this.setState({ openForm: true });
     };
 
