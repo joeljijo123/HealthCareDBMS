@@ -230,8 +230,8 @@ class HomeLoginBox extends React.Component{
                                                 <TableCell align="center">{Each.AddressState}</TableCell>
                                                 <TableCell align="center">{Each.AddressZip}</TableCell>
                                             </TableRow>
-                                        )),
-                                        console.log(this.state.Facilities)
+                                        ),)
+               
                             }
                                 
                             </TableBody>

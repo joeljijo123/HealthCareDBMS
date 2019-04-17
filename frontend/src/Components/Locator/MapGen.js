@@ -1,5 +1,8 @@
 import React from 'react';
-import { GoogleApiWrapper, InfoWindow, Marker, Geocoder, Map } from 'google-maps-react';
+import ReactDOM from 'react-dom';
+import { GoogleApiWrapper, InfoWindow, Marker, Map } from 'google-maps-react';
+import Geocode from "react-geocode";
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 export class MapGen extends React.Component {
   constructor(props) {
@@ -14,7 +17,8 @@ export class MapGen extends React.Component {
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
-      Facilities: []
+      Facilities: [],
+      FacilitiesGeoCode:[],
     };
   }
 
@@ -37,6 +41,7 @@ export class MapGen extends React.Component {
         console.log("Failed to mount current location")
       }
       this.getFacilities();
+      this.getGeocodes();
   }
   getFacilities=()=> {
       fetch(`http://162.243.165.50:4000/Facilities`)
@@ -44,6 +49,7 @@ export class MapGen extends React.Component {
       .then(res => this.setState({ Facilities:res.data}))
       .catch(err => console.log(err))
   };
+  /*
   facilityPins() {
       console.log("Made it this far ");
       this.state.Facilities.map((facility) => {
@@ -66,19 +72,28 @@ export class MapGen extends React.Component {
                 name={facility.FacilityName}
               />
   })}
-  getGeocode(facility) {
-    var geocoder = new Geocoder();
-    var address = facility.AddressStreet +' '+ facility.AddressCity +' '+ facility.AddressZip;
-    var geocode = {plat: '', plng: ''};
-    geocoder.geocode( {'address': address}, function(results, status) {
-      if (status === 'OK') {
-        geocode.plat = results[0].geometry.location.lat();
-        geocode.plng = results[0].geometry.location.lng();
-      } else {
-        console.log("Geocode was not successful for the following reason: " + status);
+  */
+  getGeocodes() {
+    Geocode.setApiKey("AIzaSyDKOXGgce4aWbeOHVnhgD8S0NJJph3ShCc");
+    var coordinates = {lat: '', lng: ''};
+    console.log(this.state.Facilities)
+    if(this.state.FacilitiesGeoCode.length <= this.state.Facilities.length){
+      for (var i = 0; i < this.state.Facilities.length; i++) { 
+        var address=this.state.Facilities[i].AddressStreet + ' '+ this.state.Facilities[i].AddressCity + ' '+ this.state.Facilities[i].AddressZip;
+        
+        Geocode.fromAddress(address).then(
+          response => {
+            coordinates.lat = response.results[0].geometry.location.lat;
+            coordinates.lng = response.results[0].geometry.location.lng;
+            this.state.FacilitiesGeoCode.push(coordinates);
+            console.log(address)
+          },
+          error => {
+            console.error(error);
+          }
+        );
       }
-    });
-    return geocode;
+    }
   }
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -123,8 +138,9 @@ export class MapGen extends React.Component {
               </div>
               </InfoWindow>
           
-              { this.state.Facilities.map( function(facility) { 
+              { !this.state.Facilities===null && this.state.Facilities.map( function(facility) { 
                     var geo = this.getGeocode(facility);
+                    console.log("I'm not feeling so well Mr. Stark");
                     var lat = geo.plat;
                     var lng = geo.plng;
                     return (
@@ -133,7 +149,7 @@ export class MapGen extends React.Component {
                             onClick={this.onMarkerClick}
                             name={facility.FacilityName}
                     />
-                )})
+                )},)
               }
               
 
