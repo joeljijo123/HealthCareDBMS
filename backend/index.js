@@ -224,7 +224,7 @@ app.post('/AddFacility', (req,res) => {
             return res.send(err)
         }
         else{
-            return res.send("Added Facility")
+            return res.send(req.body)
         }
     }); 
  });
