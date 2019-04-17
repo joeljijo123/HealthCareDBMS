@@ -326,13 +326,11 @@ class AppointmentHistory extends React.Component{
                             <NewAppointmentForm PatientID={this.state.AdminPatient}/>
                         </Paper>
                     }
-                    {window.localStorage.userType === "2" ? (
+                    {window.localStorage.userType === "2" && 
                         <div className={classes.AdditionButton}>
                             <NewAppointmentForm PatientID={window.localStorage.userID}/>
                         </div>
-                    ):(
-                        <div></div>
-                    )}
+                    }
                     
                     
                 </div>
