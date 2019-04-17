@@ -213,12 +213,10 @@ app.get('/Administrators', (req,res) => {
 app.post('/AddFacility', (req,res) => {
     const { Admin, Fname, Street, City, StateID, ZipCode}  =   req.body;
     connection.query(`CALL AddFacility(
-         ${Admin}, 
-        '${Fname}',
-        '${Street}',
-        '${City}',
-         ${StateID},
-         ${ZipCode});`,(err, results) => {
+        ${Admin}, 
+        '${Fname}', '${Street}', '${City}',
+        ${StateID},
+        ${ZipCode});`,(err, results) => {
         if(err) {
             console.log(err)
             return res.send(err)
