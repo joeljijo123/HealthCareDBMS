@@ -64,7 +64,7 @@ class RegistrationForm extends React.Component{
             DateOfBirth:"",
             SSN: "",
             userType: "",
-            registrationStep: 2,
+            registrationStep: 0,
             raceID: "",
             states:[],
             sexes:[],
@@ -141,7 +141,7 @@ class RegistrationForm extends React.Component{
         window.location.replace('/')
     }
     homeRedirect = () =>{
-        window.location.replace('/Appointments')
+        window.location.replace('/DoctorRegistration')
     }
     
     stepNext=()=>{

@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { GoogleApiWrapper, InfoWindow, Marker, Geocoder, Map } from 'google-maps-react';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 export class MapGen extends React.Component {
   constructor(props) {

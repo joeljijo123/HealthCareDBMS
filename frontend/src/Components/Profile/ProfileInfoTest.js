@@ -80,7 +80,7 @@ class ProfileInfoTest extends React.Component {
                                             pass: res.data[0].Password, 
                                             email: res.data[0].Email,
                                             dob: res.data[0].DOB,
-                                               ssn: res.data[0].SSN,
+                                            ssn: res.data[0].SSN, 
                                             sex: res.data[0].SexID, 
                                             cellnumber: res.data[0].CellNumber,
                                             streetaddr:res.data[0].AddressStreet,
@@ -257,7 +257,9 @@ class ProfileInfoTest extends React.Component {
                     ):(
                         <Typography variant="h5">Welcome Dr. {this.state.last}</Typography>        
                     )}
-                    <Divider variant="middle" />
+                    <br/>
+                    <Divider variant="middle"/>
+                    <br/>
                 </div>
                 <div>
                     <Typography variant="h6" >User Information</Typography>
@@ -329,8 +331,8 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <FormControl  margin="dense">
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth margin="dense">
                                 <TextField disabled
                                     name="dob"
                                     label="Birthdate"
@@ -340,8 +342,8 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <FormControl  margin="dense" >
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth margin="dense" >
                                 <TextField disabled={!this.state.editing}
                                     name="cellnumber"
                                     label="Contact Phone"
@@ -352,27 +354,28 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <FormControl  margin="dense" >
-                                <TextField disabled={!this.state.editing}
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth margin="dense" >
+                                <TextField disabled
                                     name="ssn"
-                                    label="SSN"
+                                    label="Last Four of SSN"
                                     variant="outlined"
-                                    value={ "***-"+"**-"+this.state.ssn.substring(7,11)}
+                                    value={this.state.ssn}
                                     inputComponent={this.SSNMaskCustom(classes)}
-                                    onChange={this.handleChange}
                                 />
                             </FormControl>
                         </Grid>
                     </Grid>
+                    <br/>
                     <Divider variant="middle" />
+                    <br/>
                 </div> 
                 { window.localStorage.userType === "2" &&
                     <div>
                         <Typography variant="h6">Insurance Information</Typography>
                             <Grid container spacing= {8}>
                                 <Grid item xs={12} sm={6}>
-                                    <FormControl  margin="dense" >
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="company"
                                             label="Network"
@@ -383,7 +386,7 @@ class ProfileInfoTest extends React.Component {
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <FormControl  margin="dense" >
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="insuranceID"
                                             label="Insurance ID"
@@ -393,8 +396,8 @@ class ProfileInfoTest extends React.Component {
                                         />
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} sm={4}>
-                                    <FormControl  margin="dense" >
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="deduct"
                                             label="Deductible"
@@ -404,8 +407,8 @@ class ProfileInfoTest extends React.Component {
                                         />
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} sm={8}>
-                                    <FormControl  margin="dense" >
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth margin="dense" >
                                         <TextField disabled={!this.state.editing}
                                             name="insuranceContact"
                                             label="Insurance Contact Number"
@@ -417,14 +420,16 @@ class ProfileInfoTest extends React.Component {
                                     </FormControl>
                                 </Grid>
                             </Grid>
+                        <br/>
                         <Divider variant="middle" />
+                        <br/>
                     </div>
                 }
 
                 <div>
                     <Typography variant="h6">Account Information</Typography>
                     <Grid container spacing={8}>
-                        <Grid item xs={12} sm={5}>
+                        <Grid item xs={12} sm={6}>
                             <FormControl  margin="dense" fullWidth>
                                 <TextField disabled={!this.state.editing}
                                     name="user" 
@@ -434,17 +439,6 @@ class ProfileInfoTest extends React.Component {
                                     value={this.state.user}
                                     error={!this.validateUsername()}
                                     helperText={this.validateUsername() ? "":"Username is not valid"}
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormControl margin="dense" fullWidth>
-                                <TextField disabled={!this.state.editing}
-                                    name="email" 
-                                    label="Email"
-                                    variant="outlined"
-                                    onChange={this.handleChange}
-                                    value={this.state.email}
                                 />
                             </FormControl>
                         </Grid>
@@ -462,11 +456,23 @@ class ProfileInfoTest extends React.Component {
                                 />
                             </FormControl>
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl margin="dense" fullWidth>
+                                <TextField disabled={!this.state.editing}
+                                    name="email" 
+                                    label="Email"
+                                    variant="outlined"
+                                    onChange={this.handleChange}
+                                    value={this.state.email}
+                                />
+                            </FormControl>
+                        </Grid>
+                        
+                        <br/>
                         <Divider variant="middle"/>
-
+                        <br/>
 
                     </Grid>
-                    <Divider variant="middle"/>
                 </div>
                 {!this.state.editing ? (
                     <div>
