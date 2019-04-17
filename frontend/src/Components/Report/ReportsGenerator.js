@@ -3,7 +3,7 @@ import FacilityReports from '../Report/FacilityReports';
 import { Paper, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import DoctorsReport from './DoctorsReport';
-import InsuranceReport from './InsuranceReport';
+import CheckUpReport from './CheckUpReport';
 
 const styles = theme =>({
     root: {
@@ -16,6 +16,16 @@ const styles = theme =>({
         margin:"auto"
   
     },
+    checkUp: {
+      width: '55%',
+      display: "flex",
+      flexDirection: 'column',
+      padding: theme.spacing.unit*3,
+      marginTop:"5%",
+      marginBottom:"5%",
+      margin:"auto"
+
+  },
 });
 
 class ReportsGenerator extends Component {
@@ -29,8 +39,8 @@ class ReportsGenerator extends Component {
           <Paper className={classes.root}>
             <DoctorsReport/>
           </Paper>
-          <Paper className={classes.root}>
-            <InsuranceReport/>
+          <Paper className={classes.checkUp}>
+            <CheckUpReport/>
           </Paper>
       </div>
     );
