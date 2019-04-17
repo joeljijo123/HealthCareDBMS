@@ -105,6 +105,7 @@ app.get('/sexes', (req,res) => {
  
  });
 
+ 
  //This will return all the Facilities
  app.get('/Facilities', (req,res) => {
     connection.query(`SELECT * FROM Clinic_Main.MedicalOffice`,(err, results) => {
@@ -147,8 +148,84 @@ app.get('/Facilities/:GetFacilitiesByCity', (req,res) => {
     });
  });
 
+ //This will return all the Patients
+ app.get('/Patients', (req,res) => {
+    connection.query('SELECT * FROM Clinic_Main.Patient;',(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
+
+ //This will return all the Facilites and their administrators
+ app.get('/FacilitesAdmin', (req,res) => {
+    connection.query('SELECT * FROM Clinic_Main.FacilityAdministrators;',(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
+//This will return all Administrative Employees
+app.get('/Administrators', (req,res) => {
+    connection.query('SELECT * FROM Clinic_Main.Employee WHERE RoleID=3;',(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+ 
+ });
  //Parameter Based Queries
 
+// Add A certain Facility and an Administrator to it
+app.post('/AddFacility', (req,res) => {
+    const { Admin, Fname, Street, City, StateID, ZipCode}  =   req.body;
+    connection.query(`CALL AddFacility(
+        '${Admin}', 
+        '${Fname}',
+        '${Street}',
+        '${City}',
+        '${StateID}',
+        '${ZipCode}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Added Facility")
+        }
+    }); 
+ });
+
+ //changes the FacilityAdministrator
+ app.post('/ChangeAdmin', (req,res) => {
+    const { AdministratorID, FacilityID}  =   req.body;
+    connection.query(`UPDATE Clinic_Main.MedicalOffice SET EmployeeAdministratorID = '${AdministratorID}' WHERE (FacilityID= '${FacilityID}');`,(err, results) => {
+        if(err) {
+            console.log(err)
+            return res.send(err)
+        }
+        else{
+            return res.send("Changed Facility Admin")
+        }
+    }); 
+ });
  //Facility and Doctor should be -1 if you want all 
  app.get('/FacilityAppointmentReport/:FacilityID/:MinDate/:MaxDate', (req,res) => {
     const {FacilityID, MinDate,MaxDate} = req.params;
