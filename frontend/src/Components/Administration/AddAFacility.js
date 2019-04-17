@@ -90,6 +90,14 @@ class AddAFacility extends React.Component{
             ZipCode:"",
         });
     };
+    invalidEntries(){
+        return  this.state.AdminID === "" ||
+                this.state.FacilityName === ""||
+                this.state.Street === "" ||
+                this.state.City === ""||
+                this.state.StateID === "" ||
+                this.state.ZipCode.length !== 5
+    }
     render(){
         const {classes} = this.props;
         return(
@@ -156,13 +164,13 @@ class AddAFacility extends React.Component{
                             <Grid item xs={12} sm={5}>
                                 <FormControl margin="normal" fullWidth required>
                                     <InputLabel htmlFor="ZipCode">Zip Code</InputLabel>
-                                    <Input name="ZipCode"  value={this.state.ZipCode} onChange={this.handleChange}></Input>
+                                    <Input name="ZipCode" type="number"  value={this.state.ZipCode} onChange={this.handleChange}></Input>
                                 </FormControl>
                             </Grid>
                         </Grid>           
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.AddFacility} color="primary">
+                        <Button onClick={this.AddFacility} disabled={this.invalidEntries()} color="primary">
                             Add The Facility
                         </Button>
                         <Button onClick={this.handleClose} color="primary">
