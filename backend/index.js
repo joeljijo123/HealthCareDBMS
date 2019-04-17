@@ -163,6 +163,22 @@ app.get('/Facilities/:GetFacilitiesByCity', (req,res) => {
  
  });
 
+ // Gets specified Employee Appointments not in WorkSchedule
+app.get('/AppointmentsNotInSchedule/:userID', (req,res) => {
+    const userID = req.params.userID;
+    connection.query(`CALL GetAppointmentsNotInSchedule(${userID});`,(err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    });
+});
+
+
  //This will return all the Facilites and their administrators
  app.get('/FacilitiesAdmin', (req,res) => {
     connection.query('SELECT * FROM Clinic_Main.FacilityAdministrators;',(err, results) => {
