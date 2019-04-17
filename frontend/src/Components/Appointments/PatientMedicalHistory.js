@@ -57,6 +57,7 @@ class PatientMedicalHistory extends React.Component{
             immunizationRecord: '',
             medicalCondition: '',
             procedureRecord: '',
+            MHLog: [],
         };
         this.handleChange=this.handleChange.bind(this);
         this.saveChange=this.saveChange.bind(this);
@@ -73,6 +74,14 @@ class PatientMedicalHistory extends React.Component{
                     procedureRecord: result.data[0].ProcedureRecord,
                 })
             }})
+        .catch(err => console.error(err))
+    };
+    getLog=()=>{
+        fetch(`http://162.243.165.50:4000/GetMedicalHistoryLog/${this.props.PatientID}`)
+        .then(result => result.json())
+        .then(result => this.setState({
+            MHLog: result.data
+        }))
         .catch(err => console.error(err))
     };
     updateMedicalRecord(){
@@ -159,7 +168,7 @@ class PatientMedicalHistory extends React.Component{
                                     multiline
                                     fullWidth
                                     variant="outlined"
-                                    rows="8"
+                                    rows="2"
                                     inputProps={{ maxLength: 45 }}
                                     disabled={!this.state.editing}
                                     onChange={this.handleChange}
@@ -175,7 +184,7 @@ class PatientMedicalHistory extends React.Component{
                                     fullWidth
                                     multiline
                                     variant="outlined"
-                                    rows="8"
+                                    rows="2"
                                     inputProps={{ maxLength: 45 }}
                                     disabled={!this.state.editing}
                                     onChange={this.handleChange}
@@ -194,7 +203,7 @@ class PatientMedicalHistory extends React.Component{
                                     multiline
                                     fullWidth
                                     variant="outlined"
-                                    rows="8"
+                                    rows="2"
                                     inputProps={{ maxLength: 45 }}
                                     disabled={!this.state.editing}
                                     onChange={this.handleChange}
@@ -210,7 +219,7 @@ class PatientMedicalHistory extends React.Component{
                                     multiline
                                     fullWidth
                                     variant="outlined"
-                                    rows="8"
+                                    rows="2"
                                     inputProps={{ maxLength: 100 }}
                                     disabled={!this.state.editing}
                                     onChange={this.handleChange}
