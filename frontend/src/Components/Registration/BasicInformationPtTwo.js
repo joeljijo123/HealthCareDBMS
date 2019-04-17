@@ -64,7 +64,7 @@ function BasicInformationPtTwo(props){
                 <Grid item xs={12} sm={5}>
                     <FormControl margin="normal" fullWidth required>
                         <InputLabel htmlFor="AddressCity">City</InputLabel>
-                        <Input name="AddressCity" autoFocus value={props.val.AddressCity} onChange={props.handleChange}></Input>
+                        <Input name="AddressCity" value={props.val.AddressCity} onChange={props.handleChange}></Input>
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2}>
@@ -90,7 +90,7 @@ function BasicInformationPtTwo(props){
                 <Grid item xs={12} sm={5}>
                     <FormControl margin="normal" fullWidth required>
                         <InputLabel htmlFor="AddressZip">Zip Code</InputLabel>
-                        <Input name="AddressZip" autoFocus value={props.val.AddressZip} onChange={props.handleChange}></Input>
+                        <Input name="AddressZip"  value={props.val.AddressZip} onChange={props.handleChange}></Input>
                     </FormControl>
                 </Grid>
             </Grid>
@@ -136,7 +136,7 @@ function BasicInformationPtTwo(props){
             </FormControl>
             <FormControl margin="normal" fullWidth required>
                 <InputLabel htmlFor="SSN">Social Security</InputLabel>
-                <Input name="SSN" placeholder="XXX-XX-XXXX" inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>
+                <Input name="SSN" placeholder="XXX-XX-XXXX"  inputComponent={SSNMaskCustom} value={props.val.SSN} onChange={props.handleChange}></Input>
             </FormControl>
             <FormControl margin="normal" required>
                 <InputLabel htmlFor="CellNuber">Contact Number</InputLabel>

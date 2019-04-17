@@ -29,11 +29,9 @@ class Profile extends Component {
       <div className='Profile-image'>
         <NavigationBar title={"My Profile"} Tab={1}/>
         <ProfileInfoTest/>
-        {window.localStorage.userType === "2" ? (
-        <MedicalInformation/>
-        ):(
-          <div></div>
-        )}
+        {window.localStorage.userType === "2" &&
+        <MedicalInformation/>}
+        <br/>
       </div>
     );
   }

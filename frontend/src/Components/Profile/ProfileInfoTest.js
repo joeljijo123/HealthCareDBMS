@@ -233,14 +233,9 @@ class ProfileInfoTest extends React.Component {
     }
     saveChanges = _ => {
         this.updateUserInfo();
-        this.retrieveUserInfo();
-        this.getInsurance();
         this.setState({
             editing: false
         });
-        setTimeout(function(){
-			window.location.replace('/Profile')
-		}, 200);
     }
     revertChanges = _ => {
         this.retrieveUserInfo();

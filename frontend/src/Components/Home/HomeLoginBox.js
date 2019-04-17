@@ -99,16 +99,9 @@ class HomeLoginBox extends React.Component{
         .catch(err => console.log(err))
     }
     updateAppTimes(){
-        if(window.localStorage.userType !== "3"){
-            if(window.localStorage.userType === "2"){
-                fetch(`http://162.243.165.50:4000/EmployeeAppUpdate/${window.localStorage.LoginTableID}`)
-                .then(result => result.json())
-            }
-            else{
-                fetch(`http://162.243.165.50:4000/PatientAppUpdate/${window.localStorage.LoginTableID}`)
-                .then(result => result.json())
-            }
-        }
+        fetch(`http://162.243.165.50:4000/AppUpdate/`)
+        .then(result => result.json())
+
     }
     componentDidMount() {
         window.localStorage.setItem("userID", null);
