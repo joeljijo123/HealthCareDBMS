@@ -53,7 +53,6 @@ class HomeLoginBox extends React.Component{
             Username: "",
             password: "",
             loggedIn: false,
-
             openForm: false,
             Facilities: [],
             displayResults: false,
