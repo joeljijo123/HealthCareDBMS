@@ -178,7 +178,7 @@ class RegistrationForm extends React.Component{
         const {classes}=this.props;
         return(
             <div>
-                <IconButton onClick={this.homeRedirect}>
+                <IconButton onClick={this.LoginDirect}>
                     <HomeLogo style={{color: "#212121"}} className={classes.icon} />
                 </IconButton>
                 <Typography variant="h3" className={classes.heading}>Medical Center Registration</Typography>
