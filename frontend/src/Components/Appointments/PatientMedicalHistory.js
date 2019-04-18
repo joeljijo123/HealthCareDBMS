@@ -50,11 +50,13 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
     },
-    table: {
-        height: 10,
+    TablePaper: {
         width: '100%',
         marginTop: theme.spacing.unit * 3,
-        overflow: '3',
+        overflowX: 'auto',
+      },
+    table: {
+        minWidth: 700,
       },
 });
 
@@ -255,22 +257,22 @@ class PatientMedicalHistory extends React.Component{
                                 />
                             </Grid>
                         </Grid>
-                        <Table>
+                        <Table className={classes.Table}>
                             <TableHead>
                                 <TableRow display={'flex'}>
-                                    <TableCell align="center">Medical History Last Updated On</TableCell>
+                                    <TableCell component="th" scope="row" align="center">Medical History Last Updated On</TableCell>
                                     <TableCell align="center">Medical History Last Updated By (EmployeeID)</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.MHLog.map(Each => (
                                     <TableRow key={Each.UpdatedAt}>
-                                        <TableCell align="center">{Each.UpdatedAt.substr(0,10)}</TableCell>
+                                        <TableCell align="center">{Each.UpdatedAt.substr(0,10)} </TableCell>
                                         <TableCell align="center">{Each.UpdatedBy}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
-                        </Table>    
+                        </Table>  
                         <Grid container spacing={24}>
                             <Grid item sm>
                                 <TextField

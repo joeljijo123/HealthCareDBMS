@@ -175,11 +175,11 @@ class AppointmentHistory extends React.Component{
                             <FormControl key={option.idAppointment} fullWidth>
                                 <ExpansionPanel square expanded={expanded === option.idAppointment}  onChange={this.handleChange(option.idAppointment)}>
                                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                        <Typography className={classes.heading}>Patient: {option.Patient}</Typography>
-                                        <Typography className={classes.heading}>Doctor: Dr. {option.Doctor}</Typography>
-                                        <Typography className={classes.heading}>Date: {option.AppointmentDate.substr(0,10)}</Typography>
-                                        <Typography className={classes.heading}>Time: {option.AppointmentTime.substr(0,5)}</Typography>
-                                        <Typography className={classes.heading}>Status: {option.currentStatus}</Typography>
+                                        <Typography className={classes.heading}>Patient: <b>{option.Patient}</b></Typography>
+                                        <Typography className={classes.heading}>Doctor: Dr. <b>{option.Doctor}</b></Typography>
+                                        <Typography className={classes.heading}>Date: <b>{option.AppointmentDate.substr(0,10)}</b></Typography>
+                                        <Typography className={classes.heading}>Time: <b>{option.AppointmentTime.substr(0,5)}</b></Typography>
+                                        <Typography className={classes.heading}>Status: <b>{option.currentStatus}</b></Typography>
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
                                         <Typography className={classes.secondaryHeading}>
