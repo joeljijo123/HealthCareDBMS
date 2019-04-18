@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import HomeLogo  from '@material-ui/icons/Home';
+import LockLogo  from '@material-ui/icons/LockOpenOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 import {Button} from '@material-ui/core';    
@@ -179,7 +180,11 @@ class RegistrationForm extends React.Component{
         return(
             <div>
                 <IconButton onClick={this.LoginDirect}>
-                    <HomeLogo style={{color: "#212121"}} className={classes.icon} />
+                    {window.localStorage.loggedIn !== "true" ? (
+                        <HomeLogo style={{color: "#212121"}} className={classes.icon} />
+                    ):(
+                        <LockLogo style={{color: "#212121"}} className={classes.icon} />
+                    )}
                 </IconButton>
                 <Typography variant="h3" className={classes.heading}>Medical Center Registration</Typography>
                 <Paper elevation={10} className={classes.paperForm}>

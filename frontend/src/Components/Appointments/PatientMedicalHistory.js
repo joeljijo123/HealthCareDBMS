@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
-import InfoIcon from '@material-ui/icons/ChromeReaderMode';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withStyles, Typography } from '@material-ui/core';
 import {Paper, TextField, Grid,} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
@@ -173,7 +173,7 @@ class PatientMedicalHistory extends React.Component{
             <div>
                 {this.getMedicalRecord}
                 <Button variant="contained" color="inherit" className={this.props.Button} onClick={this.handleClickOpen} fullWidth >
-                    <InfoIcon/> Patient's Information
+                    Patient's Information <InfoIcon/> 
                 </Button>
                 <Dialog fullScreen className={classes.dialog} open={this.state.openForm} onClose={this.handleClose}>
                     <Paper className={classes.root} fullWidth elevation={2}>

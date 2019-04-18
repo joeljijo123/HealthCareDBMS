@@ -72,6 +72,8 @@ getMedicalRecord=()=>{
           <Paper className={classes.root} elevation={2}>
               <Typography variant="h3" >Patient Medical Record</Typography>
               <br />
+              <Divider variant="middle"/>
+              <br/>
               <Typography variant="h4" >Summary</Typography>
               <TextField
                 label="Patient ID"
@@ -81,6 +83,7 @@ getMedicalRecord=()=>{
                 disabled
                 onChange={this.handleChange}
               />
+              <br/>
               <br/>
               <Grid container spacing={24}>
                 <Grid item sm>
@@ -143,7 +146,7 @@ getMedicalRecord=()=>{
                   />
                 </Grid>
               </Grid>
-              <Divider variant="middle"/>
+              
           </Paper>
       </div>
     );
