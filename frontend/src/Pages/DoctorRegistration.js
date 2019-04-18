@@ -8,7 +8,7 @@ class DoctorRegistration extends React.Component{
         return(
             <div className='Home-image'>
                 <div className='Home-overlay'>
-                    <NavigationBar title={"Register A New User"} Tab={4}/>
+                    <NavigationBar title={"Register A New User"} Tab={3}/>
                     <RegistrationForm/>
                 </div>
             </div>

@@ -39,6 +39,7 @@ class Locator extends React.Component {
       };
     this.handleChange=this.handleChange.bind(this);
   }
+
   handleChange = e =>{
       this.setState({
           [e.target.name] : e.target.value
@@ -68,14 +69,6 @@ class Locator extends React.Component {
   handleClickOpen = () => {
   this.setState({ openForm: true });
   };
-  findTab(){
-    if(window.localStorage.userType === "3"){
-      return 4
-    }
-    else{
-      return 3
-    }
-  }
   handleClose = () => {
     this.setState({ 
         Facilities: [],
@@ -89,7 +82,7 @@ class Locator extends React.Component {
     return (
       <div className='Locator-image'>
         <div className='Locator-overlay'>
-          <NavigationBar title={"City Locator"} Tab={this.findTab}/>
+          <NavigationBar title={"City Locator"} Tab={window.localStorage.userType==="3" ? (4):(3)}/>
           <Paper className={classes.paperForm}>
             <Typography variant="h5" align={"center"}>Locate Facility By City</Typography>
             <br/>

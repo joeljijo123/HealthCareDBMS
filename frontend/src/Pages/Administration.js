@@ -8,7 +8,7 @@ class Report extends Component {
     return (
       <div className='ReportsPage-image'><div/>
         <div className='ReportsPage-overlay'>
-          <NavigationBar title={"Administration"} Tab={3}/>
+          <NavigationBar title={"Administration"} Tab={2}/>
           <ReportsGenerator/>
         </div>
       </div>
