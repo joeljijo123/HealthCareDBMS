@@ -91,25 +91,19 @@ const styles = {
                   <Tabs textColor="primary" value={this.state.currentTab}>
                       <Tab label="Appointments" onClick={this.AppointmentPageRedirect}></Tab>
                       <Tab label="My Profile" onClick={this.ProfilePageRedirect}></Tab>
-                      {window.localStorage.userType !== "2" && window.localStorage.userType !== "3" ? (
+                      {(window.localStorage.userType !== "2" && window.localStorage.userType !== "3") && 
                         <Tab label="My Schedule" onClick={this.SchedulePageRedirect}></Tab>
-                      ):(
-                        <div></div>
-                      )}
-                      {window.localStorage.userType === "3" ? (
+                      }
+                      {window.localStorage.userType === "3"  && 
                           <Tab label="Administration" onClick={this.AdministrationPageRedirect}></Tab>
                           //<Tab label="Register A Doctor" onClick={this.DocRegistrationRedirect}></Tab>
-
-                      ):(
-                        <div></div>
-                      )}
-                      {window.localStorage.userType === "3" ? (
+                      }
+                      {window.localStorage.userType === "3" &&
                           <Tab label="Register A New User" onClick={this.DocRegistrationRedirect}></Tab>
-
-                      ):(
-                        <div></div>
-                      )}
-                      <Tab label="Facilities" onClick={this.LocatorPageRedirect}></Tab>
+                      }
+                      {window.localStorage.userType !== "2"  && 
+                          <Tab label="Facilities" onClick={this.LocatorPageRedirect}></Tab>
+                      }
                       <Tab label="Logout" onClick={this.logout}></Tab>
                   </Tabs>
                   
