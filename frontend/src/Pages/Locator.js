@@ -7,7 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {FormControl, Paper, TextField, Typography, Button, Grid} from '@material-ui/core';
+import {FormControl, Paper, TextField, Typography, Button} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import './Locator.css'
 
@@ -16,6 +16,8 @@ const styles = theme => ({
 
   paperForm: {
       width: '75%',
+      padding: theme.spacing.unit*2,
+      backgroundColor: "#e0e0e0",
       height: '75%',
       flexDirection: 'column',
       margin:"auto",
@@ -79,57 +81,46 @@ class Locator extends React.Component {
     const{classes}=this.props;
     return (
       <div className='Locator-image'>
-      <NavigationBar title={"My Profile"} Tab={3}/>
-        <Paper className={classes.paperForm}>
-              <form noValidate autoComplete="off" >
-                      <Typography variant="h5">Locate Facility By City</Typography>
-                      <Grid container spacing={8} alignContent="center">
-                          <Grid item xs={12} sm={8}>
-                              <FormControl  margin="auto" fullWidth>
-                                  <TextField
-                                    name="searchCity"
-                                    label="City Vicinity to Search"
-                                    variant="outlined"
-                                    value={this.state.searchCity}
-                                    onChange={this.handleChange}
-                                  />
-                              </FormControl>
-                          </Grid>
-                          <Grid item xs={12} sm={2}>
-                              <FormControl align="auto" fullWidth>
-                                  <Button variant="contained" size="medium" onClick={this.displaySearchRes}>
-                                      <SearchIcon />
-                                  </Button>
-                              </FormControl>
-                          </Grid>
-                      </Grid>
-              </form>
+        <div className='Locator-overlay'>
+          <NavigationBar title={"My Profile"} Tab={3}/>
+          <Paper className={classes.paperForm}>
+            <Typography variant="h5" align={"center"}>Locate Facility By City</Typography>
+            <br/>
+            <FormControl  margin="auto" >
+                <TextField
+                  name="searchCity"
+                  label="City Vicinity to Search"
+                  variant="outlined"
+                  value={this.state.searchCity}
+                  onChange={this.handleChange}
+                  gutter
+                />
+            </FormControl>
+            <br/>
+            <Button variant="primary" marginTop={'10%'} size="medium" onClick={this.displaySearchRes}>
+                <SearchIcon />
+            </Button>
+            {this.state.displayResults &&
               <Table className={classes.table}>
-                              <TableHead>
-                                  <TableRow>
-                                      <TableCell align="center">Facility Name</TableCell>
-                                      <TableCell align="center">Street Address</TableCell>
-                                      <TableCell align="center">City</TableCell>
-                                      <TableCell align="center">State</TableCell>
-                                      <TableCell align="center">Zip</TableCell>
-                                  </TableRow>
-                              </TableHead>
-                              <TableBody>
-                              {this.state.displayResults &&
-                                          this.state.Facilities.map(Each => (
-                                              <TableRow key={Each.FacilityID}>
-                                                  <TableCell align="center">{Each.FacilityName}</TableCell>
-                                                  <TableCell align="center">{Each.AddressStreet}</TableCell>
-                                                  <TableCell align="center">{Each.AddressCity}</TableCell>
-                                                  <TableCell align="center">{Each.AddressState}</TableCell>
-                                                  <TableCell align="center">{Each.AddressZip}</TableCell>
-                                              </TableRow>
-                                          ),)
-                              }
-                                  
-                              </TableBody>
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="center">Facility Name</TableCell>
+                        <TableCell align="center">Address</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+              
+                {this.state.Facilities.map(Each => (
+                    <TableRow key={Each.FacilityID}>
+                        <TableCell align="center">{Each.FacilityName}</TableCell>
+                        <TableCell align="center">{Each.AddressStreet}, {Each.AddressCity},{Each.AddressState} {Each.AddressZip} </TableCell>
+                    </TableRow>
+                ))}
+                </TableBody>
               </Table> 
-        </Paper>
+            }
+          </Paper>
+        </div>
       </div>
     );
   }

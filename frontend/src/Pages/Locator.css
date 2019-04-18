@@ -1,6 +1,6 @@
 .Locator-image {
     /* The image used */
-    background-image: url(../Components/Profile/ProfileBackground.jpg);
+    background-image: url(./MedicalCenter.jpg);
 
     /* Full height */
     min-height: 100vh;
@@ -10,11 +10,11 @@
     background-position: fixed;
     background-repeat: repeat;
     background-size: cover;
-    background-color: rgba(0,0,0,0.5); 
+    background-color: #e0e0e0; 
     z-index: 10;
   }
   .Locator-overlay {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     background-color: rgba(46, 46, 48, 0.5);
   }

@@ -35,6 +35,12 @@ const styles = theme =>({
   },
   submitButton: {
       marginTop: '20px'
+  },
+  DialogPaper: {
+    backgroundColor: "#e0e0e0",
+    padding: theme.spacing.unit*2,
+    margin:"auto",
+    width: '96%'
   }
 });
 
@@ -48,7 +54,7 @@ class HomeLoginBox extends React.Component{
             password: "",
             loggedIn: false,
 
-            openForm: false,
+            openForm: true,
             Facilities: [],
             displayResults: false,
             searchCity: "",
@@ -191,57 +197,53 @@ class HomeLoginBox extends React.Component{
               </form>
          
       
-                <Dialog maxWidth="md" open={this.state.openForm} onClose={this.handleClose}>
+                <Dialog className={classes.Dialog} maxWidth="md" fullWidth open={this.state.openForm} onClose={this.handleClose}>
+                <Paper className={classes.DialogPaper}>                    
                     <DialogTitle id="form-dialog-title">Locations</DialogTitle>
-                     <form noValidate autoComplete="off">
-                        <FormControl  margin="dense" fullWidth>
-                            <TextField
-                              name="searchCity"
-                              label="City Vicinity to Search"
-                              variant="outlined"
-                              value={this.state.searchCity}
-                              onChange={this.handleChange}
-                            />
-                        </FormControl>
-                        <FormControl margin="dense">
-                            <Button variant="contained" size="small" className={classes.editerButtons} onClick={this.displaySearchRes}>
-                                <SearchIcon />
-                            </Button>
-                        </FormControl>
-                      </form>
+                    <br/>
+                    <FormControl  fullWidth margin="auto" >
+                        <TextField
+                            name="searchCity"
+                            label="City Vicinity to Search"
+                            variant="outlined"
+                            value={this.state.searchCity}
+                            onChange={this.handleChange}
+                            gutter
+                        />
+                    </FormControl>
+                    <br/>
+                    <br/>
+                    <Button variant="primary" fullWidth size="medium" onClick={this.displaySearchRes}>
+                        <SearchIcon />
+                    </Button>
+                    <br/>
                     <DialogContent>
-                        <Table className={classes.table}>
+                        {this.state.displayResults &&
+                            <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
                                     <TableCell align="center">Facility Name</TableCell>
-                                    <TableCell align="center">Street Address</TableCell>
-                                    <TableCell align="center">City</TableCell>
-                                    <TableCell align="center">State</TableCell>
-                                    <TableCell align="center">Zip</TableCell>
+                                    <TableCell align="center">Address</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {this.state.displayResults &&
-                                        this.state.Facilities.map(Each => (
-                                            <TableRow key={Each.FacilityID}>
-                                                <TableCell align="center">{Each.FacilityName}</TableCell>
-                                                <TableCell align="center">{Each.AddressStreet}</TableCell>
-                                                <TableCell align="center">{Each.AddressCity}</TableCell>
-                                                <TableCell align="center">{Each.AddressState}</TableCell>
-                                                <TableCell align="center">{Each.AddressZip}</TableCell>
-                                            </TableRow>
-                                        ),)
-               
-                            }
-                                
+                            
+                            {this.state.Facilities.map(Each => (
+                                <TableRow key={Each.FacilityID}>
+                                    <TableCell align="center">{Each.FacilityName}</TableCell>
+                                    <TableCell align="center">{Each.AddressStreet}, {Each.AddressCity},{Each.AddressState} {Each.AddressZip} </TableCell>
+                                </TableRow>
+                            ))}
                             </TableBody>
-                        </Table>                        
+                            </Table> 
+                        }    
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Close
                         </Button>
                     </DialogActions>
+                    </Paper>
                 </Dialog>
                  </Paper>
  
